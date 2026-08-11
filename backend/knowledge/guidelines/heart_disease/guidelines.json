@@ -1,0 +1,39 @@
+[
+  {
+    "disease": "Heart Disease",
+    "source": "AHA/ACC 2025 Cardiovascular Prevention Guidelines",
+    "organization": "American Heart Association / American College of Cardiology",
+    "version": "2025",
+    "section": "Primary Prevention of Cardiovascular Disease",
+    "risk_level": "High",
+    "criteria": {
+      "blood_pressure": ">= 140/90 mmHg",
+      "ldl_cholesterol": ">= 160 mg/dL",
+      "cardiovascular_risk": "High"
+    },
+    "recommendations": [
+      "Initiate lifestyle changes: heart-healthy Mediterranean or DASH diet, weight loss",
+      "Engage in at least 150 min/week moderate-intensity physical activity",
+      "Start moderate-to-high intensity statin therapy to target LDL-C reduction >= 50%",
+      "Initiate pharmacological treatment for hypertension targeting < 130/80 mmHg",
+      "Consider low-dose aspirin (75-100 mg/day) if high ASCVD risk and low bleeding risk"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate medical therapy and dietary changes"},
+      {"timeline": "4-12 weeks", "action": "Recheck lipid panel and blood pressure to assess efficacy and compliance"},
+      {"timeline": "3-6 months", "action": "Follow up for weight reduction progression and lifestyle assessment"},
+      {"timeline": "Annual", "action": "Repeat lipid panel, HbA1c, liver function tests (if on high-dose statin)"}
+    ],
+    "contraindications": [
+      {"drug": "Statins", "condition": "Active liver disease or pregnancy", "action": "Contraindicated"},
+      {"drug": "Aspirin", "condition": "Active bleeding or severe thrombocytopenia", "action": "Contraindicated"}
+    ],
+    "emergency_signs": [
+      "Angina: chest pain, pressure, tightness, or squeezing radiating to arm, neck, or back",
+      "Heart attack symptoms: shortness of breath, cold sweat, dizziness"
+    ],
+    "references": [
+      "2025 AHA/ACC Guideline on the Primary Prevention of Cardiovascular Disease"
+    ]
+  }
+]

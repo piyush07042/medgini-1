@@ -1,0 +1,115 @@
+version: "3.9"
+
+services:
+
+  backend:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: medigenie-backend
+
+    restart: unless-stopped
+
+    env_file:
+      - ./.env
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+      redis:
+        condition: service_started
+
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+      - temp_uploads:/app/temp_uploads
+      - logs:/app/logs
+
+    networks:
+      - medigenie
+
+  postgres:
+
+    image: postgres:16
+
+    container_name: medigenie-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: medigenie
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+
+      interval: 10s
+
+      timeout: 5s
+
+      retries: 5
+
+    networks:
+      - medigenie
+
+  redis:
+
+    image: redis:7
+
+    container_name: medigenie-redis
+
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+    networks:
+      - medigenie
+
+  pgadmin:
+
+    image: dpage/pgadmin4
+
+    container_name: medigenie-pgadmin
+
+    restart: unless-stopped
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@medigenie.ai
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - medigenie
+
+volumes:
+
+  postgres_data:
+
+  uploads:
+
+  temp_uploads:
+
+  logs:
+
+networks:
+
+  medigenie:

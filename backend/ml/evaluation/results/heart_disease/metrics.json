@@ -1,0 +1,27 @@
+{
+  "model_key": "heart_disease",
+  "model_name": "Heart Disease",
+  "imbalance_strategy": "balanced",
+  "test_samples": 90,
+  "positive_samples": 42,
+  "negative_samples": 48,
+  "cv_roc_auc_mean": 0.8976,
+  "cv_roc_auc_std": 0.0298,
+  "accuracy": 0.8333,
+  "balanced_accuracy": 0.8289,
+  "precision": 0.8649,
+  "recall": 0.7619,
+  "specificity": 0.8958,
+  "f1_score": 0.8101,
+  "roc_auc": 0.934,
+  "pr_auc": 0.9038,
+  "mcc": 0.6669,
+  "cohen_kappa": 0.6627,
+  "brier_score": 0.1132,
+  "confusion_matrix": {
+    "TN": 43,
+    "FP": 5,
+    "FN": 10,
+    "TP": 32
+  }
+}

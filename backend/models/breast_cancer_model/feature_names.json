@@ -1,0 +1,7 @@
+[
+  "radius_mean",
+  "texture_mean",
+  "perimeter_mean",
+  "area_mean",
+  "smoothness_mean"
+]

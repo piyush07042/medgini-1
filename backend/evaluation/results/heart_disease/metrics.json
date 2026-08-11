@@ -1,0 +1,112 @@
+{
+  "disease_key": "heart_disease",
+  "disease_name": "Heart Disease",
+  "model_folder": "disease_risk_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 303,
+    "raw_columns": 18,
+    "feature_count": 5,
+    "feature_names": [
+      "age",
+      "glucose",
+      "bmi",
+      "systolic_bp",
+      "cholesterol"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 164,
+      "1": 139
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "glucose": 0,
+      "bmi": 0,
+      "systolic_bp": 0,
+      "cholesterol": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 5,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.5379537953795379,
+    "precision": 0.4888888888888889,
+    "recall": 0.15827338129496402,
+    "f1_score": 0.2391304347826087,
+    "balanced_accuracy": 0.5090147394279698,
+    "sensitivity": 0.15827338129496402,
+    "specificity": 0.8597560975609756,
+    "roc_auc": 0.5491314265660642,
+    "pr_auc": 0.5110745448804317,
+    "mcc": 0.02526366697572614,
+    "cohen_kappa": 0.019009296517274787,
+    "log_loss": 1.6392047853940641,
+    "brier_score": 0.42706455250032227,
+    "confusion_matrix": [
+      [
+        141,
+        23
+      ],
+      [
+        117,
+        22
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.5283466774903163,
+      "f1_std": 0.056764373552685786,
+      "accuracy_mean": 0.6106557377049181,
+      "accuracy_std": 0.03290053163604451,
+      "roc_auc_mean": 0.6416794432419433,
+      "roc_auc_std": 0.021823585596679376
+    },
+    "10_fold": {
+      "f1_mean": 0.5367721203084772,
+      "f1_std": 0.12611000123337165,
+      "accuracy_mean": 0.6078494623655915,
+      "accuracy_std": 0.11876250382959541,
+      "roc_auc_mean": 0.6468244990303813,
+      "roc_auc_std": 0.12889852359690204
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "age": 0.02784398111152093,
+        "glucose": 3.4195178368104315,
+        "bmi": 0.15935267396248687,
+        "systolic_bp": 0.19410565718881498,
+        "cholesterol": 0.059399537566553196
+      },
+      "permutation_importance": {
+        "age": 0.0,
+        "glucose": 0.010561056105610511,
+        "bmi": 0.0,
+        "systolic_bp": 0.0,
+        "cholesterol": 0.0
+      }
+    },
+    "shap_summary": {
+      "age": 6.938893903907228e-18,
+      "glucose": 0.2688000000000001,
+      "bmi": 0.0,
+      "systolic_bp": 8.049116928532384e-18,
+      "cholesterol": 0.0
+    }
+  }
+}

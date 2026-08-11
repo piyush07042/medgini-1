@@ -1,0 +1,86 @@
+Here are the step-by-step instructions to set up and run MediGenie after extracting the ZIP file on any machine:
+
+📋 Prerequisites
+Before you start, make sure you have the following installed on your system:
+
+Python (v3.10 or v3.11 recommended) — Download Python
+Node.js (v18 or v20 LTS) & npm — Download Node.js
+Step 1: Extract the ZIP File
+Right-click the medigenie.zip file and select Extract All... (or extract using 7-Zip / WinRAR).
+Open the extracted project directory (e.g., C:\medigenie or d:\medigenie).
+Step 2: Set Up the Backend (FastAPI)
+Open your terminal / PowerShell / Command Prompt and navigate to the backend folder:
+
+bash
+cd medigenie/backend
+Create a Python Virtual Environment:
+
+bash
+# On Windows:
+python -m venv venv
+# On macOS/Linux:
+python3 -m venv venv
+Activate the Virtual Environment:
+
+bash
+# On Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# On Windows (Command Prompt):
+.\venv\Scripts\activate.bat
+# On macOS/Linux:
+source venv/bin/activate
+Install Backend Dependencies:
+
+bash
+pip install --upgrade pip
+pip install -r requirements.txt
+Run Database Migrations / Initialization (if applicable):
+
+bash
+python -m app.main
+Start the Backend Server:
+
+bash
+uvicorn app.main:app --reload --port 8000
+The backend will start running at http://localhost:8000. You can view the interactive API documentation at http://localhost:8000/docs.
+
+Step 3: Set Up the Frontend (React + TypeScript)
+Open a new terminal window and navigate to the frontend folder:
+
+bash
+cd medigenie/frontend
+Install Frontend Dependencies:
+
+bash
+npm install
+Start the Frontend Development Server:
+
+bash
+npm run dev
+The frontend application will start running at http://localhost:5173 (or http://localhost:3000).
+
+Step 4: Access & Test the Application
+Open your browser and go to http://localhost:5173.
+Log in / Sign up as a doctor to access the Doctor Dashboard.
+Try uploading a patient diagnostic report or submitting clinical parameters to test ML model predictions, RAG evidence retrieval, and PDF report generation.
+Step 5: (Optional) Run Automated Tests
+To verify that all backend modules, ML pipelines, and API routes are working correctly:
+
+In the backend terminal with venv activated:
+bash
+pytest -q
+You should see all unit and integration tests pass successfully.
+
+
+
+cd backend
+.\venv\Scripts\Activate.ps1
+uvicorn main:app --reload
+
+cd frontend
+npm run dev
+
+git status
+git add .
+git commit -m "Describe your changes"
+git push

@@ -1,0 +1,19 @@
+{
+  "name": "Breast Cancer Wisconsin (Diagnostic)",
+  "short_name": "breast_cancer",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+  "description": "Diagnostic breast cancer dataset containing features computed from digitized images of breast mass cell nuclei.",
+  "disease": "Breast Cancer",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "Diagnosis",
+  "samples": 569,
+  "features": 30,
+  "classes": {
+    "M": "Malignant",
+    "B": "Benign"
+  },
+  "missing_values": false,
+  "license": "UCI Machine Learning Repository"
+}

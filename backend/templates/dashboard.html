@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediGenie CDSS — Multi-Agent Intelligence Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    <!-- Header Navigation -->
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-8 flex justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-brain text-cyan-400 text-2xl"></i>
+            <div>
+                <h1 class="text-lg font-bold">MediGenie CDSS Engine</h1>
+                <p class="text-xs text-slate-400">Multi-Agent & Multi-Model Clinical Decision Support</p>
+            </div>
+        </div>
+        <nav class="flex items-center space-x-3">
+            <a href="/dashboard" class="bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/chat" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-robot"></i> AI Chatbot</a>
+            <a href="/models" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-microchip"></i> AI Models & LLM Trace</a>
+            <a href="/history" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-database"></i> Patient History</a>
+            <a href="/" class="hover:bg-rose-500/20 text-rose-400 px-3 py-2 rounded-xl text-xs font-semibold transition" title="Logout"><i class="fa-solid fa-power-off"></i></a>
+        </nav>
+    </header>
+
+    <!-- Main Content Workspace -->
+    <main class="max-w-7xl mx-auto p-6 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left Column: Input Form & OCR Report Upload -->
+        <section class="lg:col-span-5 space-y-6">
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-user-injured text-cyan-400"></i> Direct Parameter Evaluation
+                </h2>
+                <form id="patientForm" class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Patient ID</label>
+                        <input type="text" id="patient_id" value="PT-2026-104" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Age</label>
+                            <input type="number" id="age" value="52" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Gender</label>
+                            <select id="gender" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Glucose (mg/dL)</label>
+                            <input type="number" id="glucose" value="145" step="0.1" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">BMI</label>
+                            <input type="number" id="bmi" value="31.5" step="0.1" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Systolic BP (mmHg)</label>
+                        <input type="number" id="systolic_bp" value="138" step="0.1" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold py-2.5 rounded-xl transition text-sm shadow-lg flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-microchip"></i> Run Multi-Agent Analysis
+                    </button>
+                </form>
+            </div>
+
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-rose-400"></i> OCR PDF Lab Parser
+                </h2>
+                <p class="text-xs text-slate-400 mb-4">Extract parameters automatically via PaddleOCR & analyze.</p>
+                <input type="file" id="fileInput" accept=".pdf" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-cyan-400 hover:file:bg-slate-700 cursor-pointer mb-3">
+                <button id="uploadBtn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Process Medical Report
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Column: Multi-Agent Orchestration Results -->
+        <section class="lg:col-span-7 flex flex-col">
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl flex-grow flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-notes-medical text-emerald-400"></i> Multi-Agent Orchestration Findings
+                        </h2>
+                        <span id="riskBadge" class="hidden text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/35">High Risk</span>
+                    </div>
+
+                    <!-- Loader Spinner -->
+                    <div id="loader" class="hidden my-20 text-center">
+                        <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 text-4xl mb-3"></i>
+                        <p class="text-xs text-slate-400 tracking-wide font-mono">Running LangGraph Multi-Agents (Supervisor + XGBoost + RAG + Drug Safety + LLM)...</p>
+                    </div>
+
+                    <!-- Initial State Placeholder -->
+                    <div id="outputContainer" class="mt-6 space-y-4">
+                        <div class="text-center py-20 text-slate-600 space-y-2">
+                            <i class="fa-solid fa-stethoscope text-4xl"></i>
+                            <p class="text-xs">Submit patient data or upload a lab report to trigger the multi-agent workflow.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Action Footer -->
+                <div id="actionFooter" class="hidden pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <span id="recordIdLabel" class="text-xs font-mono text-slate-500"></span>
+                    <div class="flex gap-2">
+                        <button id="exportFhirBtn" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-code"></i> FHIR JSON</button>
+                        <button id="downloadPdfBtn" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 transition"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Client-Side Execution Script -->
+    <script>
+        let currentRecordId = null;
+        let currentPatientIdStr = null;
+
+        document.getElementById('patientForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                patient_id: document.getElementById('patient_id').value,
+                age: parseInt(document.getElementById('age').value),
+                gender: document.getElementById('gender').value,
+                glucose: parseFloat(document.getElementById('glucose').value),
+                bmi: parseFloat(document.getElementById('bmi').value),
+                systolic_bp: parseFloat(document.getElementById('systolic_bp').value)
+            };
+            currentPatientIdStr = payload.patient_id;
+            await executeAnalysis('/api/v1/analyze', 'POST', JSON.stringify(payload), { 'Content-Type': 'application/json' });
+        });
+
+        document.getElementById('uploadBtn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) { alert('Select a PDF report first.'); return; }
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            await executeAnalysis('/api/v1/upload-report', 'POST', formData);
+        });
+
+        async function executeAnalysis(url, method, body, headers = {}) {
+            const output = document.getElementById('outputContainer');
+            const loader = document.getElementById('loader');
+            const footer = document.getElementById('actionFooter');
+            const badge = document.getElementById('riskBadge');
+
+            output.innerHTML = '';
+            loader.classList.remove('hidden');
+            footer.classList.add('hidden');
+            badge.classList.add('hidden');
+
+            try {
+                const res = await fetch(url, { method, body, headers });
+                const json = await res.json();
+                loader.classList.add('hidden');
+
+                if (res.ok && json.status === 'success') {
+                    currentRecordId = json.patient_record_id;
+                    if (json.extracted_data && json.extracted_data.patient_id) {
+                        currentPatientIdStr = json.extracted_data.patient_id;
+                    }
+                    footer.classList.remove('hidden');
+                    badge.classList.remove('hidden');
+                    document.getElementById('recordIdLabel').textContent = `Record ID: #${currentRecordId}`;
+
+                    const pipeline = json.pipeline_result || {};
+                    const riskAgent = pipeline.disease_risk_agent || {};
+                    const drugAgent = pipeline.drug_safety_agent || {};
+                    const ragAgent = pipeline.rag_retrieval_agent || {};
+                    const cdssAgent = pipeline.cdss_agent_output || {};
+
+                    // Render modular agent inspection layout
+                    output.innerHTML = `
+                        <div class="space-y-4 font-mono text-xs">
+                            <!-- Supervisor Status -->
+                            <div class="bg-cyan-950/30 border border-cyan-500/30 p-3 rounded-xl text-cyan-300 flex items-center justify-between">
+                                <span><i class="fa-solid fa-sitemap"></i> Supervisor Orchestrator</span>
+                                <span class="text-[10px] bg-cyan-500/20 px-2 py-0.5 rounded">Completed Successfully</span>
+                            </div>
+
+                            <!-- Disease Risk Model (XGBoost) -->
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+                                <div class="flex justify-between items-center text-cyan-400 font-bold">
+                                    <span><i class="fa-solid fa-chart-line"></i> Disease Risk Assessment Agent (XGBoost)</span>
+                                    <span class="bg-cyan-500/10 px-2 py-0.5 rounded text-cyan-300">${riskAgent.estimated_risk_score_percent || 0}% Risk (${riskAgent.risk_category || 'N/A'})</span>
+                                </div>
+                                <p class="text-slate-300">Condition: ${riskAgent.evaluated_condition || 'Standard Evaluation'}</p>
+                            </div>
+
+                            <!-- Drug Safety Agent -->
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+                                <div class="flex justify-between items-center text-emerald-400 font-bold">
+                                    <span><i class="fa-solid fa-pills"></i> Drug Safety & Interaction Agent</span>
+                                    <span class="bg-emerald-500/10 px-2 py-0.5 rounded text-emerald-300">${drugAgent.status || 'PASS'}</span>
+                                </div>
+                                <p class="text-slate-300">Recommendation: ${drugAgent.recommendation || 'No conflicts detected.'}</p>
+                            </div>
+
+                            <!-- RAG Knowledge Store -->
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+                                <div class="flex justify-between items-center text-purple-400 font-bold">
+                                    <span><i class="fa-solid fa-book-medical"></i> Medical Knowledge Retrieval (FAISS RAG)</span>
+                                    <span class="bg-purple-500/10 px-2 py-0.5 rounded text-purple-300">${(ragAgent.retrieved_evidence_used || []).length} guidelines matched</span>
+                                </div>
+                            </div>
+
+                            <!-- LLM Synthesizer Output -->
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+                                <div class="text-amber-400 font-bold">
+                                    <i class="fa-solid fa-robot"></i> LLM Recommendation & Clinical Summary
+                                </div>
+                                <p class="text-slate-300 leading-relaxed whitespace-pre-wrap">${cdssAgent.summary || 'Analysis complete.'}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    output.innerHTML = `<p class="text-rose-400 text-xs font-mono">Error: ${json.detail || 'Failed to process request.'}</p>`;
+                }
+            } catch (err) {
+                loader.classList.add('hidden');
+                output.innerHTML = `<p class="text-rose-400 text-xs font-mono">Network Exception: ${err.message}</p>`;
+            }
+        }
+
+        document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+            if (currentRecordId) window.open(`/api/v1/patients/${currentRecordId}/pdf`, '_blank');
+        });
+
+        document.getElementById('exportFhirBtn').addEventListener('click', async () => {
+            if (currentPatientIdStr) {
+                const res = await fetch(`/api/v1/patient/${currentPatientIdStr}/fhir`);
+                const fhir = await res.json();
+                const blob = new Blob([JSON.stringify(fhir, null, 2)], {type: 'application/json'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `FHIR_${currentPatientIdStr}.json`;
+                a.click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "model_key": "breast_cancer",
+  "model_name": "Breast Cancer",
+  "imbalance_strategy": "none",
+  "test_samples": 171,
+  "positive_samples": 64,
+  "negative_samples": 107,
+  "cv_roc_auc_mean": 0.9671,
+  "cv_roc_auc_std": 0.0125,
+  "accuracy": 0.9123,
+  "balanced_accuracy": 0.8985,
+  "precision": 0.9153,
+  "recall": 0.8438,
+  "specificity": 0.9533,
+  "f1_score": 0.878,
+  "roc_auc": 0.972,
+  "pr_auc": 0.9635,
+  "mcc": 0.8114,
+  "cohen_kappa": 0.8097,
+  "brier_score": 0.0639,
+  "confusion_matrix": {
+    "TN": 102,
+    "FP": 5,
+    "FN": 10,
+    "TP": 54
+  }
+}

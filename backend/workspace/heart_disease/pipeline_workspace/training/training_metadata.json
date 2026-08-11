@@ -1,0 +1,21 @@
+{
+    "best_model": "xgboost",
+    "training_samples": 181,
+    "validation_samples": 61,
+    "models": {
+        "random_forest": {
+            "accuracy": 0.639344262295082,
+            "precision": 0.5879781420765028,
+            "recall": 0.639344262295082,
+            "f1_score": 0.5773734462259053,
+            "training_time": 0.5283168999994814
+        },
+        "xgboost": {
+            "accuracy": 0.6065573770491803,
+            "precision": 0.56461508963666,
+            "recall": 0.6065573770491803,
+            "f1_score": 0.5807658669353428,
+            "training_time": 0.9982836000017414
+        }
+    }
+}

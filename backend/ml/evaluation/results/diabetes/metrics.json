@@ -1,0 +1,27 @@
+{
+  "model_key": "diabetes",
+  "model_name": "Diabetes",
+  "imbalance_strategy": "balanced",
+  "test_samples": 30530,
+  "positive_samples": 14071,
+  "negative_samples": 16459,
+  "cv_roc_auc_mean": 0.564,
+  "cv_roc_auc_std": 0.0047,
+  "accuracy": 0.5413,
+  "balanced_accuracy": 0.5496,
+  "precision": 0.5019,
+  "recall": 0.6548,
+  "specificity": 0.4443,
+  "f1_score": 0.5682,
+  "roc_auc": 0.5673,
+  "pr_auc": 0.5094,
+  "mcc": 0.1009,
+  "cohen_kappa": 0.097,
+  "brier_score": 0.2462,
+  "confusion_matrix": {
+    "TN": 7313,
+    "FP": 9146,
+    "FN": 4857,
+    "TP": 9214
+  }
+}

@@ -1,0 +1,34 @@
+{
+    "version": "1.0.0",
+    "created": "2026-08-09T23:22:46.375182",
+    "artifacts": {
+        "feature_names.json": {
+            "size": 598,
+            "sha256": "4a84c6ee17ac5c1efa4c9886a368d6950a868ecceaa6798fb6da8e85477af1e5"
+        },
+        "manifest.json": {
+            "size": 1212,
+            "sha256": "76f332915a4fa1c86b3335da1993b8f9246fbd0f5b03fe1c4db18353e6128e1c"
+        },
+        "metadata.json": {
+            "size": 318,
+            "sha256": "795d421a6467d0dac65a7fe93bc6b84f9370ff06df2b9ab43215767c3aa0f4e9"
+        },
+        "model.joblib": {
+            "size": 1751389,
+            "sha256": "713f53b0c3deac3d92bdde0d88fe1f155d35853f808e2525eda0bc525240edb7"
+        },
+        "preprocessor.joblib": {
+            "size": 4329,
+            "sha256": "2e459bff831cae7013b59244cb52b0ef838e25bdb30a823144d4cee352da6189"
+        },
+        "requirements.txt": {
+            "size": 2315,
+            "sha256": "7f0340553a0c87a77d90f28d996e06e78537eaba1dcc30dc498ee27e30ecfaa4"
+        },
+        "schema.json": {
+            "size": 2313,
+            "sha256": "88525be2c33f9024b2e2f7713c7666b09bc0fbc16b26d2b6ddcbfba3492a39c7"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "original_feature_count": 13,
+    "final_feature_count": 16,
+    "removed_features": [],
+    "encoded_features": [],
+    "created_features": [
+        "age_group",
+        "chol_category",
+        "bp_category"
+    ],
+    "target_column": "target",
+    "feature_names": [
+        "age",
+        "sex",
+        "cp",
+        "trestbps",
+        "chol",
+        "fbs",
+        "restecg",
+        "thalach",
+        "exang",
+        "oldpeak",
+        "slope",
+        "ca",
+        "thal"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "model_key": "hepatitis",
+  "model_name": "Hepatitis",
+  "imbalance_strategy": "balanced",
+  "test_samples": 47,
+  "positive_samples": 10,
+  "negative_samples": 37,
+  "cv_roc_auc_mean": 0.7543,
+  "cv_roc_auc_std": 0.1134,
+  "accuracy": 0.7872,
+  "balanced_accuracy": 0.6824,
+  "precision": 0.5,
+  "recall": 0.5,
+  "specificity": 0.8649,
+  "f1_score": 0.5,
+  "roc_auc": 0.8757,
+  "pr_auc": 0.6019,
+  "mcc": 0.3649,
+  "cohen_kappa": 0.3649,
+  "brier_score": 0.1346,
+  "confusion_matrix": {
+    "TN": 32,
+    "FP": 5,
+    "FN": 5,
+    "TP": 5
+  }
+}

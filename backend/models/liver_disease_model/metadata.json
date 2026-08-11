@@ -1,0 +1,28 @@
+{
+  "model_name": "Liver Disease",
+  "model_key": "liver_disease",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "balanced",
+  "dataset_name": "Indian Liver Patient Dataset (ILPD)",
+  "dataset_source": "UCI Machine Learning Repository",
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/ILPD+(Indian+Liver+Patient+Dataset)",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 583,
+  "train_samples": 408,
+  "test_samples": 175,
+  "feature_count": 5,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "age",
+    "bilirubin",
+    "alk_phosphatase",
+    "sgpt",
+    "sgot"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.7024,
+  "cv_roc_auc_std": 0.0121
+}

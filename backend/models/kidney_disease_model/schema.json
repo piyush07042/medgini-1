@@ -1,0 +1,9 @@
+{
+  "required_columns": [
+    "creatinine",
+    "blood_urea",
+    "blood_glucose_random",
+    "albumin"
+  ],
+  "target_column": "target"
+}

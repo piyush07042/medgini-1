@@ -1,0 +1,19 @@
+{
+  "name": "Parkinsons Dataset",
+  "short_name": "parkinsons",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/174/parkinsons",
+  "description": "Biomedical voice measurements used to detect Parkinson's disease.",
+  "disease": "Parkinson's Disease",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "status",
+  "samples": 195,
+  "features": 22,
+  "classes": {
+    "0": "Healthy",
+    "1": "Parkinson's Disease"
+  },
+  "missing_values": false,
+  "license": "UCI Machine Learning Repository"
+}

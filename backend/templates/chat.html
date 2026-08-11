@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediGenie — Conversational Clinical Copilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    <!-- Header Navigation -->
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-8 flex justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-comments text-cyan-400 text-2xl"></i>
+            <div>
+                <h1 class="text-lg font-bold">MediGenie Clinical Copilot</h1>
+                <p class="text-xs text-slate-400">Humanized Multi-Model LLM Chatbot Interface</p>
+            </div>
+        </div>
+        <nav class="flex items-center space-x-3">
+            <a href="/dashboard" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/chat" class="bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-robot"></i> AI Chatbot</a>
+            <a href="/models" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-microchip"></i> AI Models</a>
+            <a href="/history" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-database"></i> History</a>
+            <a href="/" class="hover:bg-rose-500/20 text-rose-400 px-3 py-2 rounded-xl text-xs font-semibold transition"><i class="fa-solid fa-power-off"></i></a>
+        </nav>
+    </header>
+
+    <!-- Chat Container -->
+    <main class="max-w-4xl mx-auto p-6 w-full flex-grow flex flex-col justify-between space-y-4">
+        <!-- Message History Box -->
+        <div id="chatWindow" class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl flex-grow overflow-y-auto space-y-4 max-h-[65vh]">
+            <div class="flex items-start space-x-3">
+                <div class="bg-cyan-600 text-slate-950 p-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-robot"></i></div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-sm text-slate-200 max-w-xl">
+                    Hello Doctor! I am your MediGenie AI Assistant powered by Gemma 3 & LangGraph multi-agent coordination. How can I assist you with patient evaluation, lab interpretation, or clinical guidelines today?
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chatForm" class="bg-slate-950 border border-slate-800 rounded-2xl p-3 flex gap-3 shadow-xl">
+            <input type="text" id="userInput" placeholder="Ask about patient risk factors, drug interactions, or guidelines..." required class="flex-grow bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:border-cyan-500 focus:outline-none text-slate-100">
+            <button type="submit" class="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold px-6 py-3 rounded-xl transition text-sm flex items-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> Send
+            </button>
+        </form>
+    </main>
+
+    <script>
+        const chatWindow = document.getElementById('chatWindow');
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // Append User Message
+            chatWindow.innerHTML += `
+                <div class="flex items-start justify-end space-x-3">
+                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-2xl text-sm text-slate-200 max-w-xl whitespace-pre-wrap">${text}</div>
+                    <div class="bg-slate-700 text-cyan-400 p-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-user"></i></div>
+                </div>
+            `;
+            userInput.value = '';
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            // Simulate typing indicator
+            const typingId = 'typing-' + Date.now();
+            chatWindow.innerHTML += `
+                <div id="${typingId}" class="flex items-start space-x-3">
+                    <div class="bg-cyan-600 text-slate-950 p-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-robot"></i></div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-sm text-slate-400 font-mono">
+                        <i class="fa-solid fa-circle-notch fa-spin text-cyan-400"></i> Multi-agents reasoning & synthesizing...
+                    </div>
+                </div>
+            `;
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+
+            try {
+                const res = await fetch('/api/v1/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                const json = await res.json();
+                document.getElementById(typingId).remove();
+
+                if (res.ok && json.status === 'success') {
+                    chatWindow.innerHTML += `
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-cyan-600 text-slate-950 p-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-robot"></i></div>
+                            <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-sm text-slate-200 max-w-xl whitespace-pre-wrap">${json.response}</div>
+                        </div>
+                    `;
+                } else {
+                    chatWindow.innerHTML += `<p class="text-rose-400 text-xs font-mono">Error generating response.</p>`;
+                }
+            } catch (err) {
+                document.getElementById(typingId).remove();
+                chatWindow.innerHTML += `<p class="text-rose-400 text-xs font-mono">Network error: ${err.message}</p>`;
+            }
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        });
+    </script>
+</body>
+</html>

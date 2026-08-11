@@ -1,0 +1,10 @@
+{
+  "required_columns": [
+    "MDVP:Fo(Hz)",
+    "MDVP:Jitter(%)",
+    "MDVP:Shimmer",
+    "HNR",
+    "RPDE"
+  ],
+  "target_column": "target"
+}

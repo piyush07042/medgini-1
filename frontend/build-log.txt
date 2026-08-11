@@ -1,0 +1,5 @@
+
+> medigenie-frontend@0.1.0 build
+> tsc && vite build
+
+src/pages/RegisterPage.tsx(22,68): error TS2304: Cannot find name 'z'.

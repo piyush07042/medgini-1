@@ -1,0 +1,11 @@
+{
+  "best_params": {
+    "est__max_depth": 10,
+    "est__n_estimators": 100
+  },
+  "accuracy": 0.985,
+  "precision": 0.9801980198019802,
+  "recall": 0.99,
+  "f1_score": 0.9850746268656716,
+  "roc_auc": 0.9985999999999999
+}

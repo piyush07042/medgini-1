@@ -1,0 +1,28 @@
+{
+  "model_name": "Stroke",
+  "model_key": "stroke",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "smote",
+  "dataset_name": "Stroke Prediction Dataset",
+  "dataset_source": "Kaggle",
+  "dataset_url": "https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 5110,
+  "train_samples": 3577,
+  "test_samples": 1533,
+  "feature_count": 5,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "age",
+    "hypertension",
+    "heart_disease",
+    "avg_glucose_level",
+    "bmi"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.8252,
+  "cv_roc_auc_std": 0.0211
+}

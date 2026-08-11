@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediGenie — Multi-Model AI & LLM Diagnostics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-8 flex justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-network-wired text-cyan-400 text-2xl"></i>
+            <div>
+                <h1 class="text-lg font-bold">MediGenie CDSS Engine</h1>
+                <p class="text-xs text-slate-400">Multi-Agent & Multi-Model Architecture Inspection</p>
+            </div>
+        </div>
+        <nav class="flex items-center space-x-3">
+            <a href="/dashboard" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/models" class="bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-microchip"></i> AI Models & LLM Trace</a>
+            <a href="/history" class="hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-database"></i> Patient History</a>
+            <a href="/" class="hover:bg-rose-500/20 text-rose-400 px-3 py-2 rounded-xl text-xs font-semibold transition"><i class="fa-solid fa-power-off"></i></a>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 w-full flex-grow space-y-6">
+        <!-- Top Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Supervisor Orchestrator</p>
+                <p class="text-lg font-bold text-cyan-400 mt-1">LangGraph State Machine</p>
+                <span class="text-[10px] bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded mt-2 inline-block">Active & Routing</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">LLM Synthesizer</p>
+                <p class="text-lg font-bold text-emerald-400 mt-1">Gemma 3 / Llama 3</p>
+                <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded mt-2 inline-block">Reasoning Engine</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Biomedical NLP Model</p>
+                <p class="text-lg font-bold text-purple-400 mt-1">BioBERT / ClinicalBERT</p>
+                <span class="text-[10px] bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded mt-2 inline-block">Entity Extraction</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Knowledge Vector Store</p>
+                <p class="text-lg font-bold text-amber-400 mt-1">FAISS + Sentence Transformers</p>
+                <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded mt-2 inline-block">RAG Guidelines Active</span>
+            </div>
+        </div>
+
+        <!-- Detailed Multi-Model Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Model Comparison Matrix -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-table-cells text-cyan-400"></i> Comparative Task & Model Registry
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-900 text-slate-400 uppercase">
+                            <tr>
+                                <th class="p-3">Healthcare Task</th>
+                                <th class="p-3">Assigned Model</th>
+                                <th class="p-3">Framework</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr>
+                                <td class="p-3">Patient Conversation</td>
+                                <td class="p-3 text-cyan-400">Gemma 3 / Llama 3</td>
+                                <td class="p-3">LangChain</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Medical NLP & NER</td>
+                                <td class="p-3 text-purple-400">BioBERT / ClinicalBERT</td>
+                                <td class="p-3">HuggingFace Transformers</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Disease Risk Prediction</td>
+                                <td class="p-3 text-emerald-400">XGBoost (Phase 9)</td>
+                                <td class="p-3">Scikit-Learn / XGBoost</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Alternative ML Models</td>
+                                <td class="p-3 text-slate-400">Random Forest, LightGBM, CatBoost</td>
+                                <td class="p-3">Ensemble Benchmark</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Document Embeddings</td>
+                                <td class="p-3 text-amber-400">Sentence Transformers</td>
+                                <td class="p-3">FAISS Vector Index</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Medical Report OCR</td>
+                                <td class="p-3 text-rose-400">PaddleOCR Engine</td>
+                                <td class="p-3">Computer Vision</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LLM Trace & Explainable AI Engine Inspection -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                <div>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-chart text-emerald-400"></i> Why LLM? & Explainable AI (XAI)
+                    </h2>
+                    <div class="space-y-3 text-xs text-slate-300 leading-relaxed font-mono bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <p><strong class="text-cyan-400">1. Natural Language Reasoning:</strong> Traditional machine learning algorithms (like XGBoost) calculate numeric statistical probabilities (e.g., 75% risk score). However, doctors require clinical context, guidelines, and patient-specific rationales. LLMs synthesize these metrics into a coherent clinical summary.</p>
+                        <p><strong class="text-emerald-400">2. RAG Grounding (Hallucination Prevention):</strong> To ensure the LLM does not fabricate medical advice, the <em>Medical Knowledge Retrieval Agent</em> queries a local FAISS vector database containing certified WHO guidelines and PubMed medical literature snippets before generating a response.</p>
+                        <p><strong class="text-purple-400">3. Multi-Agent Division of Labor:</strong> Rather than relying on a single prompt, dedicated agents handle OCR, drug safety rules engines, and risk thresholds independently, ensuring modular debugging and clinical precision.</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-500 font-mono">
+                    <span>Status: All Agents Synchronized</span>
+                    <a href="/dashboard" class="text-cyan-400 hover:underline">Return to Live Dashboard &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

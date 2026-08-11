@@ -1,0 +1,26 @@
+{
+    "version": "1.0.0",
+    "created": "2026-08-02T12:56:56.390385",
+    "artifacts": {
+        "manifest.json": {
+            "size": 727,
+            "sha256": "57664e30fb7d0e40231a7bcb33804a7cc7472f465909036caedf229f713a4972"
+        },
+        "metadata.json": {
+            "size": 306,
+            "sha256": "e82b36f2a6c18ff665a1496d9b75eb187e66b233a53c4b0a764083e7eea4a570"
+        },
+        "model.joblib": {
+            "size": 1991169,
+            "sha256": "36988c9d0a7b5f74b7196e04600c64356813fa5f93df6b92d7f8bb92940be4c7"
+        },
+        "requirements.txt": {
+            "size": 2213,
+            "sha256": "70c367e5e186640cc1c264e69f99c7f4f54c41a5620a5420fb6630bc0bc594d7"
+        },
+        "schema.json": {
+            "size": 2313,
+            "sha256": "88525be2c33f9024b2e2f7713c7666b09bc0fbc16b26d2b6ddcbfba3492a39c7"
+        }
+    }
+}

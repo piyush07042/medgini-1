@@ -1,0 +1,27 @@
+{
+  "model_name": "Kidney Disease",
+  "model_key": "kidney_disease",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "none",
+  "dataset_name": "Chronic Kidney Disease Dataset",
+  "dataset_source": "UCI Machine Learning Repository",
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/chronic_kidney_disease",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 400,
+  "train_samples": 280,
+  "test_samples": 120,
+  "feature_count": 4,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "creatinine",
+    "blood_urea",
+    "blood_glucose_random",
+    "albumin"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.9801,
+  "cv_roc_auc_std": 0.0068
+}

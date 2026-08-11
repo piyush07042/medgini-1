@@ -1,0 +1,112 @@
+{
+  "disease_key": "stroke",
+  "disease_name": "Stroke",
+  "model_folder": "stroke_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 5110,
+    "raw_columns": 13,
+    "feature_count": 5,
+    "feature_names": [
+      "age",
+      "bmi",
+      "hypertension",
+      "heart_disease",
+      "avg_glucose_level"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 4861,
+      "1": 249
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "bmi": 0,
+      "hypertension": 0,
+      "heart_disease": 0,
+      "avg_glucose_level": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "RandomForestClassifier",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 5,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.7569471624266145,
+    "precision": 0.13626373626373625,
+    "recall": 0.7469879518072289,
+    "f1_score": 0.23048327137546468,
+    "balanced_accuracy": 0.7522226325586236,
+    "sensitivity": 0.7469879518072289,
+    "specificity": 0.7574573133100185,
+    "roc_auc": 0.7573887403140643,
+    "pr_auc": 0.19890309433080797,
+    "mcc": 0.24546201631068135,
+    "cohen_kappa": 0.161361933568277,
+    "log_loss": 2.1756347107667664,
+    "brier_score": 0.20293542074363993,
+    "confusion_matrix": [
+      [
+        3682,
+        1179
+      ],
+      [
+        63,
+        186
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.028970405812511073,
+      "f1_std": 0.027187218657577165,
+      "accuracy_mean": 0.9469667318982389,
+      "accuracy_std": 0.002428507562816228,
+      "roc_auc_mean": 0.7624515450375904,
+      "roc_auc_std": 0.013908194513233225
+    },
+    "10_fold": {
+      "f1_mean": 0.006896551724137931,
+      "f1_std": 0.02068965517241379,
+      "accuracy_mean": 0.9461839530332681,
+      "accuracy_std": 0.0023564764342059266,
+      "roc_auc_mean": 0.7788821646766547,
+      "roc_auc_std": 0.03167191645126088
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "tree_importance": {
+        "age": 0.8717725235239457,
+        "bmi": 0.02174767112719639,
+        "hypertension": 0.023266950048108685,
+        "heart_disease": 0.023186438495291888,
+        "avg_glucose_level": 0.06002641680545746
+      },
+      "permutation_importance": {
+        "age": 0.05338551859099807,
+        "bmi": 0.0,
+        "hypertension": 0.0,
+        "heart_disease": 0.0,
+        "avg_glucose_level": 0.03491193737769085
+      }
+    },
+    "shap_summary": {
+      "age": 0.26539999999999997,
+      "bmi": 2.0946785972419944e-17,
+      "hypertension": 7.398595625041082e-18,
+      "heart_disease": 6.938893903907228e-18,
+      "avg_glucose_level": 0.16599999999999976
+    }
+  }
+}

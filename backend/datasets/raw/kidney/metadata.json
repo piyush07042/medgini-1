@@ -1,0 +1,19 @@
+{
+  "name": "Chronic Kidney Disease Dataset",
+  "short_name": "kidney",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/336/chronic+kidney+disease",
+  "description": "Clinical and laboratory data for predicting Chronic Kidney Disease.",
+  "disease": "Chronic Kidney Disease",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "class",
+  "samples": 400,
+  "features": 24,
+  "classes": [
+    "ckd",
+    "notckd"
+  ],
+  "missing_values": true,
+  "license": "UCI Machine Learning Repository"
+}

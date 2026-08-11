@@ -1,0 +1,19 @@
+{
+  "name": "Indian Liver Patient Dataset",
+  "short_name": "liver",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/225/ilpd+indian+liver+patient+dataset",
+  "description": "Clinical dataset for predicting liver disease in Indian patients.",
+  "disease": "Liver Disease",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "Dataset",
+  "samples": 583,
+  "features": 10,
+  "classes": {
+    "1": "Liver Disease",
+    "2": "No Liver Disease"
+  },
+  "missing_values": true,
+  "license": "UCI Machine Learning Repository"
+}

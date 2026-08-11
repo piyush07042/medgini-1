@@ -1,0 +1,120 @@
+[
+  {
+    "disease": "Diabetes Mellitus",
+    "source": "ADA Standards of Care in Diabetes",
+    "organization": "American Diabetes Association",
+    "version": "2025",
+    "section": "Section 2 — Diagnosis and Classification",
+    "risk_level": "High",
+    "criteria": {
+      "HbA1c": ">= 6.5%",
+      "fasting_glucose": ">= 126 mg/dL",
+      "ogtt_2h": ">= 200 mg/dL",
+      "random_glucose_with_symptoms": ">= 200 mg/dL"
+    },
+    "recommendations": [
+      "Initiate lifestyle modification including medical nutrition therapy",
+      "Weight reduction of 5-7% of body weight if overweight or obese",
+      "At least 150 minutes per week of moderate-intensity aerobic activity",
+      "Metformin as first-line pharmacotherapy if not contraindicated",
+      "Consider SGLT2 inhibitor or GLP-1 RA if established cardiovascular or renal disease",
+      "Comprehensive diabetes self-management education and support (DSMES)"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate lifestyle changes and diabetes education"},
+      {"timeline": "3 months", "action": "Repeat HbA1c to assess glycemic response"},
+      {"timeline": "6 months", "action": "Reassess treatment plan; intensify therapy if HbA1c not at goal"},
+      {"timeline": "Annual", "action": "Comprehensive metabolic panel, lipid profile, urine albumin-to-creatinine ratio"},
+      {"timeline": "Annual", "action": "Dilated retinal examination by ophthalmologist"},
+      {"timeline": "Annual", "action": "Comprehensive foot examination"}
+    ],
+    "contraindications": [
+      {"drug": "Metformin", "condition": "eGFR < 30 mL/min/1.73m²", "action": "Contraindicated — discontinue metformin"},
+      {"drug": "Metformin", "condition": "eGFR 30-45 mL/min/1.73m²", "action": "Dose reduction required; do not initiate new therapy"},
+      {"drug": "Sulfonylureas", "condition": "Severe hepatic impairment", "action": "Avoid due to increased hypoglycemia risk"},
+      {"drug": "SGLT2 inhibitors", "condition": "eGFR < 20 mL/min/1.73m²", "action": "Not recommended for glycemic control below this threshold"}
+    ],
+    "emergency_signs": [
+      "Diabetic ketoacidosis: nausea, vomiting, abdominal pain, fruity breath, Kussmaul breathing",
+      "Hyperosmolar hyperglycemic state: extreme hyperglycemia (>600 mg/dL), altered consciousness",
+      "Severe hypoglycemia: confusion, seizures, loss of consciousness"
+    ],
+    "references": [
+      "ADA Standards of Care in Diabetes — 2025. Diabetes Care 2025;48(Suppl. 1)",
+      "Section 2: Diagnosis and Classification of Diabetes",
+      "Section 5: Facilitating Positive Health Behaviors",
+      "Section 9: Pharmacologic Approaches to Glycemic Treatment"
+    ]
+  },
+  {
+    "disease": "Diabetes Mellitus",
+    "source": "ADA Standards of Care in Diabetes",
+    "organization": "American Diabetes Association",
+    "version": "2025",
+    "section": "Section 6 — Glycemic Goals",
+    "risk_level": "Moderate",
+    "criteria": {
+      "HbA1c": "5.7% - 6.4%",
+      "fasting_glucose": "100-125 mg/dL",
+      "ogtt_2h": "140-199 mg/dL"
+    },
+    "recommendations": [
+      "Prediabetes — initiate intensive lifestyle intervention program",
+      "Target weight loss of at least 7% of body weight",
+      "Physical activity: 150+ minutes per week of moderate-intensity exercise",
+      "Consider metformin for prediabetes prevention in high-risk individuals (BMI ≥ 35, age < 60, history of gestational diabetes)",
+      "Annual monitoring of glycemic status"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Enroll in diabetes prevention program (DPP)"},
+      {"timeline": "6 months", "action": "Reassess weight, HbA1c, and fasting glucose"},
+      {"timeline": "Annual", "action": "Repeat HbA1c and fasting glucose to monitor for progression to diabetes"}
+    ],
+    "contraindications": [],
+    "emergency_signs": [],
+    "references": [
+      "ADA Standards of Care in Diabetes — 2025. Diabetes Care 2025;48(Suppl. 1)",
+      "Section 3: Prevention or Delay of Diabetes and Associated Comorbidities"
+    ]
+  },
+  {
+    "disease": "Diabetes Mellitus",
+    "source": "ADA Standards of Care in Diabetes",
+    "organization": "American Diabetes Association",
+    "version": "2025",
+    "section": "Section 10 — Cardiovascular Disease and Risk Management",
+    "risk_level": "High",
+    "criteria": {
+      "HbA1c": ">= 6.5%",
+      "cardiovascular_risk": "Established ASCVD or high risk"
+    },
+    "recommendations": [
+      "Statin therapy: high-intensity for patients with established ASCVD",
+      "Blood pressure target < 130/80 mmHg if tolerated",
+      "ACE inhibitor or ARB for patients with albuminuria",
+      "SGLT2 inhibitor with proven cardiovascular benefit (empagliflozin, canagliflozin, dapagliflozin)",
+      "GLP-1 receptor agonist with proven cardiovascular benefit (liraglutide, semaglutide, dulaglutide)",
+      "Aspirin 75-162 mg/day for secondary prevention in patients with established ASCVD",
+      "Smoking cessation counseling and pharmacotherapy"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate or optimize statin and blood pressure therapy"},
+      {"timeline": "3 months", "action": "Reassess LDL-C, blood pressure, HbA1c"},
+      {"timeline": "Annual", "action": "Comprehensive cardiovascular risk assessment and lipid panel"}
+    ],
+    "contraindications": [
+      {"drug": "ACE inhibitors", "condition": "Pregnancy", "action": "Contraindicated — switch to alternative antihypertensive"},
+      {"drug": "ACE inhibitors", "condition": "Bilateral renal artery stenosis", "action": "Contraindicated"},
+      {"drug": "Aspirin", "condition": "Active GI bleeding or allergy", "action": "Contraindicated"}
+    ],
+    "emergency_signs": [
+      "Acute coronary syndrome: chest pain, shortness of breath, diaphoresis",
+      "Stroke symptoms: sudden weakness, speech difficulty, facial droop",
+      "Acute kidney injury: oliguria, edema, rapid creatinine rise"
+    ],
+    "references": [
+      "ADA Standards of Care in Diabetes — 2025. Diabetes Care 2025;48(Suppl. 1)",
+      "Section 10: Cardiovascular Disease and Risk Management"
+    ]
+  }
+]

@@ -1,0 +1,112 @@
+{
+  "disease_key": "diabetes",
+  "disease_name": "Diabetes",
+  "model_folder": "diabetes_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 101766,
+    "raw_columns": 54,
+    "feature_count": 5,
+    "feature_names": [
+      "age",
+      "bmi",
+      "glucose",
+      "systolic_bp",
+      "insulin"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 54864,
+      "1": 46902
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "bmi": 0,
+      "glucose": 0,
+      "systolic_bp": 0,
+      "insulin": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 5,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.4608808442898414,
+    "precision": 0.4608808442898414,
+    "recall": 1.0,
+    "f1_score": 0.6309629510049237,
+    "balanced_accuracy": 0.5,
+    "sensitivity": 1.0,
+    "specificity": 0.0,
+    "roc_auc": 0.47902002264135346,
+    "pr_auc": 0.44120529634088174,
+    "mcc": 0.0,
+    "cohen_kappa": 0.0,
+    "log_loss": 0.8095814631282826,
+    "brier_score": 0.303706289737694,
+    "confusion_matrix": [
+      [
+        0,
+        54864
+      ],
+      [
+        0,
+        46902
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.17095960155331696,
+      "f1_std": 0.006356151000190145,
+      "accuracy_mean": 0.537379888767904,
+      "accuracy_std": 0.003998417448707168,
+      "roc_auc_mean": 0.5320802949461261,
+      "roc_auc_std": 0.004640861366270424
+    },
+    "10_fold": {
+      "f1_mean": 0.17095822157826274,
+      "f1_std": 0.00751312954540725,
+      "accuracy_mean": 0.5373798574585188,
+      "accuracy_std": 0.004921643445240554,
+      "roc_auc_mean": 0.5320834214930539,
+      "roc_auc_std": 0.006401147458949299
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "age": 0.10571159415691996,
+        "bmi": 1.8282572531761214,
+        "glucose": 1.6384508471600152,
+        "systolic_bp": 0.06628942421116595,
+        "insulin": 0.042230189984351116
+      },
+      "permutation_importance": {
+        "age": 0.0,
+        "bmi": 0.0,
+        "glucose": 0.0,
+        "systolic_bp": 0.0,
+        "insulin": 0.0
+      }
+    },
+    "shap_summary": {
+      "age": 0.0,
+      "bmi": 0.0,
+      "glucose": 0.0,
+      "systolic_bp": 0.0,
+      "insulin": 0.0
+    }
+  }
+}

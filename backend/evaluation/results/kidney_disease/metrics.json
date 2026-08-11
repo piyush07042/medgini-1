@@ -1,0 +1,112 @@
+{
+  "disease_key": "kidney_disease",
+  "disease_name": "Kidney Disease",
+  "model_folder": "kidney_disease_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 400,
+    "raw_columns": 30,
+    "feature_count": 5,
+    "feature_names": [
+      "age",
+      "creatinine",
+      "blood_urea",
+      "sgpt",
+      "albumin"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "1": 399,
+      "0": 1
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "creatinine": 0,
+      "blood_urea": 0,
+      "sgpt": 0,
+      "albumin": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 5,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.275,
+    "precision": 1.0,
+    "recall": 0.2731829573934837,
+    "f1_score": 0.42913385826771655,
+    "balanced_accuracy": 0.6365914786967418,
+    "sensitivity": 0.2731829573934837,
+    "specificity": 1.0,
+    "roc_auc": 0.5112781954887218,
+    "pr_auc": 0.9983246714164951,
+    "mcc": 0.03063940354285872,
+    "cohen_kappa": 0.001875785162367083,
+    "log_loss": 1.1670452501767086,
+    "brier_score": 0.4487442538591763,
+    "confusion_matrix": [
+      [
+        1,
+        0
+      ],
+      [
+        290,
+        109
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": NaN,
+      "f1_std": NaN,
+      "accuracy_mean": NaN,
+      "accuracy_std": NaN,
+      "roc_auc_mean": NaN,
+      "roc_auc_std": NaN
+    },
+    "10_fold": {
+      "f1_mean": NaN,
+      "f1_std": NaN,
+      "accuracy_mean": NaN,
+      "accuracy_std": NaN,
+      "roc_auc_mean": NaN,
+      "roc_auc_std": NaN
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "age": 0.09162033574092249,
+        "creatinine": 2.726348158556527,
+        "blood_urea": 1.5630797600976611,
+        "sgpt": 0.06853047285708201,
+        "albumin": 0.14465004555779187
+      },
+      "permutation_importance": {
+        "age": -0.007499999999999974,
+        "creatinine": -0.07349999999999998,
+        "blood_urea": -0.06549999999999997,
+        "sgpt": 0.0,
+        "albumin": -0.003499999999999992
+      }
+    },
+    "shap_summary": {
+      "age": 0.014149999999999989,
+      "creatinine": 0.18766666666666662,
+      "blood_urea": 0.21843333333333315,
+      "sgpt": 0.0,
+      "albumin": 0.015849999999999996
+    }
+  }
+}

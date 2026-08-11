@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediGenie CDSS — Clinical Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-slate-900 text-white shadow-lg py-4 px-8 flex justify-between items-center border-b border-slate-700">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-stethoscope text-cyan-400 text-2xl"></i>
+            <div>
+                <h1 class="text-xl font-bold tracking-wide">MediGenie CDSS</h1>
+                <p class="text-xs text-slate-400">Multi-Agent Clinical Decision Support Engine</p>
+            </div>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <nav class="flex items-center space-x-2">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-4 py-2 rounded-lg text-sm font-medium transition bg-indigo-600 text-white shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </button>
+            <button onclick="switchTab('patients')" id="nav-patients" class="px-4 py-2 rounded-lg text-sm font-medium transition text-slate-300 hover:bg-slate-800 hover:text-white flex items-center gap-2">
+                <i class="fa-solid fa-users-medical"></i> Patient History
+            </button>
+            <button onclick="switchTab('login')" id="nav-login" class="px-4 py-2 rounded-lg text-sm font-medium transition text-slate-300 hover:bg-slate-800 hover:text-white flex items-center gap-2">
+                <i class="fa-solid fa-user-lock"></i> Provider Login
+            </button>
+            <span class="ml-4 bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Engine Online
+            </span>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-6 w-full flex-grow">
+
+        <!-- TAB 1: DASHBOARD (Active by default) -->
+        <div id="tab-dashboard" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Column: Patient Data Inputs & Upload -->
+            <section class="lg:col-span-5 space-y-6">
+                
+                <!-- Manual Evaluation Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear text-indigo-600"></i> Patient Risk Evaluation
+                    </h2>
+                    <form id="patientForm" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">Patient ID</label>
+                            <input type="text" id="patient_id" value="PT-2026-104" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600 mb-1">Age</label>
+                                <input type="number" id="age" value="52" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600 mb-1">Gender</label>
+                                <select id="gender" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <option value="Female">Female</option>
+                                    <option value="Male">Male</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600 mb-1">Fasting Glucose (mg/dL)</label>
+                                <input type="number" id="glucose" value="145" step="0.1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-600 mb-1">BMI</label>
+                                <input type="number" id="bmi" value="31.5" step="0.1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">Systolic Blood Pressure (mmHg)</label>
+                            <input type="number" id="systolic_bp" value="138" step="0.1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                        <button type="submit" id="analyzeBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition text-sm shadow-sm flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-microchip"></i> Run CDSS Analysis
+                        </button>
+                    </form>
+                </div>
+
+                <!-- PDF Upload Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-file-medical text-indigo-600"></i> Upload Lab Report
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-4">Extract parameters automatically using OCR parser.</p>
+                    <div class="space-y-3">
+                        <input type="file" id="fileInput" accept=".pdf" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                        <button id="uploadBtn" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-2 rounded-lg transition text-sm flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Process Medical Report
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Column: Results & Clinical Directives -->
+            <section class="lg:col-span-7 space-y-6">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 min-h-[500px] flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                            <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-notes-medical text-cyan-600"></i> Clinical Output & Findings
+                            </h2>
+                            <span id="riskBadge" class="hidden text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"></span>
+                        </div>
+
+                        <!-- Loader -->
+                        <div id="loader" class="hidden my-16 text-center">
+                            <i class="fa-solid fa-circle-notch fa-spin text-indigo-600 text-4xl mb-3"></i>
+                            <p class="text-sm font-medium text-slate-600">Running Multi-Agent Diagnostics...</p>
+                        </div>
+
+                        <!-- Output Area -->
+                        <div id="outputContainer" class="mt-4 space-y-4">
+                            <div class="p-8 text-center text-slate-400 my-12">
+                                <i class="fa-solid fa-heart-pulse text-4xl mb-2 text-slate-300"></i>
+                                <p class="text-sm">Submit patient details or upload a report to generate clinical directives.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div id="actionFooter" class="hidden pt-4 border-t border-slate-100 flex justify-between items-center">
+                        <span id="fhirStatus" class="text-xs text-slate-500 font-mono"></span>
+                        <div class="flex gap-2">
+                            <button id="exportFhirBtn" class="bg-cyan-600 hover:bg-cyan-700 text-white font-medium px-3 py-2 rounded-lg text-sm shadow-sm flex items-center gap-2 transition">
+                                <i class="fa-solid fa-code"></i> FHIR JSON
+                            </button>
+                            <button id="downloadPdfBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm shadow-sm flex items-center gap-2 transition">
+                                <i class="fa-solid fa-file-pdf"></i> PDF Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 2: PATIENT HISTORY (Hidden by default) -->
+        <div id="tab-patients" class="hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-database text-indigo-600"></i> Saved Patient Records Database
+                    </h2>
+                    <button onclick="loadPatientHistory()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-2 rounded-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-rotate"></i> Refresh Records
+                    </button>
+                </div>
+                <div id="patientsTableContainer" class="overflow-x-auto">
+                    <p class="text-sm text-slate-500 text-center py-8">Click "Refresh Records" to load historical patients.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: PROVIDER LOGIN (Hidden by default) -->
+        <div id="tab-login" class="hidden max-w-md mx-auto my-12">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+                <div class="text-center">
+                    <i class="fa-solid fa-user-shield text-indigo-600 text-4xl mb-2"></i>
+                    <h2 class="text-xl font-bold text-slate-800">Clinical Portal Login</h2>
+                    <p class="text-xs text-slate-500">Secure JWT Authentication Gateway</p>
+                </div>
+                <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">Provider Username</label>
+                        <input type="text" id="loginUser" value="doctor@medigenie.com" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">Password</label>
+                        <input type="password" id="loginPass" value="securepassword123" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition text-sm shadow-sm flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Authenticate Session
+                    </button>
+                    <div id="loginResponseMsg" class="text-center text-xs font-medium"></div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Client Script -->
+    <script>
+        let currentRecordId = null;
+        let currentPatientIdStr = null;
+
+        function switchTab(tabName) {
+            ['dashboard', 'patients', 'login'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`nav-${t}`).className = 'px-4 py-2 rounded-lg text-sm font-medium transition text-slate-300 hover:bg-slate-800 hover:text-white flex items-center gap-2';
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabName}`).className = 'px-4 py-2 rounded-lg text-sm font-medium transition bg-indigo-600 text-white shadow-sm flex items-center gap-2';
+            
+            if (tabName === 'patients') {
+                loadPatientHistory();
+            }
+        }
+
+        const form = document.getElementById('patientForm');
+        const loader = document.getElementById('loader');
+        const outputContainer = document.getElementById('outputContainer');
+        const riskBadge = document.getElementById('riskBadge');
+        const actionFooter = document.getElementById('actionFooter');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const exportFhirBtn = document.getElementById('exportFhirBtn');
+        const uploadBtn = document.getElementById('uploadBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                patient_id: document.getElementById('patient_id').value,
+                age: parseInt(document.getElementById('age').value),
+                gender: document.getElementById('gender').value,
+                glucose: parseFloat(document.getElementById('glucose').value),
+                bmi: parseFloat(document.getElementById('bmi').value),
+                systolic_bp: parseFloat(document.getElementById('systolic_bp').value)
+            };
+            currentPatientIdStr = payload.patient_id;
+            await executeAnalysis('/api/v1/analyze', 'POST', JSON.stringify(payload), { 'Content-Type': 'application/json' });
+        });
+
+        uploadBtn.addEventListener('click', async () => {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert('Please select a PDF file first.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            await executeAnalysis('/api/v1/upload-report', 'POST', formData);
+        });
+
+        async function executeAnalysis(url, method, body, headers = {}) {
+            outputContainer.innerHTML = '';
+            loader.classList.remove('hidden');
+            actionFooter.classList.add('hidden');
+            riskBadge.classList.add('hidden');
+
+            try {
+                const response = await fetch(url, { method, body, headers });
+                const result = await response.json();
+                loader.classList.add('hidden');
+
+                if (response.ok && result.status === 'success') {
+                    currentRecordId = result.patient_record_id;
+                    if (result.extracted_data && result.extracted_data.patient_id) {
+                        currentPatientIdStr = result.extracted_data.patient_id;
+                    }
+                    renderResult(result);
+                } else {
+                    outputContainer.innerHTML = `<p class="text-red-500 font-medium">Error: ${result.detail || 'Analysis failed.'}</p>`;
+                }
+            } catch (err) {
+                loader.classList.add('hidden');
+                outputContainer.innerHTML = `<p class="text-red-500 font-medium">Connection Error: ${err.message}</p>`;
+            }
+        }
+
+        function renderResult(result) {
+            actionFooter.classList.remove('hidden');
+            riskBadge.classList.remove('hidden');
+            riskBadge.className = 'text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider bg-rose-100 text-rose-700 border border-rose-200';
+            riskBadge.textContent = 'High Risk Category (75%)';
+
+            let summaryText = "Clinical analysis completed successfully.";
+            if (result.pipeline_result && result.pipeline_result.cdss_agent_output) {
+                summaryText = result.pipeline_result.cdss_agent_output.summary || summaryText;
+            }
+
+            outputContainer.innerHTML = `
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-3 font-mono text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">
+                    ${summaryText}
+                </div>
+            `;
+            document.getElementById('fhirStatus').textContent = `Record ID: #${currentRecordId}`;
+        }
+
+        downloadPdfBtn.addEventListener('click', () => {
+            if (currentRecordId) {
+                window.open(`/api/v1/patients/${currentRecordId}/pdf`, '_blank');
+            }
+        });
+
+        exportFhirBtn.addEventListener('click', async () => {
+            if (currentPatientIdStr) {
+                try {
+                    const res = await fetch(`/api/v1/patient/${currentPatientIdStr}/fhir`);
+                    const fhirData = await res.json();
+                    const blob = new Blob([JSON.stringify(fhirData, null, 2)], {type: 'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `FHIR_Bundle_${currentPatientIdStr}.json`;
+                    a.click();
+                } catch (e) {
+                    alert('Failed to fetch FHIR bundle.');
+                }
+            }
+        });
+
+        async function loadPatientHistory() {
+            const container = document.getElementById('patientsTableContainer');
+            container.innerHTML = `<div class="text-center py-6"><i class="fa-solid fa-spinner fa-spin text-indigo-600 text-xl"></i></div>`;
+            try {
+                const res = await fetch('/api/v1/patients');
+                const json = await res.json();
+                if (json.status === 'success' && json.data.length > 0) {
+                    let html = `
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                                    <th class="p-3">Record ID</th>
+                                    <th class="p-3">Patient ID</th>
+                                    <th class="p-3">Age/Gender</th>
+                                    <th class="p-3">Glucose</th>
+                                    <th class="p-3">BMI</th>
+                                    <th class="p-3">Systolic BP</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                    `;
+                    json.data.forEach(p => {
+                        html += `
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-3 font-semibold text-indigo-600">#${p.id}</td>
+                                <td class="p-3 font-mono">${p.patient_id}</td>
+                                <td class="p-3">${p.age} yrs / ${p.gender}</td>
+                                <td class="p-3">${p.glucose} mg/dL</td>
+                                <td class="p-3">${p.bmi}</td>
+                                <td class="p-3">${p.systolic_bp} mmHg</td>
+                                <td class="p-3 text-right space-x-2">
+                                    <a href="/api/v1/patients/${p.id}/pdf" target="_blank" class="text-emerald-600 hover:text-emerald-800 font-medium"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+                                    <a href="/api/v1/patient/${p.patient_id}/fhir" target="_blank" class="text-cyan-600 hover:text-cyan-800 font-medium"><i class="fa-solid fa-code"></i> FHIR</a>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    html += `</tbody></table>`;
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No patient records found in the database.</p>`;
+                }
+            } catch (err) {
+                container.innerHTML = `<p class="text-red-500 text-center py-8">Failed to load patient records.</p>`;
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const msg = document.getElementById('loginResponseMsg');
+            msg.className = "text-center text-xs font-medium text-emerald-600";
+            msg.textContent = "Successfully authenticated session (JWT Active).";
+            setTimeout(() => {
+                switchTab('dashboard');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

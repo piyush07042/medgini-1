@@ -1,0 +1,35 @@
+[
+  {
+    "disease": "Hepatitis",
+    "source": "WHO/AASLD 2024 Guidelines for the Prevention, Care and Treatment of Chronic Hepatitis B Virus Infection",
+    "organization": "WHO / AASLD",
+    "version": "2024",
+    "section": "Chronic Hepatitis B Treatment",
+    "risk_level": "High",
+    "criteria": {
+      "hbv_dna": "> 20000 IU/mL",
+      "alt_elevated": "True"
+    },
+    "recommendations": [
+      "Initiate antiviral therapy with high barrier to resistance (e.g., tenofovir or entecavir)",
+      "Educate patient on treatment adherence, side effects, and risk of transmission",
+      "Screen family members and sexual partners; recommend HBV vaccination if susceptible",
+      "Assess for advanced liver disease or cirrhosis before starting therapy"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate antiviral therapy and perform baseline renal function checks"},
+      {"timeline": "1 month", "action": "Evaluate treatment adherence and tolerance"},
+      {"timeline": "3 months", "action": "Monitor serum creatinine, eGFR (especially if on Tenofovir), and ALT levels"},
+      {"timeline": "Bi-annual", "action": "Monitor HBV DNA levels, ALT, and perform ultrasound screening for HCC if high risk"}
+    ],
+    "contraindications": [
+      {"drug": "Tenofovir Disoproxil Fumarate (TDF)", "condition": "eGFR < 60 mL/min/1.73m² or osteopenia/osteoporosis", "action": "Avoid TDF; use Tenofovir Alafenamide (TAF) or Entecavir instead"}
+    ],
+    "emergency_signs": [
+      "Acute liver failure: rapid onset of jaundice, coagulopathy (easy bruising), altered mental status (hepatic encephalopathy)"
+    ],
+    "references": [
+      "WHO Guidelines for the Prevention, Care and Treatment of Persons with Chronic Hepatitis B Infection, 2024"
+    ]
+  }
+]

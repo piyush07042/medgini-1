@@ -1,0 +1,19 @@
+{
+  "name": "Heart Failure Clinical Records Dataset",
+  "short_name": "heart_failure",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/519/heart+failure+clinical+records",
+  "description": "Clinical records used to predict survival in heart failure patients.",
+  "disease": "Heart Failure",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "DEATH_EVENT",
+  "samples": 299,
+  "features": 12,
+  "classes": {
+    "0": "Survived",
+    "1": "Death Event"
+  },
+  "missing_values": false,
+  "license": "UCI Machine Learning Repository"
+}

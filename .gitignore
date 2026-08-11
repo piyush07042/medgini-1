@@ -1,0 +1,147 @@
+# ==============================
+
+# Python
+
+# ==============================
+
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# ==============================
+
+# Virtual environments
+
+# ==============================
+
+backend/venv/
+venv/
+.venv/
+env/
+
+# ==============================
+
+# Environment variables / secrets
+
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+
+# Frontend
+
+# ==============================
+
+frontend/node_modules/
+frontend/dist/
+node_modules/
+
+# ==============================
+
+# Databases
+
+# ==============================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# ==============================
+
+# RAG / Vector Database
+
+# ==============================
+
+medigenie_rag_db/
+backend/medigenie_rag_db/
+
+# ==============================
+
+# Generated reports / uploads
+
+# ==============================
+
+temp_reports/
+temp_uploads/
+uploads/
+
+# ==============================
+
+# Logs
+
+# ==============================
+
+logs/
+*.log
+
+# ==============================
+
+# Terminal/test output
+
+# ==============================
+
+terminal_test_output.txt
+backend/terminal_test_output.txt
+
+# ==============================
+
+# Coverage
+
+# ==============================
+
+.coverage
+coverage/
+htmlcov/
+coverage_*.txt
+
+# ==============================
+
+# Test output
+
+# ==============================
+
+pytest_*.txt
+pytest_*.xml
+*_test_output.txt
+
+# ==============================
+
+# Temporary files
+
+# ==============================
+
+temp/
+tmp/
+*.tmp
+*.temp
+
+# ==============================
+
+# IDE
+
+# ==============================
+
+.vscode/
+.idea/
+
+# ==============================
+
+# OS
+
+# ==============================
+
+.DS_Store
+Thumbs.db
+
+# ==============================
+
+# Jupyter
+
+# ==============================
+
+.ipynb_checkpoints/

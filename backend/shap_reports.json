@@ -1,0 +1,160 @@
+{
+    "Heart Disease": [
+        {
+            "feature": "cp",
+            "importance": 0.1384085074006632
+        },
+        {
+            "feature": "thal",
+            "importance": 0.13299971864175036
+        },
+        {
+            "feature": "thalach",
+            "importance": 0.11024291941103115
+        },
+        {
+            "feature": "oldpeak",
+            "importance": 0.10445949335308401
+        }
+    ],
+    "Diabetes": [
+        {
+            "feature": "num_medications",
+            "importance": 0.5402455871966484
+        },
+        {
+            "feature": "time_in_hospital",
+            "importance": 0.2625679419609723
+        },
+        {
+            "feature": "age",
+            "importance": 0.1971864708423794
+        }
+    ],
+    "Kidney Disease": [
+        {
+            "feature": "creatinine",
+            "importance": 0.4991365726863009
+        },
+        {
+            "feature": "albumin",
+            "importance": 0.21592607342012704
+        },
+        {
+            "feature": "blood_urea",
+            "importance": 0.14267912114915451
+        },
+        {
+            "feature": "blood_glucose_random",
+            "importance": 0.14225823274441757
+        }
+    ],
+    "Liver Disease": [
+        {
+            "feature": "alk_phosphatase",
+            "importance": 0.23239569842905816
+        },
+        {
+            "feature": "age",
+            "importance": 0.20514609356380695
+        },
+        {
+            "feature": "sgpt",
+            "importance": 0.20140362024532754
+        },
+        {
+            "feature": "sgot",
+            "importance": 0.18668805909391345
+        }
+    ],
+    "Breast Cancer": [
+        {
+            "feature": "area_mean",
+            "importance": 0.28514163225697886
+        },
+        {
+            "feature": "perimeter_mean",
+            "importance": 0.26938779239612154
+        },
+        {
+            "feature": "radius_mean",
+            "importance": 0.2123199724507497
+        },
+        {
+            "feature": "smoothness_mean",
+            "importance": 0.12624208353167365
+        }
+    ],
+    "Parkinson's": [
+        {
+            "feature": "MDVP:Shimmer",
+            "importance": 0.26747950014699634
+        },
+        {
+            "feature": "MDVP:Fo(Hz)",
+            "importance": 0.20476093640547863
+        },
+        {
+            "feature": "MDVP:Jitter(%)",
+            "importance": 0.20353650651491878
+        },
+        {
+            "feature": "HNR",
+            "importance": 0.165707452325827
+        }
+    ],
+    "Hepatitis": [
+        {
+            "feature": "bilirubin",
+            "importance": 0.28603434104738684
+        },
+        {
+            "feature": "sgpt",
+            "importance": 0.2785058585521189
+        },
+        {
+            "feature": "age",
+            "importance": 0.20222495985644018
+        },
+        {
+            "feature": "alk_phosphatase",
+            "importance": 0.12380617365268483
+        }
+    ],
+    "Heart Failure": [
+        {
+            "feature": "time",
+            "importance": 0.4984396815581685
+        },
+        {
+            "feature": "serum_creatinine",
+            "importance": 0.18836175131566515
+        },
+        {
+            "feature": "ejection_fraction",
+            "importance": 0.15493782571376696
+        },
+        {
+            "feature": "serum_sodium",
+            "importance": 0.08188227674915848
+        }
+    ],
+    "Stroke": [
+        {
+            "feature": "age",
+            "importance": 0.33325437106914346
+        },
+        {
+            "feature": "avg_glucose_level",
+            "importance": 0.33287516352707996
+        },
+        {
+            "feature": "bmi",
+            "importance": 0.25840575276287236
+        },
+        {
+            "feature": "heart_disease",
+            "importance": 0.04219274295521694
+        }
+    ]
+}

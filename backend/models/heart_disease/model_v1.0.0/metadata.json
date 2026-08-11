@@ -1,0 +1,9 @@
+{
+    "model_name": "evaluation",
+    "accuracy": 0.5573770491803278,
+    "precision": 0.46345350748589453,
+    "recall": 0.5573770491803278,
+    "f1_score": 0.5046226554423275,
+    "roc_auc": 0.8118544539856015,
+    "report_path": "backend\\workspace\\heart_disease\\evaluation\\evaluation.json"
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "disease": "Stroke",
+    "source": "AHA/ASA 2024 Guidelines for the Prevention of Stroke",
+    "organization": "American Heart Association / American Stroke Association",
+    "version": "2024",
+    "section": "Secondary Stroke Prevention",
+    "risk_level": "High",
+    "criteria": {
+      "history_of_tia_or_stroke": "True",
+      "risk_level": "High"
+    },
+    "recommendations": [
+      "Initiate antiplatelet therapy (e.g., aspirin 81 mg/day or clopidogrel 75 mg/day)",
+      "Target blood pressure < 130/80 mmHg with antihypertensive agents",
+      "Statin therapy: High-intensity statin to target LDL-C < 70 mg/dL",
+      "Screen for atrial fibrillation using ECG or prolonged monitoring if stroke is embolic of undetermined source",
+      "Incorporate lifestyle interventions: physical activity, smoking cessation, and Mediterranean-style diet"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Start antithrombotic and high-intensity lipid-lowering therapy"},
+      {"timeline": "1 month", "action": "Follow up to monitor drug adherence, side effects, and blood pressure control"},
+      {"timeline": "3 months", "action": "Reassess lipid profile to confirm LDL-C target is achieved"},
+      {"timeline": "Annual", "action": "Carotid duplex imaging (if history of carotid stenosis) and routine metabolic screening"}
+    ],
+    "contraindications": [
+      {"drug": "Dual Antiplatelet Therapy (DAPT)", "condition": "Long-term use (>90 days) for secondary stroke prevention", "action": "Contraindicated unless indicated for coronary interventions due to high bleeding risk"},
+      {"drug": "High-intensity statins", "condition": "Active hepatic disease", "action": "Contraindicated"}
+    ],
+    "emergency_signs": [
+      "BE FAST: Balance loss, Eyesight changes, Facial drooping, Arm weakness, Speech difficulty, Time to call emergency"
+    ],
+    "references": [
+      "2024 Guidelines for the Prevention of Stroke in Patients with Stroke or Transient Ischemic Attack"
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "disease": "Breast Cancer",
+    "source": "NCCN Clinical Practice Guidelines in Oncology: Breast Cancer",
+    "organization": "National Comprehensive Cancer Network",
+    "version": "2024",
+    "section": "Breast Cancer Screening and Diagnosis",
+    "risk_level": "High",
+    "criteria": {
+      "gail_model_5yr_risk": ">= 1.67%",
+      "risk_level": "High"
+    },
+    "recommendations": [
+      "Refer to breast specialist / genetic counselor if high risk or family history suggests hereditary cancer syndrome",
+      "Recommend annual mammogram screening, starting at age 40 or 10 years earlier than the youngest affected first-degree relative",
+      "Discuss risk reduction strategies: chemoprevention (e.g., tamoxifen, raloxifene, or aromatase inhibitors) if appropriate",
+      "Advise lifestyle changes: weight control, regular exercise, limiting alcohol intake"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Refer to breast health clinic for risk assessment and clinical breast exam"},
+      {"timeline": "Annual", "action": "Screening mammography and clinical breast exam"},
+      {"timeline": "Periodic", "action": "Discuss genetic testing results (if performed) and implications for family members"}
+    ],
+    "contraindications": [
+      {"drug": "Tamoxifen", "condition": "History of deep vein thrombosis, pulmonary embolism, or active pregnancy", "action": "Contraindicated"}
+    ],
+    "emergency_signs": [
+      "Breast cancer red flags: new breast lump, skin dimpling, nipple retraction, bloody nipple discharge, localized breast pain"
+    ],
+    "references": [
+      "NCCN Clinical Practice Guidelines in Oncology: Breast Cancer, Version 1.2024"
+    ]
+  }
+]

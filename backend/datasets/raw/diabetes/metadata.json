@@ -1,0 +1,9 @@
+{
+  "name": "Diabetes 130-US Hospitals Dataset",
+  "disease": "diabetes",
+  "source": "https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008",
+  "data_file": "data.csv",
+  "target_column": "readmitted",
+  "samples": 101766,
+  "features": 50
+}

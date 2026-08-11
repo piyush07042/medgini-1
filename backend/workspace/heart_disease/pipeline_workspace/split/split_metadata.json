@@ -1,0 +1,11 @@
+{
+    "train_samples": 181,
+    "validation_samples": 61,
+    "test_samples": 61,
+    "total_samples": 303,
+    "target_column": "target",
+    "random_state": 42,
+    "test_size": 0.2,
+    "validation_size": 0.2,
+    "stratified": true
+}

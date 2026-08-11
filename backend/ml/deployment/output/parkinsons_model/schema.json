@@ -1,0 +1,10 @@
+{
+  "required_columns": [
+    "age",
+    "motor_UPDRS",
+    "total_UPDRS",
+    "Jitter_local",
+    "Shimmer_local"
+  ],
+  "target_column": "target"
+}

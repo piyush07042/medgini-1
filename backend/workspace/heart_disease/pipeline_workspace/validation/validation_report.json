@@ -1,0 +1,36 @@
+{
+    "dataset_name": "Heart Disease",
+    "validation_time": "2026-08-10T04:22:45.648070",
+    "validation_status": "PASS",
+    "rows": 303,
+    "columns": 14,
+    "duplicate_rows": 0,
+    "missing_values": {
+        "ca": 4,
+        "thal": 2
+    },
+    "column_types": {
+        "age": "float64",
+        "sex": "float64",
+        "cp": "float64",
+        "trestbps": "float64",
+        "chol": "float64",
+        "fbs": "float64",
+        "restecg": "float64",
+        "thalach": "float64",
+        "exang": "float64",
+        "oldpeak": "float64",
+        "slope": "float64",
+        "ca": "float64",
+        "thal": "float64",
+        "target": "int64"
+    },
+    "target_distribution": {
+        "0": 164,
+        "1": 55,
+        "2": 36,
+        "3": 35,
+        "4": 13
+    },
+    "memory_usage_kb": 33.27
+}

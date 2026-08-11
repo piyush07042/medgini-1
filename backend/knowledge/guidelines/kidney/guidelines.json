@@ -1,0 +1,38 @@
+[
+  {
+    "disease": "Kidney Disease",
+    "source": "KDIGO 2024 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease",
+    "organization": "Kidney Disease: Improving Global Outcomes",
+    "version": "2024",
+    "section": "Chronic Kidney Disease Evaluation & Management",
+    "risk_level": "High",
+    "criteria": {
+      "egfr": "< 60 mL/min/1.73m²",
+      "uacr": ">= 30 mg/g"
+    },
+    "recommendations": [
+      "Initiate first-line therapy with an SGLT2 inhibitor (if eGFR >= 20 mL/min/1.73m²)",
+      "Initiate RAS inhibitor (ACEi or ARB) titrated to maximum tolerated dose for hypertension/albuminuria",
+      "Prioritize lifestyle modifications: dietary sodium restriction < 2 g/day, physical activity",
+      "Avoid nephrotoxic agents including NSAIDs, aminoglycosides, and iodinated contrast if possible"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate lifestyle modifications and assess baseline renal functions"},
+      {"timeline": "2-4 weeks", "action": "Check serum creatinine and potassium after initiating ACEi/ARB or SGLT2 inhibitor"},
+      {"timeline": "3 months", "action": "Recheck eGFR and serum potassium"},
+      {"timeline": "Bi-annual", "action": "Comprehensive kidney evaluation: eGFR and urine albumin-to-creatinine ratio (uACR)"}
+    ],
+    "contraindications": [
+      {"drug": "SGLT2 inhibitors", "condition": "eGFR < 20 mL/min/1.73m²", "action": "Do not initiate therapy; discontinue if already taking unless kidney transplant patient"},
+      {"drug": "ACEi or ARB", "condition": "Pregnancy", "action": "Contraindicated; discontinue immediately"}
+    ],
+    "emergency_signs": [
+      "Uremic symptoms: severe nausea, vomiting, metallic taste, progressive confusion",
+      "Hyperkalemia signs: muscle weakness, palpitations, or arrhythmias",
+      "Fluid overload: rapid weight gain, severe shortness of breath, severe peripheral edema"
+    ],
+    "references": [
+      "KDIGO 2024 Clinical Practice Guideline for Diabetes Management in Chronic Kidney Disease"
+    ]
+  }
+]

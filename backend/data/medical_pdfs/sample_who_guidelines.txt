@@ -1,0 +1,5 @@
+WHO Diabetes & Hypertension Guidelines 2024:
+1. Fasting Blood Sugar > 126 mg/dL indicates Diabetes Mellitus.
+2. Systolic Blood Pressure > 140 mmHg requires clinical evaluation for Hypertension.
+3. First-line treatment for Type-2 Diabetes includes Metformin along with lifestyle modification.
+4. Patients taking ACE inhibitors should avoid Potassium supplements due to Hyperkalemia risk.

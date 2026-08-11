@@ -1,0 +1,14 @@
+{
+    "best_model": "random_forest",
+    "training_samples": 1400,
+    "validation_samples": 300,
+    "models": {
+        "random_forest": {
+            "accuracy": 0.8833333333333333,
+            "precision": 0.8879833333333335,
+            "recall": 0.8833333333333333,
+            "f1_score": 0.8847984058509026,
+            "training_time": 0.7434587000007014
+        }
+    }
+}

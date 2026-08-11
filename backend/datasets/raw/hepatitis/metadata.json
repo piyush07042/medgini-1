@@ -1,0 +1,19 @@
+{
+  "name": "Hepatitis Dataset",
+  "short_name": "hepatitis",
+  "version": "1.0",
+  "source": "https://archive.ics.uci.edu/dataset/46/hepatitis",
+  "description": "Clinical dataset for predicting hepatitis.",
+  "disease": "Hepatitis",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "Class",
+  "samples": 155,
+  "features": 19,
+  "classes": {
+    "1": "Die",
+    "2": "Live"
+  },
+  "missing_values": true,
+  "license": "UCI Machine Learning Repository"
+}

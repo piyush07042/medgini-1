@@ -1,0 +1,19 @@
+{
+  "name": "Stroke Prediction Dataset",
+  "short_name": "stroke",
+  "version": "1.0",
+  "source": "https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset",
+  "description": "Clinical and demographic dataset used for stroke prediction.",
+  "disease": "Stroke",
+  "data_file": "data.csv",
+  "file_format": "csv",
+  "target_column": "stroke",
+  "samples": 5110,
+  "features": 11,
+  "classes": {
+    "0": "No Stroke",
+    "1": "Stroke"
+  },
+  "missing_values": true,
+  "license": "Kaggle Dataset"
+}

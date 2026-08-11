@@ -1,0 +1,27 @@
+{
+  "model": "diabetes_model",
+  "best_estimator": "lr",
+  "results": {
+    "rf": {
+      "best_params": {
+        "est__max_depth": 10,
+        "est__n_estimators": 100
+      },
+      "accuracy": 0.985,
+      "precision": 0.9801980198019802,
+      "recall": 0.99,
+      "f1_score": 0.9850746268656716,
+      "roc_auc": 0.9985999999999999
+    },
+    "lr": {
+      "best_params": {
+        "est__C": 1.0
+      },
+      "accuracy": 0.995,
+      "precision": 0.9900990099009901,
+      "recall": 1.0,
+      "f1_score": 0.9950248756218906,
+      "roc_auc": 1.0
+    }
+  }
+}

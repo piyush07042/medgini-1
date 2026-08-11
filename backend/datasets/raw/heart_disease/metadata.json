@@ -1,0 +1,14 @@
+{
+    "dataset_name": "Heart Disease",
+    "source": "UCI Machine Learning Repository",
+    "disease": "Heart Disease",
+    "problem_type": "Binary Classification",
+    "target_column": "num",
+    "file_name": "data.csv",
+    "models": [
+        "XGBoost",
+        "Random Forest",
+        "LightGBM",
+        "CatBoost"
+    ]
+}

@@ -1,0 +1,28 @@
+{
+  "model_name": "Breast Cancer",
+  "model_key": "breast_cancer",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "none",
+  "dataset_name": "Breast Cancer Wisconsin (Diagnostic) Dataset",
+  "dataset_source": "UCI Machine Learning Repository",
+  "dataset_url": "https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 569,
+  "train_samples": 398,
+  "test_samples": 171,
+  "feature_count": 5,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "radius_mean",
+    "texture_mean",
+    "perimeter_mean",
+    "area_mean",
+    "smoothness_mean"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.9671,
+  "cv_roc_auc_std": 0.0125
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediGenie CDSS — Patient Database History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col" onload="loadHistory()">
+    <header class="bg-slate-950 border-b border-slate-800 py-4 px-8 flex justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-database text-cyan-400 text-2xl"></i>
+            <div>
+                <h1 class="text-lg font-bold">MediGenie Clinical Records</h1>
+                <p class="text-xs text-slate-400">Encrypted Enterprise SQLite / PostgreSQL Store</p>
+            </div>
+        </div>
+        <nav class="flex items-center space-x-3">
+            <a href="/dashboard" class="hover:bg-slate-850 text-slate-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="/history" class="bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-database"></i> Patient History</a>
+            <a href="/" class="hover:bg-rose-500/20 text-rose-400 px-3 py-2 rounded-xl text-xs font-semibold transition"><i class="fa-solid fa-power-off"></i></a>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 w-full flex-grow">
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-cyan-400"></i> Stored Patient Evaluations
+                </h2>
+                <button onclick="loadHistory()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate"></i> Refresh Database
+                </button>
+            </div>
+            <div id="tableContainer" class="overflow-x-auto">
+                <p class="text-xs text-slate-500 text-center py-10 font-mono">Querying database records...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function loadHistory() {
+            const container = document.getElementById('tableContainer');
+            try {
+                const res = await fetch('/api/v1/patients');
+                const json = await res.json();
+                if (json.status === 'success' && json.data.length > 0) {
+                    let html = `
+                        <table class="w-full text-left border-collapse text-xs font-mono">
+                            <thead>
+                                <tr class="bg-slate-900 text-slate-400 border-b border-slate-800">
+                                    <th class="p-3">ID</th>
+                                    <th class="p-3">Patient ID</th>
+                                    <th class="p-3">Age/Gender</th>
+                                    <th class="p-3">Glucose</th>
+                                    <th class="p-3">BMI</th>
+                                    <th class="p-3">Systolic BP</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-850">
+                    `;
+                    json.data.forEach(p => {
+                        html += `
+                            <tr class="hover:bg-slate-900/50 transition">
+                                <td class="p-3 text-cyan-400 font-bold">#${p.id}</td>
+                                <td class="p-3">${p.patient_id}</td>
+                                <td class="p-3">${p.age} yrs / ${p.gender}</td>
+                                <td class="p-3">${p.glucose} mg/dL</td>
+                                <td class="p-3">${p.bmi}</td>
+                                <td class="p-3">${p.systolic_bp} mmHg</td>
+                                <td class="p-3 text-right space-x-3">
+                                    <a href="/api/v1/patients/${p.id}/pdf" target="_blank" class="text-emerald-400 hover:text-emerald-300"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+                                    <a href="/api/v1/patient/${p.patient_id}/fhir" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fa-solid fa-code"></i> FHIR</a>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    html += `</tbody></table>`;
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = `<p class="text-xs text-slate-500 text-center py-10 font-mono">No clinical records found in the database.</p>`;
+                }
+            } catch (err) {
+                container.innerHTML = `<p class="text-rose-400 text-xs text-center py-10 font-mono">Failed to retrieve records.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

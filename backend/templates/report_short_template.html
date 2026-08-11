@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>MediGenie Clinical Report - Short</title>
+    <style>
+      body { font-family: Arial, sans-serif; color: #1f2937; margin: 24px; }
+      h1 { color: #0b5fff; }
+      .section { margin-top: 16px; }
+      .section h2 { color: #2b6cb0; font-size: 1rem; margin-bottom: 8px; }
+      .summary { white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <h1>MediGenie Clinical Report (Short)</h1>
+    <div class="section">
+      <strong>Patient:</strong> {{ report.patient.get('name') or report.patient.get('first_name') or 'Patient' }}<br />
+      <strong>Generated:</strong> {{ report.generated_at }}
+    </div>
+    <div class="section">
+      <h2>Summary</h2>
+      <div class="summary">{{ report.clinical_summary }}</div>
+    </div>
+  </body>
+</html>

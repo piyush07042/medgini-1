@@ -1,0 +1,26 @@
+{
+  "model_name": "Diabetes",
+  "model_key": "diabetes",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "balanced",
+  "dataset_name": "Diabetes 130-US Hospitals Dataset",
+  "dataset_source": "UCI Machine Learning Repository",
+  "dataset_url": "https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 101766,
+  "train_samples": 71236,
+  "test_samples": 30530,
+  "feature_count": 3,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "age",
+    "time_in_hospital",
+    "num_medications"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.564,
+  "cv_roc_auc_std": 0.0047
+}

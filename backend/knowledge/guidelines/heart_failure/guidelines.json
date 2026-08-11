@@ -1,0 +1,37 @@
+[
+  {
+    "disease": "Heart Failure",
+    "source": "2023 ESC/ACC Heart Failure Guidelines",
+    "organization": "European Society of Cardiology / American College of Cardiology",
+    "version": "2023",
+    "section": "Chronic Heart Failure Management",
+    "risk_level": "High",
+    "criteria": {
+      "left_ventricular_ejection_fraction": "< 40%",
+      "risk_level": "High"
+    },
+    "recommendations": [
+      "Initiate GDMT (Guideline-Directed Medical Therapy) consisting of four foundational classes: ACEi/ARNI, Beta-blocker, MRA, and SGLT2 inhibitor",
+      "Titrate doses of GDMT to target doses used in clinical trials as tolerated",
+      "Restrict sodium intake to < 2-3 g/day and monitor daily weights for fluid retention",
+      "Promote cardiovascular rehabilitation and regular exercise when stable",
+      "Avoid calcium channel blockers (diltiazem, verapamil) and NSAIDs due to risk of exacerbation"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Initiate low-dose GDMT and implement daily weight monitoring"},
+      {"timeline": "1-2 weeks", "action": "Recheck serum creatinine, eGFR, and potassium after initiating ACEi/ARNI or MRA"},
+      {"timeline": "Monthly", "action": "Follow up for symptom titration, weight log review, and clinical status review"},
+      {"timeline": "3 months", "action": "Repeat echocardiogram to assess recovery of ejection fraction"}
+    ],
+    "contraindications": [
+      {"drug": "ARNI (Sacubitril/Valsartan)", "condition": "Prior history of angioedema or concurrent use of ACE inhibitors", "action": "Contraindicated; allow 36-hour washout period after stopping ACE inhibitor before starting ARNI"},
+      {"drug": "Beta-blockers", "condition": "Acute decompensated heart failure", "action": "Contraindicated; do not start or increase dose until patient is dry and stable"}
+    ],
+    "emergency_signs": [
+      "Acute decompensation: rapid weight gain (>3 lbs in 24 hrs or >5 lbs in 1 week), worsening shortness of breath at rest, severe orthopnea, paroxysmal nocturnal dyspnea, confusion"
+    ],
+    "references": [
+      "2023 Focused Update of the 2021 ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure"
+    ]
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "disease": "Parkinson's Disease",
+    "source": "AAN 2023 Clinical Practice Guideline on Parkinson's Disease Management",
+    "organization": "American Academy of Neurology",
+    "version": "2023",
+    "section": "Early Parkinson's Disease Management",
+    "risk_level": "High",
+    "criteria": {
+      "has_motor_symptoms": "True",
+      "risk_level": "High"
+    },
+    "recommendations": [
+      "Refer to neurologist for diagnostic confirmation and management plan",
+      "Consider initiation of levodopa (or dopamine agonist in younger patients) to manage motor symptoms",
+      "Recommend structured physical therapy program focusing on balance, gait, and strengthening",
+      "Implement safety assessment for fall prevention at home",
+      "Screen for non-motor symptoms: depression, anxiety, sleep disorders, and cognitive impairment"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Neurology consultation and home safety evaluation"},
+      {"timeline": "1 month", "action": "Evaluate initial response to dopamine replacement therapy and adjust dosage"},
+      {"timeline": "3 months", "action": "Follow up to monitor motor performance, dyskinesias, and medication side effects"},
+      {"timeline": "Annual", "action": "Multidisciplinary team review: physical therapy, occupational therapy, and cognitive screening"}
+    ],
+    "contraindications": [
+      {"drug": "Dopamine antagonists (e.g., metoclopramide, haloperidol)", "condition": "Parkinson's Disease", "action": "Contraindicated; can severely worsen parkinsonian symptoms"}
+    ],
+    "emergency_signs": [
+      "Parkinsonian crises: severe dysphagia leading to aspiration, sudden loss of mobility (freezing), dopamine dysregulation syndrome, or severe orthostatic hypotension leading to syncope"
+    ],
+    "references": [
+      "AAN Clinical Practice Guideline on the Treatment of Early Parkinson's Disease"
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "model_name": "Parkinson's",
+  "model_key": "parkinsons",
+  "algorithm": "RandomForestClassifier",
+  "imbalance_strategy": "balanced",
+  "dataset_name": "Parkinsons Dataset",
+  "dataset_source": "UCI Machine Learning Repository",
+  "dataset_url": "https://archive.ics.uci.edu/dataset/174/parkinsons",
+  "real_or_synthetic": "real raw dataset",
+  "total_samples": 195,
+  "train_samples": 136,
+  "test_samples": 59,
+  "feature_count": 5,
+  "target_column": "target",
+  "random_state": 42,
+  "features": [
+    "MDVP:Fo(Hz)",
+    "MDVP:Jitter(%)",
+    "MDVP:Shimmer",
+    "HNR",
+    "RPDE"
+  ],
+  "train_test_split": "70/30 stratified",
+  "cross_validation": "5-fold stratified",
+  "version": "2.0.0",
+  "cv_roc_auc_mean": 0.909,
+  "cv_roc_auc_std": 0.0482
+}

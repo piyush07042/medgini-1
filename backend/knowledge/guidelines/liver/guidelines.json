@@ -1,0 +1,36 @@
+[
+  {
+    "disease": "Liver Disease",
+    "source": "AASLD/EASL 2023 Guidelines for NAFLD/NASH Management",
+    "organization": "AASLD / EASL",
+    "version": "2023",
+    "section": "Nonalcoholic Fatty Liver Disease Management",
+    "risk_level": "High",
+    "criteria": {
+      "fib_4_score": "> 2.67",
+      "risk_level": "High"
+    },
+    "recommendations": [
+      "Recommend structured lifestyle program aiming for >= 7-10% weight loss",
+      "Strict avoidance of alcohol consumption",
+      "Screen for metabolic risk factors: diabetes, hypertension, dyslipidemia",
+      "Consider liver biopsy or transient elastography (FibroScan) to stage fibrosis",
+      "Consider pharmacotherapy with pioglitazone or GLP-1 RA in patients with biopsy-proven NASH and type 2 diabetes"
+    ],
+    "follow_up": [
+      {"timeline": "Immediate", "action": "Refer to hepatologist for diagnostic workup and non-invasive staging"},
+      {"timeline": "3 months", "action": "Assess weight loss progress and liver enzymes (ALT, AST)"},
+      {"timeline": "6 months", "action": "Re-evaluate metabolic parameters and adherence to lifestyle plan"},
+      {"timeline": "Bi-annual", "action": "Screen for hepatocellular carcinoma using abdominal ultrasound if cirrhosis is present"}
+    ],
+    "contraindications": [
+      {"drug": "Pioglitazone", "condition": "NYHA Class III/IV Heart Failure", "action": "Contraindicated due to risk of fluid retention"}
+    ],
+    "emergency_signs": [
+      "Decompensated cirrhosis signs: hematemesis, melena, abdominal distension (ascites), confusion or drowsiness (hepatic encephalopathy), jaundice"
+    ],
+    "references": [
+      "AASLD Practice Guidance on the Clinical Assessment and Management of Nonalcoholic Fatty Liver Disease"
+    ]
+  }
+]
