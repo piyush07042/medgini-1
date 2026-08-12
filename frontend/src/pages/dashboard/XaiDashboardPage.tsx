@@ -3,7 +3,7 @@ import { BrainCircuit, BarChart2, RefreshCw, ChevronDown, ChevronUp, FlaskConica
 import PageHeading from "../../components/PageHeading";
 import Card from "../../components/Card";
 
-const API_BASE = "/api/v1/evaluation";
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1") + "/evaluation";
 
 const DISEASES = [
   "heart_disease", "diabetes", "kidney_disease", "liver_disease",

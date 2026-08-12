@@ -3,6 +3,7 @@ import { useAuthStore } from "../../store/authStore";
 import Card from "../Card";
 import type { User } from "../../types/api";
 import { listSessions, revokeSession } from "../../api/settings";
+import toast from "react-hot-toast";
 
 function formatDate(value: string | null) {
   if (!value) return "Unknown";
@@ -36,8 +37,10 @@ export default function SessionCard({ user, token }: { user: User | null; token:
     try {
       await revokeSession(id);
       setSessions(sessions.filter((s) => s.id !== id));
-    } catch (err) {
+      toast.success("Session revoked successfully");
+    } catch (err: any) {
       console.error("Failed to revoke session", err);
+      toast.error(err?.response?.data?.detail || "Failed to revoke session");
     }
   };
 

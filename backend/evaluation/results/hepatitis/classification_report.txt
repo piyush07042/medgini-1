@@ -1,0 +1,11 @@
+Classification Report - Hepatitis
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.80      0.96      0.87        25
+           1       0.00      0.00      0.00         6
+
+    accuracy                           0.77        31
+   macro avg       0.40      0.48      0.44        31
+weighted avg       0.65      0.77      0.70        31

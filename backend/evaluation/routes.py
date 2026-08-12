@@ -10,7 +10,7 @@ from typing import Any, Dict, List
 from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import FileResponse
 
-router = APIRouter(prefix="/api/v1/evaluation", tags=["Model Evaluation"])
+router = APIRouter(prefix="/evaluation", tags=["Model Evaluation"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 RESULTS_DIR = BASE_DIR / "evaluation" / "results"

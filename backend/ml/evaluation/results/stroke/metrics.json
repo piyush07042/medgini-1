@@ -1,53 +1,63 @@
 {
   "model_key": "stroke",
   "model_name": "Stroke",
-  "classifier": "RandomForest",
-  "threshold": 0.02,
+  "classifier": "LogisticRegression",
+  "threshold": 0.03,
   "imbalance_strategy": "smote",
   "test_samples": 767,
   "positive_samples": 37,
   "negative_samples": 730,
-  "cv_roc_auc_mean": 0.8299,
-  "cv_roc_auc_std": 0.0244,
-  "accuracy": 0.6271,
+  "cv_roc_auc_mean": 0.8496,
+  "cv_roc_auc_std": 0.0122,
+  "accuracy": 0.6375,
   "accuracy_95ci": [
-    0.5932,
-    0.6584
+    0.6036,
+    0.6701
   ],
-  "balanced_accuracy": 0.7271,
+  "balanced_accuracy": 0.7198,
   "precision": 0.0997,
-  "recall": 0.8378,
-  "specificity": 0.6164,
-  "f1_score": 0.1782,
+  "recall": 0.8108,
+  "specificity": 0.6288,
+  "f1_score": 0.1775,
   "f1_95ci": [
-    0.128,
-    0.2308
+    0.1254,
+    0.231
   ],
-  "roc_auc": 0.7887,
+  "roc_auc": 0.8246,
   "roc_auc_95ci": [
-    0.722,
-    0.8474
+    0.7509,
+    0.891
   ],
-  "pr_auc": 0.1466,
-  "mcc": 0.1983,
-  "cohen_kappa": 0.1006,
-  "brier_score": 0.045,
+  "pr_auc": 0.2207,
+  "mcc": 0.1929,
+  "cohen_kappa": 0.1002,
+  "brier_score": 0.0416,
   "confusion_matrix": {
-    "TN": 450,
-    "FP": 280,
-    "FN": 6,
-    "TP": 31
+    "TN": 459,
+    "FP": 271,
+    "FN": 7,
+    "TP": 30
   },
   "all_classifiers_cv": {
     "RandomForest": {
-      "cv_roc_auc_mean": 0.8299,
-      "cv_roc_auc_std": 0.0244,
-      "val_pr_auc": 0.1529
+      "cv_roc_auc_mean": 0.8307,
+      "cv_roc_auc_std": 0.019,
+      "val_pr_auc": 0.1161
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.8496,
+      "cv_roc_auc_std": 0.0122,
+      "val_pr_auc": 0.1525
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 0.6691,
+      "cv_roc_auc_std": 0.0556,
+      "val_pr_auc": 0.1025
     },
     "XGBoost": {
-      "cv_roc_auc_mean": 0.8045,
-      "cv_roc_auc_std": 0.0281,
-      "val_pr_auc": 0.1042
+      "cv_roc_auc_mean": 0.8166,
+      "cv_roc_auc_std": 0.0348,
+      "val_pr_auc": 0.0964
     }
   }
 }

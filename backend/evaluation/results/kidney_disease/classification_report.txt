@@ -1,0 +1,11 @@
+Classification Report - Kidney Disease
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       1.00      0.97      0.98        30
+           1       0.98      1.00      0.99        50
+
+    accuracy                           0.99        80
+   macro avg       0.99      0.98      0.99        80
+weighted avg       0.99      0.99      0.99        80

@@ -1,0 +1,11 @@
+Classification Report - Stroke
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.98       972
+           1       1.00      0.02      0.04        50
+
+    accuracy                           0.95      1022
+   macro avg       0.98      0.51      0.51      1022
+weighted avg       0.95      0.95      0.93      1022

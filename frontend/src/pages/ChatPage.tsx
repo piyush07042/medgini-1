@@ -186,6 +186,7 @@ export default function ChatPage() {
       const reader = resp.body.getReader();
       const decoder = new TextDecoder();
       let sBuffer = "";
+      let fullAssistantText = "";
 
       // periodic flush to reduce re-render flicker
       const flush = () => {
@@ -212,6 +213,7 @@ export default function ChatPage() {
             const obj = JSON.parse(payloadText);
             if (obj.type === "chunk") {
               assistantBufferRef.current += obj.text;
+              fullAssistantText += obj.text;
             } else if (obj.type === "done") {
               setClinicalSummary(obj.clinical_summary ?? null);
               if (obj.follow_up_suggestions?.length) {
@@ -249,12 +251,17 @@ export default function ChatPage() {
       // persist conversation
       try {
         if (selectedPatient) {
-          const nowStr = new Date().toISOString();
-          const allMessages = [...messages, { id: assistantId, role: "assistant" as const, text: "", timestamp: nowStr }].map((m) => ({ role: m.role, text: m.text, timestamp: m.timestamp }));
+          const allMessages = [
+            ...messages,
+            newUserMessage,
+            { ...assistantMessage, text: fullAssistantText }
+          ];
           await storeConversation({ patient_id: selectedPatient.id, title: `Chat ${new Date().toLocaleString()}`, messages: allMessages });
           if (selectedPatientId) conversationsQuery.refetch?.();
         }
-      } catch {}
+      } catch (err) {
+        console.error("Failed to store conversation", err);
+      }
     } catch (error: any) {
       if (error?.name === "AbortError") {
         toast("Generation stopped.");

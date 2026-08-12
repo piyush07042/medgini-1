@@ -10,6 +10,7 @@ import LoginHistoryCard from "../../components/settings/LoginHistoryCard";
 import AccountInformation from "../../components/settings/AccountInformation";
 import { useAuthStore } from "../../store/authStore";
 import { changePassword } from "../../api/settings";
+import toast from "react-hot-toast";
 
 export default function SettingsPage() {
   const navigate = useNavigate();
@@ -27,22 +28,30 @@ export default function SettingsPage() {
     setPasswordError("");
     setPasswordSuccess("");
     if (!currentPassword || !newPassword || !confirmPassword) {
-      setPasswordError("Please fill in all fields.");
+      const msg = "Please fill in all fields.";
+      setPasswordError(msg);
+      toast.error(msg);
       return;
     }
     if (newPassword !== confirmPassword) {
-      setPasswordError("New passwords do not match.");
+      const msg = "New passwords do not match.";
+      setPasswordError(msg);
+      toast.error(msg);
       return;
     }
     setIsChangingPassword(true);
     try {
       await changePassword({ current_password: currentPassword, new_password: newPassword });
-      setPasswordSuccess("Password changed successfully!");
+      const msg = "Password changed successfully!";
+      setPasswordSuccess(msg);
+      toast.success(msg);
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
     } catch (err: any) {
-      setPasswordError(err.response?.data?.detail || "Failed to change password.");
+      const msg = err.response?.data?.detail || "Failed to change password.";
+      setPasswordError(msg);
+      toast.error(msg);
     } finally {
       setIsChangingPassword(false);
     }

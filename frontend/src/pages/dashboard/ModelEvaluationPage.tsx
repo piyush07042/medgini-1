@@ -12,6 +12,8 @@ import {
   Cpu,
 } from "lucide-react";
 
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1") + "/evaluation";
+
 interface EvaluationSummaryItem {
   disease_key: string;
   disease_name: string;
@@ -124,7 +126,7 @@ export default function ModelEvaluationPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/v1/evaluation/summary");
+      const res = await fetch(`${API_BASE}/summary`);
       if (!res.ok) throw new Error("Failed to load evaluation summary");
       const data = await res.json();
       setSummary(data);
@@ -141,8 +143,8 @@ export default function ModelEvaluationPage() {
   const fetchDetail = async (key: string) => {
     try {
       const [detailRes, reportRes] = await Promise.all([
-        fetch(`/api/v1/evaluation/detail/${key}`),
-        fetch(`/api/v1/evaluation/report/${key}`),
+        fetch(`${API_BASE}/detail/${key}`),
+        fetch(`${API_BASE}/report/${key}`),
       ]);
 
       if (detailRes.ok) {
@@ -439,7 +441,7 @@ export default function ModelEvaluationPage() {
               <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 p-4">
                 <p className="text-sm font-bold text-slate-800 mb-3 text-center">Confusion Matrix</p>
                 <img
-                  src={`/api/v1/evaluation/plot/${selectedKey}/confusion_matrix.png`}
+                  src={`${API_BASE}/plot/${selectedKey}/confusion_matrix.png`}
                   alt="Confusion Matrix"
                   className="w-full h-auto rounded-xl shadow-sm border border-slate-200"
                 />
@@ -449,7 +451,7 @@ export default function ModelEvaluationPage() {
               <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 p-4">
                 <p className="text-sm font-bold text-slate-800 mb-3 text-center">ROC Curve</p>
                 <img
-                  src={`/api/v1/evaluation/plot/${selectedKey}/roc_curve.png`}
+                  src={`${API_BASE}/plot/${selectedKey}/roc_curve.png`}
                   alt="ROC Curve"
                   className="w-full h-auto rounded-xl shadow-sm border border-slate-200"
                 />
@@ -459,7 +461,7 @@ export default function ModelEvaluationPage() {
               <div className="rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 p-4">
                 <p className="text-sm font-bold text-slate-800 mb-3 text-center">Precision-Recall Curve</p>
                 <img
-                  src={`/api/v1/evaluation/plot/${selectedKey}/pr_curve.png`}
+                  src={`${API_BASE}/plot/${selectedKey}/pr_curve.png`}
                   alt="Precision-Recall Curve"
                   className="w-full h-auto rounded-xl shadow-sm border border-slate-200"
                 />
@@ -469,7 +471,7 @@ export default function ModelEvaluationPage() {
               <div className="col-span-1 md:col-span-2 lg:col-span-3 rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 p-4">
                 <p className="text-sm font-bold text-slate-800 mb-3 text-center">Explainability: Feature Importance & SHAP Summary</p>
                 <img
-                  src={`/api/v1/evaluation/plot/${selectedKey}/feature_importance.png`}
+                  src={`${API_BASE}/plot/${selectedKey}/feature_importance.png`}
                   alt="SHAP Summary Plot"
                   className="max-w-2xl mx-auto w-full h-auto rounded-xl shadow-sm border border-slate-200"
                 />

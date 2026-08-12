@@ -24,9 +24,13 @@ export default function ProfilePage() {
   const sessionsQuery = useQuery({ queryKey: ["sessions"], queryFn: () => listSessions(), enabled: Boolean(token) });
   const loginQuery = useQuery({ queryKey: ["loginHistory"], queryFn: () => getLoginHistory(), enabled: Boolean(token) });
 
+  const setUser = useAuthStore((state) => state.setUser);
+
   const handleSaveProfile = async () => {
     try {
       await updateProfile({ full_name: editingName, email: editingEmail });
+      const res = await getProfile();
+      if (res.data) setUser(res.data);
       toast.success("Profile updated");
     } catch (e) {
       toast.error("Unable to update profile");
@@ -36,9 +40,11 @@ export default function ProfilePage() {
   const handleChangePassword = async () => {
     try {
       await changePassword({ current_password: currentPassword, new_password: newPassword });
+      setCurrentPassword("");
+      setNewPassword("");
       toast.success("Password changed");
-    } catch (e) {
-      toast.error("Unable to change password");
+    } catch (e: any) {
+      toast.error(e?.response?.data?.detail || "Unable to change password");
     }
   };
 
@@ -46,6 +52,8 @@ export default function ProfilePage() {
     if (!avatarFile) return;
     try {
       await uploadAvatar(avatarFile);
+      const res = await getProfile();
+      if (res.data) setUser(res.data);
       toast.success("Avatar uploaded");
     } catch {
       toast.error("Avatar upload failed");

@@ -29,7 +29,7 @@ from app.workflow.guardrails import guardrails
 from app.workflow.citation_verifier import citation_verifier
 from app.workflow.memory_manager import memory_manager
 
-router = APIRouter(prefix="/api/v1/workflow", tags=["AI Workflow"])
+router = APIRouter(prefix="/workflow", tags=["AI Workflow"])
 
 
 # ---------------------------------------------------------------------------

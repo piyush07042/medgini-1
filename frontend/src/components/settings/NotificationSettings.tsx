@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../Card";
+import toast from "react-hot-toast";
 
 const STORAGE_KEY = "medigenie_notifications";
 
@@ -35,6 +36,7 @@ export default function NotificationSettings() {
     const updated = { ...preferences, [key]: value };
     setPreferences(updated);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    toast.success("Notification preference updated");
   };
 
   return (

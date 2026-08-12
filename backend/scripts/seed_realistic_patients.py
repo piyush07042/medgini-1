@@ -17,16 +17,31 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from datetime import datetime
-from app.db.session import SessionLocal
+from app.db.session import SessionLocal, create_database
 from app.models.models import Patient, AIReport, User
 
 # ---------------------------------------------------------------------------
-#  Assign to doctor user ID 2 (Piyush Gupta) -- fallback to first user
+#  Ensure tables exist, then assign to doctor user ID 2 -- fallback/create
 # ---------------------------------------------------------------------------
+create_database()
 db = SessionLocal()
+
 doctor = db.query(User).filter(User.id == 2).first()
 if not doctor:
     doctor = db.query(User).first()
+if not doctor:
+    # Create a default doctor so we can seed patients
+    from app.core.security import get_password_hash
+    doctor = User(
+        email="doctor@medigenie.com",
+        hashed_password=get_password_hash("doctor123"),
+        full_name="Dr. Piyush Gupta",
+        role="doctor",
+    )
+    db.add(doctor)
+    db.commit()
+    db.refresh(doctor)
+    print(f"Created default doctor: {doctor.full_name} (ID={doctor.id})")
 DOCTOR_ID = doctor.id
 
 # ========================================================================

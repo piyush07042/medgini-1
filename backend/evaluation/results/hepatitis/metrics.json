@@ -1,0 +1,182 @@
+{
+  "disease_key": "hepatitis",
+  "disease_name": "Hepatitis",
+  "model_folder": "hepatitis_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 155,
+    "raw_columns": 41,
+    "feature_count": 19,
+    "feature_names": [
+      "age",
+      "sex",
+      "steroid",
+      "antivirals",
+      "fatigue",
+      "malaise",
+      "anorexia",
+      "liver_big",
+      "liver_firm",
+      "spleen_palpable",
+      "spiders",
+      "ascites",
+      "varices",
+      "bilirubin",
+      "alk_phosphatase",
+      "sgot",
+      "albumin",
+      "protime",
+      "histology"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 123,
+      "1": 32
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "sex": 0,
+      "steroid": 0,
+      "antivirals": 0,
+      "fatigue": 0,
+      "malaise": 0,
+      "anorexia": 0,
+      "liver_big": 0,
+      "liver_firm": 0,
+      "spleen_palpable": 0,
+      "spiders": 0,
+      "ascites": 0,
+      "varices": 0,
+      "bilirubin": 0,
+      "alk_phosphatase": 0,
+      "sgot": 0,
+      "albumin": 0,
+      "protime": 0,
+      "histology": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 19,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.7741935483870968,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "balanced_accuracy": 0.48,
+    "sensitivity": 0.0,
+    "specificity": 0.96,
+    "roc_auc": 0.6866666666666666,
+    "pr_auc": 0.3149527720444903,
+    "mcc": -0.08944271909999159,
+    "cohen_kappa": -0.05853658536585371,
+    "log_loss": 0.4668673634714851,
+    "brier_score": 0.15018759692653352,
+    "confusion_matrix": [
+      [
+        24,
+        1
+      ],
+      [
+        6,
+        0
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.2,
+      "f1_std": 0.26666666666666666,
+      "accuracy_mean": 0.5190476190476191,
+      "accuracy_std": 0.16862791628215024,
+      "roc_auc_mean": 0.6799999999999999,
+      "roc_auc_std": 0.16
+    },
+    "10_fold": {
+      "f1_mean": 0.21666666666666665,
+      "f1_std": 0.35,
+      "accuracy_mean": 0.5833333333333333,
+      "accuracy_std": 0.25,
+      "roc_auc_mean": NaN,
+      "roc_auc_std": NaN
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "age": 0.5653383268769356,
+        "sex": 0.9963420568343397,
+        "steroid": 0.5451217530301964,
+        "antivirals": 0.4088546767533978,
+        "fatigue": 0.1785126601173176,
+        "malaise": 0.14901766895361454,
+        "anorexia": 0.37827681198576507,
+        "liver_big": 0.33025868150851057,
+        "liver_firm": 0.17734482544151678,
+        "spleen_palpable": 0.08330297916030777,
+        "spiders": 0.8909962846681726,
+        "ascites": 0.45198096889041556,
+        "varices": 0.06947087464731244,
+        "bilirubin": 0.4528555958882886,
+        "alk_phosphatase": 0.02368913858583653,
+        "sgot": 0.02264686094605798,
+        "albumin": 0.19438954861386185,
+        "protime": 0.25905041623205644,
+        "histology": 0.18142550657809361
+      },
+      "permutation_importance": {
+        "age": 0.0258064516129032,
+        "sex": 0.0,
+        "steroid": 0.0,
+        "antivirals": 0.0,
+        "fatigue": 0.0,
+        "malaise": 0.0,
+        "anorexia": 0.0,
+        "liver_big": 0.0,
+        "liver_firm": 0.0,
+        "spleen_palpable": 0.0,
+        "spiders": 0.0,
+        "ascites": 0.0,
+        "varices": 0.0,
+        "bilirubin": 0.0064516129032258,
+        "alk_phosphatase": 0.0,
+        "sgot": 0.0,
+        "albumin": 0.0,
+        "protime": 0.0,
+        "histology": 0.0
+      }
+    },
+    "shap_summary": {
+      "age": 0.06278497776936903,
+      "sex": 0.0,
+      "steroid": 0.0,
+      "antivirals": 0.0,
+      "fatigue": 0.0,
+      "malaise": 0.0,
+      "anorexia": 0.0,
+      "liver_big": 0.0,
+      "liver_firm": 0.0,
+      "spleen_palpable": 0.0,
+      "spiders": 0.0,
+      "ascites": 0.0,
+      "varices": 0.0,
+      "bilirubin": 0.019761611957241496,
+      "alk_phosphatase": 0.0003310945038312364,
+      "sgot": 0.00040677324756409035,
+      "albumin": 0.0,
+      "protime": 0.0,
+      "histology": 0.0
+    }
+  }
+}

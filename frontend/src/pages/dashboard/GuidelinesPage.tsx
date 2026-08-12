@@ -12,6 +12,8 @@ interface GuidelineMetadata {
   sections_count: number;
 }
 
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1") + "/guidelines";
+
 export default function GuidelinesPage() {
   const [guidelines, setGuidelines] = useState<GuidelineMetadata[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ export default function GuidelinesPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/v1/guidelines/list");
+      const res = await fetch(`${API_BASE}/list`);
       if (!res.ok) throw new Error("Failed to load clinical guidelines inventory.");
       const data = await res.json();
       if (data.success) {

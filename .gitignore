@@ -47,9 +47,13 @@ node_modules/
 
 # ==============================
 
-*.db
-*.sqlite
-*.sqlite3
+# *.db
+# *.sqlite
+# *.sqlite3
+# Unignore database files under backend/data
+!backend/data/*.db
+!backend/data/*.sqlite
+!backend/data/*.sqlite3
 
 # ==============================
 

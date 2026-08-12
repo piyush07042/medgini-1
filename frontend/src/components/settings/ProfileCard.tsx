@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Card from "../../components/Card";
 import type { User } from "../../types/api";
 import { updateProfile, uploadAvatar, getProfile } from "../../api/settings";
 import { useAuthStore } from "../../store/authStore";
+import toast from "react-hot-toast";
 
 export default function ProfileCard({ user }: { user: User | null }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,6 +12,11 @@ export default function ProfileCard({ user }: { user: User | null }) {
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const setUser = useAuthStore((state) => state.setUser);
+
+  useEffect(() => {
+    setEditName(user?.full_name || "");
+    setEditEmail(user?.email || "");
+  }, [user]);
 
   const displayName = user?.full_name || user?.email || "Guest";
   const initial = displayName.charAt(0).toUpperCase() || "U";
@@ -22,8 +28,10 @@ export default function ProfileCard({ user }: { user: User | null }) {
       const res = await getProfile();
       if (res.data) setUser(res.data as User);
       setIsEditing(false);
-    } catch (e) {
+      toast.success("Profile updated successfully!");
+    } catch (e: any) {
       console.error("Failed to update profile", e);
+      toast.error(e?.response?.data?.detail || "Failed to update profile.");
     } finally {
       setIsSaving(false);
     }
@@ -36,8 +44,10 @@ export default function ProfileCard({ user }: { user: User | null }) {
       await uploadAvatar(file);
       const res = await getProfile();
       if (res.data) setUser(res.data as User);
-    } catch (e) {
+      toast.success("Avatar uploaded successfully!");
+    } catch (e: any) {
       console.error("Failed to upload avatar", e);
+      toast.error(e?.response?.data?.detail || "Failed to upload avatar.");
     }
   };
 
@@ -50,7 +60,7 @@ export default function ProfileCard({ user }: { user: User | null }) {
             onClick={() => fileInputRef.current?.click()}
           >
             {user?.avatar_url ? (
-              <img src={`http://localhost:8000${user.avatar_url}`} alt="Avatar" className="h-full w-full object-cover" />
+              <img src={`${(import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1").replace(/\/api\/v1\/?$/, "")}${user.avatar_url}`} alt="Avatar" className="h-full w-full object-cover" />
             ) : (
               initial
             )}

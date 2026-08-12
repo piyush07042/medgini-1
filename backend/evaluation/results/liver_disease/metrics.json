@@ -1,0 +1,137 @@
+{
+  "disease_key": "liver_disease",
+  "disease_name": "Liver Disease",
+  "model_folder": "liver_disease_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 583,
+    "raw_columns": 12,
+    "feature_count": 10,
+    "feature_names": [
+      "age",
+      "gender_enc",
+      "bilirubin",
+      "db",
+      "alk_phosphatase",
+      "sgpt",
+      "sgot",
+      "tp",
+      "alb",
+      "ag_ratio"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "1": 416,
+      "0": 167
+    },
+    "has_missing_values": true,
+    "total_missing_values": 4,
+    "missing_per_column": {
+      "age": 0,
+      "gender_enc": 0,
+      "bilirubin": 0,
+      "db": 0,
+      "alk_phosphatase": 0,
+      "sgpt": 0,
+      "sgot": 0,
+      "tp": 0,
+      "alb": 0,
+      "ag_ratio": 4
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "XGBClassifier",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 10,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.7435897435897436,
+    "precision": 0.8045977011494253,
+    "recall": 0.8433734939759037,
+    "f1_score": 0.8235294117647058,
+    "balanced_accuracy": 0.6716867469879518,
+    "sensitivity": 0.8433734939759037,
+    "specificity": 0.5,
+    "roc_auc": 0.8012048192771084,
+    "pr_auc": 0.9062462972006632,
+    "mcc": 0.3570466960577657,
+    "cohen_kappa": 0.35572687224669597,
+    "log_loss": 0.5938783288002014,
+    "brier_score": 0.18161313235759735,
+    "confusion_matrix": [
+      [
+        17,
+        17
+      ],
+      [
+        13,
+        70
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.7886072261072261,
+      "f1_std": 0.09416576449306914,
+      "accuracy_mean": 0.7177536231884056,
+      "accuracy_std": 0.09330958830185204,
+      "roc_auc_mean": 0.7568977591036415,
+      "roc_auc_std": 0.07430724372310646
+    },
+    "10_fold": {
+      "f1_mean": 0.7148496240601503,
+      "f1_std": 0.14845637499253114,
+      "accuracy_mean": 0.6204545454545454,
+      "accuracy_std": 0.15027713914340943,
+      "roc_auc_mean": 0.6886574074074074,
+      "roc_auc_std": 0.15421427637676344
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "tree_importance": {
+        "age": 0.08374939858913422,
+        "gender_enc": 0.09674540162086487,
+        "bilirubin": 0.22351780533790588,
+        "db": 0.17364400625228882,
+        "alk_phosphatase": 0.08462397754192352,
+        "sgpt": 0.07699039578437805,
+        "sgot": 0.07278773933649063,
+        "tp": 0.062057044357061386,
+        "alb": 0.06259982287883759,
+        "ag_ratio": 0.06328446418046951
+      },
+      "permutation_importance": {
+        "age": -0.0034188034188034067,
+        "gender_enc": 0.0017094017094017033,
+        "bilirubin": 0.017094017094017123,
+        "db": 0.022222222222222233,
+        "alk_phosphatase": 0.01880341880341887,
+        "sgpt": 0.022222222222222254,
+        "sgot": 0.022222222222222233,
+        "tp": 0.04102564102564106,
+        "alb": 0.003418803418803451,
+        "ag_ratio": -0.027350427350427343
+      }
+    },
+    "shap_summary": {
+      "age": 0.12137269841269792,
+      "gender_enc": 0.018285793650793674,
+      "bilirubin": 0.060938253968253864,
+      "db": 0.04409396825396818,
+      "alk_phosphatase": 0.1037699206349205,
+      "sgpt": 0.0792210317460317,
+      "sgot": 0.06382452380952379,
+      "tp": 0.06516317460317458,
+      "alb": 0.08504865079365077,
+      "ag_ratio": 0.04611976190476191
+    }
+  }
+}

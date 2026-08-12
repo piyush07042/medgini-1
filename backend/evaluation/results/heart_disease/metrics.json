@@ -1,0 +1,137 @@
+{
+  "disease_key": "heart_disease",
+  "disease_name": "Heart Disease",
+  "model_folder": "heart_disease",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 303,
+    "raw_columns": 18,
+    "feature_count": 13,
+    "feature_names": [
+      "age",
+      "sex",
+      "cp",
+      "trestbps",
+      "chol",
+      "fbs",
+      "restecg",
+      "thalach",
+      "exang",
+      "oldpeak",
+      "slope",
+      "ca",
+      "thal"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 164,
+      "1": 139
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "sex": 0,
+      "cp": 0,
+      "trestbps": 0,
+      "chol": 0,
+      "fbs": 0,
+      "restecg": 0,
+      "thalach": 0,
+      "exang": 0,
+      "oldpeak": 0,
+      "slope": 0,
+      "ca": 0,
+      "thal": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "SVC",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 13,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.8688524590163934,
+    "precision": 0.8125,
+    "recall": 0.9285714285714286,
+    "f1_score": 0.8666666666666667,
+    "balanced_accuracy": 0.8733766233766234,
+    "sensitivity": 0.9285714285714286,
+    "specificity": 0.8181818181818182,
+    "roc_auc": 0.9339826839826839,
+    "pr_auc": 0.8924356619873735,
+    "mcc": 0.7451421267603893,
+    "cohen_kappa": 0.7387580299785867,
+    "log_loss": 0.3380154868203286,
+    "brier_score": 0.09873997637098043,
+    "confusion_matrix": [
+      [
+        27,
+        6
+      ],
+      [
+        2,
+        26
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.8393939393939395,
+      "f1_std": 0.10567027741916783,
+      "accuracy_mean": 0.8525641025641025,
+      "accuracy_std": 0.09687761788365415,
+      "roc_auc_mean": 0.9125396825396825,
+      "roc_auc_std": 0.06479302084728342
+    },
+    "10_fold": {
+      "f1_mean": 0.8023809523809524,
+      "f1_std": 0.20760211813895907,
+      "accuracy_mean": 0.8380952380952381,
+      "accuracy_std": 0.16246402008792363,
+      "roc_auc_mean": 0.925,
+      "roc_auc_std": 0.13149778198382917
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "permutation_importance": {
+        "age": 0.006557377049180313,
+        "sex": -0.01311475409836067,
+        "cp": 0.052459016393442595,
+        "trestbps": 0.006557377049180313,
+        "chol": 0.00983606557377048,
+        "fbs": 0.0,
+        "restecg": 0.0,
+        "thalach": 0.0032786885245901674,
+        "exang": 0.03934426229508194,
+        "oldpeak": 0.013114754098360649,
+        "slope": -0.01311475409836067,
+        "ca": 0.10491803278688523,
+        "thal": 0.04590163934426224
+      }
+    },
+    "shap_summary": {
+      "age": 0.014041924213920993,
+      "sex": 0.045388037863178965,
+      "cp": 0.08534892054107321,
+      "trestbps": 0.011630684702439605,
+      "chol": 0.02141001522888113,
+      "fbs": 0.011862103974439367,
+      "restecg": 0.017587864671981843,
+      "thalach": 0.01211591865985846,
+      "exang": 0.04769476544537012,
+      "oldpeak": 0.05809370240974648,
+      "slope": 0.05417450506136344,
+      "ca": 0.16756248320343994,
+      "thal": 0.15654393980112874
+    }
+  }
+}

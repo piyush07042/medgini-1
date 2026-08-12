@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../Card";
+import toast from "react-hot-toast";
 
 const STORAGE_KEY = "medigenie_theme";
 
@@ -41,6 +42,8 @@ export default function ThemeSettings() {
     setTheme(value);
     localStorage.setItem(STORAGE_KEY, value);
     applyTheme(value);
+    const label = options.find((o) => o.value === value)?.label || value;
+    toast.success(`Theme set to ${label}`);
   };
 
   return (

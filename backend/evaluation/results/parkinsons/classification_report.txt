@@ -1,0 +1,11 @@
+Classification Report - Parkinson's
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.75      0.90      0.82        10
+           1       0.96      0.90      0.93        29
+
+    accuracy                           0.90        39
+   macro avg       0.86      0.90      0.87        39
+weighted avg       0.91      0.90      0.90        39

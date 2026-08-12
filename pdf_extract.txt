@@ -1,0 +1,361 @@
+﻿Total pages: 16
+--- PAGE 1 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+MediGenie
+Multi-Agent, Multi-Model AI Clinical Decision Support System
+Full Technical & Results Report ΓÇö Updated Repository Version
+This report documents MediGenie end to end using the latest repository: system architecture, frontend, backend,
+REST API, database, the nine-agent workflow, the updated multi-algorithm machine-learning methodology, and
+complete evaluation results for all nine disease-risk models. Every number was produced by re-running the
+project's current training and evaluation pipeline against its real source datasets after fixing two blocking bugs
+found during verification (Section 11); none of it is estimated or simulated.
+Executive Summary
+MediGenie is a clinical decision support system built around nine independent disease-risk models (heart
+disease, diabetes, chronic kidney disease, liver disease, breast cancer, Parkinson's disease, hepatitis,
+heart failure, and stroke), coordinated by an eight-agent workflow, and exposed through a FastAPI
+backend and a React frontend. Every model is trained on its own real, publicly documented dataset.
+Since the previous report, the training pipeline was substantially upgraded: each disease now uses its full
+set of real, usable source columns (e.g., breast cancer now uses all 30 original WDBC features rather than
+a 5-feature subset; diabetes uses 9 real administrative features rather than 3), and each model is now
+selected as the best of four candidate algorithms (Random Forest, Logistic Regression, SVM, XGBoost) via
+validation-set PR-AUC, with the decision threshold separately tuned on the validation set before final
+scoring on a held-out test set.
+Measured performance still varies substantially by disease, and is disclosed openly: ROC-AUC ranges from
+a perfect 1.000 on kidney disease down to 0.650 on diabetes readmission risk. This spread, and the
+reasons behind it, are discussed in Section 9 and 10.
+1. System Architecture
+The frontend, backend routing, agent structure, and database schema are unchanged from the previously
+verified architecture; only the machine-learning training methodology (Sections 6 and 8-10) was
+substantially revised in this repository version. A React client talks to a FastAPI backend over a JWT-
+secured REST API; the backend delegates clinical reasoning to a Supervisor agent, which fans out to five
+specialised agents; results converge on a Recommendation & Report agent, the only component
+1
+--- PAGE 2 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+permitted to call the LLM (Google Gemini), strictly for narrating outputs the other agents have already
+produced.
+Fig. 1. MediGenie end-to-end system architecture (unchanged from prior verified version).
+2. Frontend Architecture
+The frontend is a React + TypeScript single-page application built with Vite, using React Router and Axios.
+Confirmed identical to the previously verified page inventory:
+Area Pages
+Auth LoginPage, RegisterPage
+Dashboard DashboardPage, WorkflowPage, ModelEvaluationPage, XaiDashboardPage, GuidelinesPage
+Patients PatientsPage
+Predictions (9) PredictionHomePage, HeartPredictionPage, DiabetesPredictionPage, KidneyPredictionPage,
+LiverPredictionPage, BreastCancerPredictionPage, ParkinsonPredictionPage, HepatitisPredictionPage,
+HeartFailurePredictionPage, StrokePage
+Upload / OCR UploadReportPage, ProcessingPage, ReportPreviewPage
+Drug Safety DrugSafetyPage, DrugInteractionPage
+Knowledge / Chat KnowledgePage, ChatPage
+Reports ReportsPage
+Settings ProfilePage, SettingsPage
+Other NotFoundPage (404)
+2
+--- PAGE 3 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+3. Backend Architecture & REST API
+The backend is a FastAPI application secured with JWT bearer authentication and Pydantic v2 validation.
+Route inventory (confirmed unchanged, feature counts in the disease rows updated to reflect the new
+richer models):
+Module Endpoint prefix Key routes Purpose
+Authentication /auth POST /register, POST /login JWT issuance, user registration
+Patients /patients CRUD + /{id} Patient record management
+Heart Disease /heart-disease POST /predict, GET /health 13-feature real-data risk prediction
+Diabetes /diabetes POST /predict, GET /health 9-feature readmission-risk prediction
+Kidney Disease /kidney-disease POST /predict, GET /health 24-feature CKD risk prediction
+Liver Disease /liver POST /predict, GET /health 10-feature liver-disease risk prediction
+Breast Cancer /breast-cancer POST /predict, GET /health 30-feature malignancy risk prediction
+Parkinson's /parkinsons POST /predict, GET /health 22-feature voice-based risk prediction
+Hepatitis /hepatitis POST /predict, GET /health 19-feature hepatitis risk prediction
+Heart Failure /heart-failure POST /predict, GET /health 12-feature mortality risk prediction
+Stroke /stroke POST /predict, GET /health 10-feature stroke risk (SMOTE-balanced)
+Multi-Disease /multi-disease POST /assessment Runs all 9 models for one patient
+OCR / Upload /upload POST / Report upload ΓåÆ OCR ΓåÆ structured data
+Knowledge /knowledge GET/POST ChromaDB guideline retrieval (RAG)
+Drug Safety /drug-safety POST /analyze Medication interaction lookup
+Workflow /workflow POST / Supervisor agent orchestration trigger
+Reporting /reporting GET /{id}/pdf, /{id}/html Final report generation/export
+FHIR /fhir GET /medigenie/{id}/pdf HL7 FHIR-formatted export
+Chat /chat POST / Conversational assistant
+Dashboard /dashboard GET /overview, /risk-distribution Aggregate statistics for UI
+Model Registry /model-registry GET / Lists active model versions per disease
+Evaluation /evaluation GET /quality, /guardrails/log Agent quality & guardrail telemetry
+4. Multi-Agent Workflow
+Clinical reasoning is split across eight specialised agents plus a Supervisor, implemented with LangGraph
+ΓÇö confirmed structurally unchanged from the previously verified version.
+Agent Location Responsibility
+Supervisor app/agents/supervisor/ Routes tasks, aggregates outputs, orchestrates the full pipeline
+(LangGraph)
+Patient Intake app/agents/intake/ Structures demographic/history data from the intake form
+Report Analysis app/agents/report_analysis/ Interprets OCR output, extracts structured lab values
+Disease Risk app/agents/risk/ Bridges the ML layer's 9 disease models into the workflow
+3
+--- PAGE 4 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Medical Knowledge app/agents/knowledge/ Queries the ChromaDB vector store for guideline evidence
+Drug Safety app/agents/drug_safety/ Cross-checks medication list for interactions
+Recommendation app/agents/recommendation/ Synthesizes lifestyle/follow-up recommendations
+Report Generation app/agents/report_generation/ Produces the final narrative report via Gemini (narration only)
+5. Database Design
+Persistence uses SQLAlchemy 2.0 ORM with nine core tables, confirmed unchanged: User, Patient,
+MedicalReport, AIReport, DrugSafetyAssessment, ChatConversation, ChatMessage, UserSession,
+LoginEvent.
+Fig. 2. Core database entity relationships (unchanged).
+6. Machine Learning Methodology (Updated)
+This is the section that changed substantially. Each disease model now goes through: load the real source
+dataset with a disease-specific parser ΓåÆ extract the full set of real, usable columns (not a minimal subset)
+ΓåÆ stratified 70/15/15 train/validation/test split ΓåÆ train four candidate algorithms (Random Forest,
+Logistic Regression, SVM, XGBoost) with cross-validation on the training fold ΓåÆ select the best algorithm
+by validation-set PR-AUC ΓåÆ tune the decision threshold on the validation set ΓåÆ score once, finally, on the
+untouched held-out test set.
+4
+--- PAGE 5 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Fig. 3. Updated per-disease training and evaluation pipeline.
+This is a meaningfully more rigorous design than a single fixed algorithm with a default 0.5 threshold: it
+lets each disease's model choice adapt to that dataset's characteristics (e.g., linear models can win on
+sparse/administrative data, tree ensembles on richer clinical panels), and threshold tuning on a held-out
+validation set (rather than the test set) avoids leaking test information into the decision boundary.
+Class imbalance handling is unchanged in principle ΓÇö SMOTE for stroke (applied to the training fold only),
+class weighting elsewhere ΓÇö but is now applied on top of the richer feature sets described in Section 8.
+7. Datasets
+All datasets are real and independently sourced. The diabetes dataset's metadata label has also been
+corrected in this version (previously mislabelled as ΓÇ£Pima Indians Diabetes DatasetΓÇ¥; now correctly
+labelled ΓÇ£Diabetes 130-US Hospitals DatasetΓÇ¥, matching its actual 101,766-row content).
+Disease Source dataset Total n Train (70%) Valid (15%) Test (15%)
+Heart Disease UCI Cleveland Heart Disease Dataset 303 211 46 46
+Diabetes UCI Diabetes 130-US Hospitals Dataset 101,766 71,233 15,268 15,265
+Kidney Disease UCI Chronic Kidney Disease Dataset 400 279 61 60
+Liver Disease UCI Indian Liver Patient Dataset (ILPD) 583 407 88 88
+Breast Cancer UCI Breast Cancer Wisconsin (Diagnostic) 569 397 86 86
+Parkinson's UCI Parkinsons Dataset 195 135 30 30
+Hepatitis UCI Hepatitis Dataset 155 107 24 24
+Heart Failure Heart Failure Clinical Records Dataset 299 209 45 45
+Stroke Kaggle Stroke Prediction Dataset 5,110 3,576ΓåÆ6,802 767 767
+(SMOTE)
+8. Real Feature Sets Used Per Disease (Expanded)
+Every disease now uses its full set of real, numerically usable source columns rather than a minimal hand-
+picked subset ΓÇö a substantial expansion from the previous version of this pipeline. No feature listed is a
+placeholder or fabricated value.
+5
+--- PAGE 6 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Disease Feature Real features used
+count
+Heart Disease 13 age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal (full original UCI set)
+Diabetes 9 age, time_in_hospital, num_lab_procedures, num_procedures, num_medications,
+number_outpatient, number_emergency, number_inpatient, number_diagnoses
+Kidney Disease 24 age, bp, sg, al, su, rbc_enc, pc_enc, pcc_enc, ba_enc, bgr, bu, sc, sod, pot, hemo, pcv, wc, rc, htn_enc,
+dm_enc, cad_enc, appet_enc, pe_enc, ane_enc (full CKD attribute set, categoricals encoded)
+Liver Disease 10 age, gender_enc, bilirubin, direct_bilirubin, alk_phosphatase, sgpt, sgot, total_protein, albumin,
+ag_ratio
+Breast Cancer 30 All mean/SE/worst morphometric features (radius, texture, perimeter, area, smoothness,
+compactness, concavity, concave points, symmetry, fractal dimension) ΓÇö full original WDBC set
+Parkinson's 22 Full MDVP jitter/shimmer family, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE ΓÇö full original
+voice-measurement set
+Hepatitis 19 age, sex, steroid, antivirals, fatigue, malaise, anorexia, liver_big, liver_firm, spleen_palpable, spiders,
+ascites, varices, bilirubin, alk_phosphatase, sgot, albumin, protime, histology (full original set)
+Heart Failure 12 age, anaemia, creatinine_phosphokinase, diabetes, ejection_fraction, high_blood_pressure,
+platelets, serum_creatinine, serum_sodium, sex, smoking, time (full original set)
+Stroke 10 gender_enc, age, hypertension, heart_disease, ever_married_enc, work_type_enc,
+Residence_type_enc, avg_glucose_level, bmi, smoking_status_enc
+9. Results ΓÇö Full Evaluation Metrics (Updated)
+Table below reports every metric relevant to a clinical classifier, measured on each disease's held-out test
+split (15% of data, untouched during model selection and threshold tuning). The ΓÇ£Best ModelΓÇ¥ column
+shows which of the four candidate algorithms was selected for that disease.
+Disease Best Model Accura Bal. Precisio Recall Specifici F1 ROC- PR- MCC ╬║ Brier
+cy Acc. n ty AUC AUC
+Heart Disease SVM 0.826 0.821 0.842 0.762 0.880 0.800 0.899 0.837 0.649 0.647 0.125
+Diabetes LogisticRegressi 0.617 0.612 0.592 0.546 0.678 0.568 0.650 0.618 0.226 0.225 0.232
+on
+Kidney RandomForest 0.967 0.957 0.949 1.000 0.913 0.974 1.000 1.000 0.931 0.928 0.009
+Disease
+Liver Disease XGBoost 0.648 0.658 0.833 0.635 0.680 0.721 0.688 0.863 0.285 0.267 0.235
+Breast Cancer SVM 0.977 0.975 0.969 0.969 0.982 0.969 0.999 0.998 0.950 0.950 0.017
+Parkinson's XGBoost 0.867 0.863 0.952 0.870 0.857 0.909 0.957 0.987 0.671 0.661 0.078
+Hepatitis RandomForest 0.625 0.763 0.357 1.000 0.526 0.526 0.926 0.810 0.434 0.317 0.101
+Heart Failure SVM 0.756 0.705 0.615 0.571 0.839 0.593 0.859 0.729 0.419 0.418 0.150
+Stroke LogisticRegressi 0.769 0.763 0.143 0.757 0.770 0.240 0.823 0.202 0.259 0.173 0.162
+on
+Confusion matrix components (held-out test set)
+Disease TN FP FN TP Test n Positives Negatives
+Heart Disease 22 3 5 16 46 21 25
+6
+--- PAGE 7 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Diabetes 5580 2650 3194 3841 15265 7035 8230
+Kidney Disease 21 2 0 37 60 37 23
+Liver Disease 17 8 23 40 88 63 25
+Breast Cancer 53 1 1 31 86 32 54
+Parkinson's 6 1 3 20 30 23 7
+Hepatitis 10 9 0 5 24 5 19
+Heart Failure 26 5 6 8 45 14 31
+Stroke 562 168 9 28 767 37 730
+Fig. 4. Updated accuracy and ROC-AUC across all nine models, real held-out data.
+Kidney disease reached a perfect ROC-AUC and PR-AUC of 1.000 on its 60-row test set ΓÇö plausible given
+how strongly separable creatinine/albumin/haemoglobin make this dataset in the wider literature, but
+any perfect score on held-out data warrants a manual check for target leakage before being reported as a
+final claim; we did not find evidence of leakage in the feature list (only encoded categorical and lab-value
+columns, no identifier fields), but flag this explicitly rather than pass it through silently.
+Diabetes improved from the previous version's ROC-AUC of 0.567 to 0.650 once the model gained access
+to six additional real administrative features (num_lab_procedures, num_procedures,
+number_outpatient, number_emergency, number_inpatient, number_diagnoses) beyond the previous
+three. It remains the weakest model in the portfolio, consistent with this being an administrative
+encounter dataset rather than a clinical lab panel. Hepatitis and stroke continue to show the low-
+precision/low-specificity pattern typical of severe class imbalance, now with the added context of
+validation-tuned thresholds pushing hepatitis to perfect recall (1.000) at the cost of specificity (0.526).
+10. Per-Disease Detailed Results & Graphs
+Each subsection presents the confusion matrix, ROC curve, precisionΓÇôrecall curve, and calibration curve
+for one disease, generated directly from the held-out test set using the current repository's pipeline.
+7
+--- PAGE 8 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+10.1. Heart Disease
+Fig. 5. Heart Disease ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+SVM was selected as the best algorithm (validation PR-AUC 0.883 vs. 0.855 for Random Forest). ROC-AUC 0.899 and
+MCC 0.649 indicate solid, credible cardiac risk signal on the real 303-patient Cleveland cohort using all 13 original
+features.
+10.2. Diabetes (Readmission Risk)
+Fig. 6. Diabetes (Readmission Risk) ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+8
+--- PAGE 9 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Logistic Regression was selected over the tree-based alternatives. ROC-AUC improved to 0.650 (from 0.567
+previously) after expanding to 9 real administrative features, but remains the weakest model in the portfolio ΓÇö an
+honest reflection of how little clinical signal an administrative encounter record carries for readmission risk.
+10.3. Kidney Disease
+Fig. 7. Kidney Disease ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+Random Forest achieved perfect separation (ROC-AUC 1.000, MCC 0.931) using the full 24-feature CKD attribute set.
+This is the strongest model in the portfolio and consistent with published literature on this dataset's high
+separability; flagged above for a manual leakage check given the perfect score.
+10.4. Liver Disease
+9
+--- PAGE 10 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Fig. 8. Liver Disease ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+XGBoost was selected, but performance (ROC-AUC 0.688, MCC 0.285) remains modest ΓÇö slightly lower than the
+previous version's 3-feature-subset result, suggesting the additional real features did not add clean separable signal
+for this particular dataset.
+10.5. Breast Cancer
+Fig. 9. Breast Cancer ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+10
+--- PAGE 11 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+SVM achieved near-perfect performance (ROC-AUC 0.999, MCC 0.950) using the full 30-feature WDBC
+morphometric set ΓÇö an improvement over the previous 5-feature version, consistent with this dataset's well-
+documented high separability in the clinical ML literature.
+10.6. Parkinson's Disease
+Fig. 10. Parkinson's Disease ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+XGBoost was selected using the full 22-feature voice-measurement set. High precision (0.952) and recall (0.870)
+with ROC-AUC 0.957; specificity (0.857) is based on a small 7-negative-case test set and should be read with that
+caveat.
+10.7. Hepatitis
+11
+--- PAGE 12 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+Fig. 11. Hepatitis ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+Random Forest, with a validation-tuned threshold, achieves perfect recall (1.000) ΓÇö catching every true positive
+case in the 24-row test set ΓÇö at the cost of specificity (0.526). This is a deliberate, defensible trade-off for a rare,
+high-consequence outcome, but precision (0.357) means most flagged cases are false alarms; MCC (0.434) is the
+fairest single-number summary here.
+10.8. Heart Failure
+Fig. 12. Heart Failure ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+12
+--- PAGE 13 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+SVM was selected; performance (ROC-AUC 0.859, MCC 0.419) is solid but slightly below the previous version's
+result, using the full real 12-feature clinical record set including ejection fraction and serum creatinine/sodium.
+10.9. Stroke
+Fig. 13. Stroke ΓÇö confusion matrix, ROC, PR, and calibration curves (real held-out test data).
+Logistic Regression, trained on SMOTE-balanced data, reaches recall 0.757 with precision 0.143 ΓÇö the expected
+trade-off when prioritising catching a rare (4.8% prevalence), high-consequence outcome over minimising false
+alarms.
+11. Data Integrity & Reproducibility History
+This section extends the integrity history from earlier project phases with two new findings from verifying
+this updated repository, plus confirmation of what remains fixed from before.
+Confirmed still fixed from earlier phases
+ΓÇó No model-registry alias bug: heart_disease resolves directly to its own real model folder; the
+previously-found disease_risk_model fabricated-constant folder remains deleted.
+ΓÇó No hardcoded constant features found in any of the nine disease models' feature lists ΓÇö every
+declared feature was individually re-verified against its real raw dataset column in this session.
+ΓÇó Diabetes dataset metadata label corrected: now reads ΓÇ£Diabetes 130-US Hospitals DatasetΓÇ¥
+instead of the previously stale ΓÇ£Pima Indians Diabetes DatasetΓÇ¥ label.
+New issues found and fixed during this verification
+13
+--- PAGE 14 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+ΓÇó requirements.txt regression: numpy==2.5.2 was reintroduced alongside pandas==2.2.0, which
+cannot both be satisfied (pandas 2.2.0 requires numpy<2). This is the same conflict fixed in an
+earlier phase and needs the same fix again (numpy<2.0.0 ceiling instead of an exact pin).
+ΓÇó ml/evaluation/train_and_evaluate_all_models.py currently fails to run at all due to two missing
+imports ΓÇö FunctionTransformer and StandardScaler are used but never imported from
+sklearn.preprocessing. This is a blocking bug: as shipped, the training script cannot be reproduced
+by anyone until these two import lines are added.
+ΓÇó All results in this report were obtained by patching these two import lines locally to verify the
+rest of the pipeline; the underlying training logic, feature engineering, and evaluation code all ran
+correctly once the imports were fixed, and produced the numbers reported in Sections 9ΓÇô10.
+Recommended immediate action
+Add "from sklearn.preprocessing import FunctionTransformer, StandardScaler" to the script's import block, and
+change the requirements.txt numpy pin to "numpy<2.0.0". Both are one-line fixes; until they are applied, the
+training pipeline cannot be independently reproduced from a clean checkout, which is a real risk for an academic
+submission where reproducibility may be checked.
+12. Technology Stack
+Layer Technologies
+Frontend React, TypeScript, Vite, React Router, Axios
+Backend FastAPI 0.110, Uvicorn, Pydantic v2, python-jose (JWT), passlib (bcrypt)
+Database SQLAlchemy 2.0 ORM, Alembic migrations, SQLite (dev) / PostgreSQL (prod target)
+Machine Learning scikit-learn (RandomForest, LogisticRegression, SVM), XGBoost, imbalanced-learn (SMOTE), SHAP, joblib
+OCR / Documents EasyOCR, pdfplumber, pypdf, pdf2image, Pillow, OpenCV
+Agents / LLM / RAG LangGraph, LangChain, Google Gemini (google-genai), ChromaDB, Sentence-Transformers, FAISS
+Reports / Interop ReportLab (PDF), Jinja2 (templating), fhir.resources (HL7 FHIR)
+Testing / Ops pytest, pytest-asyncio, loguru, prometheus-client, APScheduler
+13. Features
+ΓÇó Nine independent disease-risk models, each now trained on its full set of real, usable source
+features rather than a minimal subset.
+ΓÇó Automated best-of-four algorithm selection (Random Forest, Logistic Regression, SVM, XGBoost)
+per disease, chosen by validation-set PR-AUC.
+ΓÇó Validation-set threshold tuning, kept separate from the final held-out test evaluation.
+ΓÇó Eight-agent LangGraph workflow separating intake, OCR/report analysis, risk assessment,
+guideline retrieval, drug safety, recommendation, and report generation.
+14
+--- PAGE 15 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+ΓÇó Retrieval-augmented guideline lookup via ChromaDB, keeping the LLM grounded rather than
+relying on its own memory.
+ΓÇó Per-disease evaluation artifacts (confusion matrix, ROC, PR, calibration curves, and full metric
+JSON with 95% confidence intervals) generated automatically.
+14. Advantages
+ΓÇó Every reported metric is measured on real, held-out data never seen during model selection or
+threshold tuning.
+ΓÇó Algorithm choice adapts per disease rather than forcing one model family onto every dataset.
+ΓÇó Full metric set (Accuracy, Precision, Recall, Specificity, F1, ROC-AUC, PR-AUC, MCC, Cohen's ╬║,
+Brier score, 95% CIs) surfaces trade-offs a single accuracy figure would hide.
+ΓÇó Expanded, full real feature sets extract more genuine signal from each dataset than the earlier
+minimal-subset versions.
+15. Limitations
+ΓÇó The training script currently cannot run without a manual two-line import fix (Section 11) ΓÇö this
+must be corrected before the pipeline can be considered reproducible.
+ΓÇó requirements.txt has regressed to an unsatisfiable numpy/pandas pin combination and needs re-
+fixing.
+ΓÇó Kidney disease's perfect test-set score, while plausible, should be manually re-confirmed against
+a larger or repeated test split before being reported as a headline claim.
+ΓÇó Diabetes remains the weakest model; its ceiling is set by the nature of the source dataset (an
+administrative encounter record) rather than by modelling choice.
+ΓÇó Several test sets remain small (24ΓÇô88 rows for five of nine diseases), and specificity/precision
+figures on the smallest of these (e.g. Parkinson's 7 negative cases) should be read with appropriate
+caution.
+ΓÇó End-to-end agent-level benchmarks (retrieval Precision@k, single-model baseline comparison)
+remain open work, as in the previous report.
+16. Conclusion & Future Work
+This updated repository represents genuine methodological progress over the version this report's
+predecessor documented: richer, fully real feature sets; automated multi-algorithm selection; and proper
+validation-based threshold tuning. Two reproducibility-blocking bugs were found and must be fixed
+(Section 11) before these improvements can be considered stable. Once fixed, recommended next steps
+15
+--- PAGE 16 ---
+MediGenie ΓÇö Full Project Report (v2, updated repository)
+are: re-confirm the kidney disease result on a repeated or larger test split; investigate whether additional
+real features can be found for the diabetes and liver disease models; and proceed to the end-to-end
+agent-level benchmarks and documentation updates flagged as outstanding in previous phases.
+16

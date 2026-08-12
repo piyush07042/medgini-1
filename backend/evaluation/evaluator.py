@@ -169,12 +169,17 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
     if disease_key == "heart_disease":
         df = pd.read_csv(raw_path, header=None)
         df.columns = ["age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal", "target"]
+        df = df.replace("?", np.nan)
+        # Coerce all feature columns to numeric
+        for col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
+        df = df.fillna(df.median(numeric_only=True))
         df["target"] = (df["target"] > 0).astype(int)
         df["glucose"] = np.where(df["fbs"] == 1, 140.0, 95.0)
-        df["systolic_bp"] = pd.to_numeric(df["trestbps"], errors="coerce").fillna(120.0)
-        df["cholesterol"] = pd.to_numeric(df["chol"], errors="coerce").fillna(200.0)
+        df["systolic_bp"] = df["trestbps"]
+        df["cholesterol"] = df["chol"]
         df["bmi"] = 26.5
-        df["age"] = pd.to_numeric(df["age"], errors="coerce").fillna(54.0)
+        df["age"] = df["age"].fillna(54.0)
 
     elif disease_key == "diabetes":
         df = pd.read_csv(raw_path)
@@ -223,11 +228,18 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
 
         df = pd.DataFrame([r[: len(attrs)] for r in rows], columns=attrs)
         df = df.replace("?", np.nan)
+        # Rename ARFF column names to match model feature_names.json
+        df.rename(columns={"wbcc": "wc", "rbcc": "rc"}, inplace=True)
         df["target"] = df["class"].astype(str).apply(lambda x: 1 if "ckd" in x.lower() and "notckd" not in x.lower() else 0)
         df["age"] = pd.to_numeric(df["age"], errors="coerce").fillna(51.0)
         df["creatinine"] = pd.to_numeric(df["sc"], errors="coerce").fillna(1.2)
         df["blood_urea"] = pd.to_numeric(df["bu"], errors="coerce").fillna(35.0)
         df["albumin"] = pd.to_numeric(df["al"], errors="coerce").fillna(0.0)
+        # Coerce core numeric columns
+        for nc in ["bp", "sg", "al", "su", "bgr", "bu", "sc", "sod", "pot", "hemo", "pcv", "wc", "rc"]:
+            if nc in df.columns:
+                df[nc] = pd.to_numeric(df[nc], errors="coerce")
+                df[nc] = df[nc].fillna(df[nc].median() if df[nc].notna().any() else 0.0)
         # Add missing categorical encodings for kidney disease
         # Encode red blood cells, pus cell, pus cell clumps, bacteria, hypertension, diabetes, coronary artery disease, appetite, pedal edema, anemia, white blood cell count, red blood cell count
         enc_map = {
@@ -397,8 +409,16 @@ class DiseaseModelEvaluator:
         if getattr(self, "_preprocessor_needs_fit", False) and self.preprocessor is not None:
             # Load split indices to avoid leakage
             split_dir = Path(__file__).resolve().parents[2] / "ml" / "evaluation" / "splits"
-            train_idx = np.load(split_dir / f"{self.disease_key}_train.npy")
-            test_idx = np.load(split_dir / f"{self.disease_key}_test.npy")
+            train_npy = split_dir / f"{self.disease_key}_train.npy"
+            test_npy = split_dir / f"{self.disease_key}_test.npy"
+            if train_npy.exists() and test_npy.exists():
+                train_idx = np.load(train_npy)
+                test_idx = np.load(test_npy)
+            else:
+                # Generate a reproducible 80/20 stratified split on-the-fly
+                from sklearn.model_selection import train_test_split as _tts
+                all_idx = np.arange(len(X))
+                train_idx, test_idx = _tts(all_idx, test_size=0.2, random_state=42, stratify=y)
             X_train = X.iloc[train_idx]
             X_test = X.iloc[test_idx]
             y_test = y.iloc[test_idx]
@@ -417,13 +437,13 @@ class DiseaseModelEvaluator:
         self.calculate_metrics(y_test, y_pred, y_proba)
 
         # 5. Cross-Validation
-        self.run_cross_validation(X_trans, y)
+        self.run_cross_validation(X_trans, y_test)
 
         # 6. Explainability
-        self.compute_explainability(X, X_trans, y)
+        self.compute_explainability(X, X_trans, y_test)
 
         # 7. Generate & Save Artifact Plots
-        self.generate_plots(X_trans, y, y_pred, y_proba)
+        self.generate_plots(X_trans, y_test, y_pred, y_proba)
 
         # 8. Save Summary JSON and Report TXT
         full_summary = {
@@ -440,7 +460,7 @@ class DiseaseModelEvaluator:
         with open(self.out_dir / "metrics.json", "w", encoding="utf-8") as fh:
             json.dump(full_summary, fh, indent=2)
 
-        report_txt = classification_report(y, y_pred, zero_division=0)
+        report_txt = classification_report(y_test, y_pred, zero_division=0)
         with open(self.out_dir / "classification_report.txt", "w", encoding="utf-8") as fh:
             fh.write(f"Classification Report - {self.info['name']}\n")
             fh.write("=" * 60 + "\n\n")

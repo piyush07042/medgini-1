@@ -1,0 +1,133 @@
+{
+  "disease_key": "heart_failure",
+  "disease_name": "Heart Failure",
+  "model_folder": "heart_failure_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 299,
+    "raw_columns": 14,
+    "feature_count": 12,
+    "feature_names": [
+      "age",
+      "anaemia",
+      "creatinine_phosphokinase",
+      "diabetes",
+      "ejection_fraction",
+      "high_blood_pressure",
+      "platelets",
+      "serum_creatinine",
+      "serum_sodium",
+      "sex",
+      "smoking",
+      "time"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 203,
+      "1": 96
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "anaemia": 0,
+      "creatinine_phosphokinase": 0,
+      "diabetes": 0,
+      "ejection_fraction": 0,
+      "high_blood_pressure": 0,
+      "platelets": 0,
+      "serum_creatinine": 0,
+      "serum_sodium": 0,
+      "sex": 0,
+      "smoking": 0,
+      "time": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "SVC",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 12,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.7833333333333333,
+    "precision": 0.65,
+    "recall": 0.6842105263157895,
+    "f1_score": 0.6666666666666666,
+    "balanced_accuracy": 0.7567394094993581,
+    "sensitivity": 0.6842105263157895,
+    "specificity": 0.8292682926829268,
+    "roc_auc": 0.902439024390244,
+    "pr_auc": 0.811644530414878,
+    "mcc": 0.5066945919381399,
+    "cohen_kappa": 0.5063291139240507,
+    "log_loss": 0.3750716366627726,
+    "brier_score": 0.12184864256299527,
+    "confusion_matrix": [
+      [
+        34,
+        7
+      ],
+      [
+        6,
+        13
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.6380952380952382,
+      "f1_std": 0.14680265804188716,
+      "accuracy_mean": 0.7666666666666666,
+      "accuracy_std": 0.0816496580927726,
+      "roc_auc_mean": 0.8289351851851852,
+      "roc_auc_std": 0.10344762115369976
+    },
+    "10_fold": {
+      "f1_mean": 0.6266666666666667,
+      "f1_std": 0.2715388247255507,
+      "accuracy_mean": 0.75,
+      "accuracy_std": 0.1536590742882148,
+      "roc_auc_mean": 0.7875,
+      "roc_auc_std": 0.26249999999999996
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "permutation_importance": {
+        "age": -0.026666666666666707,
+        "anaemia": -0.026666666666666682,
+        "creatinine_phosphokinase": -0.006666666666666687,
+        "diabetes": -0.00666666666666671,
+        "ejection_fraction": -0.006666666666666687,
+        "high_blood_pressure": 0.006666666666666643,
+        "platelets": 0.009999999999999986,
+        "serum_creatinine": -0.03333333333333335,
+        "serum_sodium": 0.003333333333333277,
+        "sex": -0.013333333333333374,
+        "smoking": -0.010000000000000031,
+        "time": 0.043333333333333356
+      }
+    },
+    "shap_summary": {
+      "age": 0.12122916666666671,
+      "anaemia": 0.012902777777777773,
+      "creatinine_phosphokinase": 0.01585416666666667,
+      "diabetes": 0.010069444444444445,
+      "ejection_fraction": 0.09144444444444448,
+      "high_blood_pressure": 0.02354861111111111,
+      "platelets": 0.01998611111111111,
+      "serum_creatinine": 0.08772916666666669,
+      "serum_sodium": 0.030993055555555548,
+      "sex": 0.020055555555555552,
+      "smoking": 0.046590277777777765,
+      "time": 0.1698333333333334
+    }
+  }
+}

@@ -1,0 +1,11 @@
+Classification Report - Diabetes
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.63      0.75      0.68     10973
+           1       0.62      0.48      0.54      9381
+
+    accuracy                           0.62     20354
+   macro avg       0.62      0.61      0.61     20354
+weighted avg       0.62      0.62      0.62     20354

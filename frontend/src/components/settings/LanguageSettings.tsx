@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../Card";
+import toast from "react-hot-toast";
 
 const STORAGE_KEY = "medigenie_language";
 
@@ -21,6 +22,8 @@ export default function LanguageSettings() {
   const handleChange = (value: string) => {
     setLanguage(value);
     localStorage.setItem(STORAGE_KEY, value);
+    const label = languages.find((l) => l.value === value)?.label || value;
+    toast.success(`Language set to ${label}`);
   };
 
   return (

@@ -67,15 +67,17 @@ class Predictor:
         self.pipeline = None
         self.schema = None
         self.feature_names = None
+        self.metadata = None
 
     def load_model(self) -> None:
         model_path = self.config.model_directory / "model.joblib"
         if not model_path.exists():
             raise ModelNotLoadedError(model_path)
-
         self._inject_unpickle_helpers()
         self.model = joblib.load(model_path)
         logger.info("Model loaded.")
+        # Load metadata (including threshold) after model is loaded
+        self._load_metadata()
 
     def load_pipeline(self) -> None:
         pipeline_path = self.config.model_directory / "preprocessor.joblib"
@@ -126,6 +128,21 @@ class Predictor:
             def _to_array(x):
                 return np.array(x)
             setattr(__main__, "_to_array", _to_array)
+
+    def _load_metadata(self) -> None:
+        """Load metadata (including threshold) from metadata.json if present."""
+        metadata_path = self.config.model_directory / "metadata.json"
+        if not metadata_path.exists():
+            self.metadata = {}
+            logger.warning("metadata.json not found at %s; proceeding without threshold.", metadata_path)
+            return
+        try:
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                self.metadata = json.load(f)
+            logger.info("Metadata loaded.")
+        except Exception as exc:
+            self.metadata = {}
+            logger.exception("Failed to load metadata: %s", exc)
 
     def validate_input(self, patient_data: dict[str, Any]) -> None:
         """Validate patient input against schema."""
@@ -204,7 +221,7 @@ class Predictor:
             raise
 
     def predict(self, patient_data: dict[str, Any]) -> PredictionResult:
-        """Predict disease."""
+        """Predict disease using probability threshold from metadata."""
         if self.model is None:
             raise ModelNotLoadedError("Model not loaded.")
 
@@ -212,19 +229,21 @@ class Predictor:
         dataframe = self.create_dataframe(patient_data)
         transformed = self.preprocess(dataframe)
 
-        prediction = int(self.model.predict(transformed)[0])
         probabilities = self.model.predict_proba(transformed)[0]
+        # Assume binary classification with index 1 as positive class
+        probability_pos = float(probabilities[1]) if len(probabilities) > 1 else float(probabilities[0])
+        threshold = float(self.metadata.get("threshold", 0.5)) if hasattr(self, "metadata") else 0.5
+        prediction = int(probability_pos >= threshold)
         confidence = float(np.max(probabilities))
-        probability = float(probabilities[prediction])
         class_probabilities = {
             str(index): float(value)
             for index, value in enumerate(probabilities)
         }
 
-        logger.info("Prediction completed.")
+        logger.info("Prediction completed with threshold %s (probability %s).", threshold, probability_pos)
         return PredictionResult(
             prediction=prediction,
-            probability=probability,
+            probability=probability_pos,
             confidence=confidence,
             class_probabilities=class_probabilities,
         )
@@ -241,7 +260,7 @@ class Predictor:
 
 
 def load_predictor(model_directory: str | Path) -> Predictor:
-    """Load predictor and initialize all artifacts."""
+    """Load predictor and initialize all artifacts, including metadata."""
     predictor = Predictor(PredictorConfig(model_directory=Path(model_directory)))
     predictor.initialize()
     return predictor

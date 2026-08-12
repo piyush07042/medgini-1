@@ -1,0 +1,11 @@
+Classification Report - Liver Disease
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.57      0.50      0.53        34
+           1       0.80      0.84      0.82        83
+
+    accuracy                           0.74       117
+   macro avg       0.69      0.67      0.68       117
+weighted avg       0.74      0.74      0.74       117

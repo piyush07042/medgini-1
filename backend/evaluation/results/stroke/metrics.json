@@ -1,0 +1,137 @@
+{
+  "disease_key": "stroke",
+  "disease_name": "Stroke",
+  "model_folder": "stroke_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 5110,
+    "raw_columns": 18,
+    "feature_count": 10,
+    "feature_names": [
+      "gender_enc",
+      "age",
+      "hypertension",
+      "heart_disease",
+      "ever_married_enc",
+      "work_type_enc",
+      "Residence_type_enc",
+      "avg_glucose_level",
+      "bmi",
+      "smoking_status_enc"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 4861,
+      "1": 249
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "gender_enc": 0,
+      "age": 0,
+      "hypertension": 0,
+      "heart_disease": 0,
+      "ever_married_enc": 0,
+      "work_type_enc": 0,
+      "Residence_type_enc": 0,
+      "avg_glucose_level": 0,
+      "bmi": 0,
+      "smoking_status_enc": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 10,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.952054794520548,
+    "precision": 1.0,
+    "recall": 0.02,
+    "f1_score": 0.0392156862745098,
+    "balanced_accuracy": 0.51,
+    "sensitivity": 0.02,
+    "specificity": 1.0,
+    "roc_auc": 0.8353703703703704,
+    "pr_auc": 0.24639463116415478,
+    "mcc": 0.1379860743303784,
+    "cohen_kappa": 0.037368805505363145,
+    "log_loss": 0.15633488379287977,
+    "brier_score": 0.04097852598377205,
+    "confusion_matrix": [
+      [
+        972,
+        0
+      ],
+      [
+        49,
+        1
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.0,
+      "f1_std": 0.0,
+      "accuracy_mean": 0.9510760401721665,
+      "accuracy_std": 0.00011714441620197154,
+      "roc_auc_mean": 0.8032027491408934,
+      "roc_auc_std": 0.04078833347027256
+    },
+    "10_fold": {
+      "f1_mean": 0.0,
+      "f1_std": 0.0,
+      "accuracy_mean": 0.9510755758614126,
+      "accuracy_std": 0.00019036740909958994,
+      "roc_auc_mean": 0.8141152956027773,
+      "roc_auc_std": 0.06252580741661394
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "gender_enc": 0.0783440589365838,
+        "age": 1.6089042365119648,
+        "hypertension": 0.10803848038198839,
+        "heart_disease": 0.04821412944153497,
+        "ever_married_enc": 0.05496688474252796,
+        "work_type_enc": 0.042460667129722005,
+        "Residence_type_enc": 0.07443538909833271,
+        "avg_glucose_level": 0.1834468320006604,
+        "bmi": 0.0151477374406047,
+        "smoking_status_enc": 0.16748307695871772
+      },
+      "permutation_importance": {
+        "gender_enc": 0.0005870841487280343,
+        "age": 0.0009784735812133905,
+        "hypertension": 0.0009784735812133905,
+        "heart_disease": 0.0007827788649707124,
+        "ever_married_enc": 0.0,
+        "work_type_enc": 0.0,
+        "Residence_type_enc": 0.0,
+        "avg_glucose_level": 0.0007827788649707124,
+        "bmi": 0.0,
+        "smoking_status_enc": 0.0005870841487280564
+      }
+    },
+    "shap_summary": {
+      "gender_enc": 3.3881317890172014e-23,
+      "age": 1.4285714285714286e-06,
+      "hypertension": 1.4285714285714286e-06,
+      "heart_disease": 1.4285714285714286e-06,
+      "ever_married_enc": 5.082197683525802e-23,
+      "work_type_enc": 1.9047619047619051e-06,
+      "Residence_type_enc": 0.0,
+      "avg_glucose_level": 1.9047619047619051e-06,
+      "bmi": 1.4285714285714286e-06,
+      "smoking_status_enc": 1.9047619047619051e-06
+    }
+  }
+}

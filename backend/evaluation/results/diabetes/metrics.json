@@ -1,0 +1,132 @@
+{
+  "disease_key": "diabetes",
+  "disease_name": "Diabetes",
+  "model_folder": "diabetes_model",
+  "dataset_verification": {
+    "csv_integrity": true,
+    "raw_samples": 101766,
+    "raw_columns": 54,
+    "feature_count": 9,
+    "feature_names": [
+      "age",
+      "time_in_hospital",
+      "num_lab_procedures",
+      "num_procedures",
+      "num_medications",
+      "number_outpatient",
+      "number_emergency",
+      "number_inpatient",
+      "number_diagnoses"
+    ],
+    "target_column": "target",
+    "target_distribution": {
+      "0": 54864,
+      "1": 46902
+    },
+    "has_missing_values": false,
+    "total_missing_values": 0,
+    "missing_per_column": {
+      "age": 0,
+      "time_in_hospital": 0,
+      "num_lab_procedures": 0,
+      "num_procedures": 0,
+      "num_medications": 0,
+      "number_outpatient": 0,
+      "number_emergency": 0,
+      "number_inpatient": 0,
+      "number_diagnoses": 0
+    },
+    "schema_verified": true,
+    "metadata_verified": true
+  },
+  "model_verification": {
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "preprocessor_loaded": true,
+    "preprocessor_type": "Pipeline",
+    "feature_order_consistent": true,
+    "expected_feature_count": 9,
+    "metadata_consistency": true,
+    "100_percent_ml_validation": true
+  },
+  "metrics": {
+    "accuracy": 0.6227277193672005,
+    "precision": 0.6172499311104988,
+    "recall": 0.47756102760899694,
+    "f1_score": 0.5384938998737905,
+    "balanced_accuracy": 0.6121970817439863,
+    "sensitivity": 0.47756102760899694,
+    "specificity": 0.7468331358789757,
+    "roc_auc": 0.6495123463642523,
+    "pr_auc": 0.6183761324104381,
+    "mcc": 0.2335183423639126,
+    "cohen_kappa": 0.2281394841102975,
+    "log_loss": 0.6576553732828205,
+    "brier_score": 0.2323970772123592,
+    "confusion_matrix": [
+      [
+        8195,
+        2778
+      ],
+      [
+        4901,
+        4480
+      ]
+    ]
+  },
+  "cross_validation": {
+    "5_fold": {
+      "f1_mean": 0.5388156590470169,
+      "f1_std": 0.012711374725070293,
+      "accuracy_mean": 0.6201730705046844,
+      "accuracy_std": 0.007694816652921521,
+      "roc_auc_mean": 0.6490790924133598,
+      "roc_auc_std": 0.00838121174575073
+    },
+    "10_fold": {
+      "f1_mean": 0.5386668339709244,
+      "f1_std": 0.013591601965373413,
+      "accuracy_mean": 0.6206637044259835,
+      "accuracy_std": 0.009438973558825137,
+      "roc_auc_mean": 0.6495146255407088,
+      "roc_auc_std": 0.009442956088473066
+    }
+  },
+  "explainability": {
+    "feature_importances": {
+      "coef_importance": {
+        "age": 0.029373497692498043,
+        "time_in_hospital": 0.03133231893586551,
+        "num_lab_procedures": 0.028780258855117848,
+        "num_procedures": 0.08798682632338349,
+        "num_medications": 0.031372878350512376,
+        "number_outpatient": 0.11234680864933676,
+        "number_emergency": 0.2183657339293186,
+        "number_inpatient": 0.475756640096609,
+        "number_diagnoses": 0.1491127668403223
+      },
+      "permutation_importance": {
+        "age": 0.0010219121548589616,
+        "time_in_hospital": 0.0009826078412105144,
+        "num_lab_procedures": 0.0006976515672594275,
+        "num_procedures": 0.0050800825390586056,
+        "num_medications": 0.001277390193573691,
+        "number_outpatient": 0.007457993514788219,
+        "number_emergency": 0.01212538076053844,
+        "number_inpatient": 0.0683207231993711,
+        "number_diagnoses": 0.00549277783236708
+      }
+    },
+    "shap_summary": {
+      "age": 0.013314841269841268,
+      "time_in_hospital": 0.014463571428571433,
+      "num_lab_procedures": 0.01595531746031746,
+      "num_procedures": 0.035432698412698416,
+      "num_medications": 0.018145079365079368,
+      "number_outpatient": 0.018749682539682545,
+      "number_emergency": 0.04333936507936508,
+      "number_inpatient": 0.3157044444444442,
+      "number_diagnoses": 0.07830277777777772
+    }
+  }
+}
