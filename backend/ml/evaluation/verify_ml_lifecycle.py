@@ -129,13 +129,13 @@ def run_evaluation(cfg: dict, predictor: Predictor) -> dict[str, float | int]:
     X = df[cfg["features"]]
     y = df["target"].values
 
-    _, X_test, _, y_test = train_test_split(
-        X, y, test_size=0.30, random_state=42, stratify=y
-    )
-    
-    if len(X_test) > 50:
-        X_test = X_test.iloc[:50]
-        y_test = y_test[:50]
+    # Load frozen test indices for this disease
+    split_dir = Path(cfg["split_indices_dir"])
+    test_idx_path = split_dir / f"{cfg['key']}_test.npy"
+    test_idx = np.load(test_idx_path)
+    X_test = X.iloc[test_idx]
+    y_test = y[test_idx]
+
 
     y_probs_pos = []
     y_preds = []
