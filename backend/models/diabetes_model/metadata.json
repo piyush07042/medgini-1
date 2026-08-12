@@ -1,6 +1,6 @@
 {
-  "model_name": "Diabetes Patient Hospital Readmission Risk",
-  "model_key": "diabetes_readmission",
+  "model_name": "Diabetes",
+  "model_key": "diabetes",
   "algorithm": "LogisticRegression",
   "threshold": 0.48,
   "imbalance_strategy": "balanced",

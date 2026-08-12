@@ -1,53 +1,63 @@
 {
   "model_key": "heart_disease",
   "model_name": "Heart Disease",
-  "classifier": "RandomForest",
-  "threshold": 0.65,
+  "classifier": "SVM",
+  "threshold": 0.69,
   "imbalance_strategy": "balanced",
   "test_samples": 46,
   "positive_samples": 21,
   "negative_samples": 25,
-  "cv_roc_auc_mean": 0.9044,
-  "cv_roc_auc_std": 0.0193,
-  "accuracy": 0.8913,
+  "cv_roc_auc_mean": 0.8961,
+  "cv_roc_auc_std": 0.0269,
+  "accuracy": 0.8261,
   "accuracy_95ci": [
-    0.8043,
-    0.9783
+    0.7174,
+    0.9348
   ],
-  "balanced_accuracy": 0.8848,
-  "precision": 0.9444,
-  "recall": 0.8095,
-  "specificity": 0.96,
-  "f1_score": 0.8718,
+  "balanced_accuracy": 0.821,
+  "precision": 0.8421,
+  "recall": 0.7619,
+  "specificity": 0.88,
+  "f1_score": 0.8,
   "f1_95ci": [
-    0.7429,
-    0.9714
+    0.6428,
+    0.9231
   ],
-  "roc_auc": 0.9333,
+  "roc_auc": 0.899,
   "roc_auc_95ci": [
-    0.8421,
-    1.0
+    0.7942,
+    0.9811
   ],
-  "pr_auc": 0.8879,
-  "mcc": 0.7854,
-  "cohen_kappa": 0.7784,
-  "brier_score": 0.1114,
+  "pr_auc": 0.8366,
+  "mcc": 0.6494,
+  "cohen_kappa": 0.6468,
+  "brier_score": 0.1248,
   "confusion_matrix": {
-    "TN": 24,
-    "FP": 1,
-    "FN": 4,
-    "TP": 17
+    "TN": 22,
+    "FP": 3,
+    "FN": 5,
+    "TP": 16
   },
   "all_classifiers_cv": {
     "RandomForest": {
-      "cv_roc_auc_mean": 0.9044,
-      "cv_roc_auc_std": 0.0193,
-      "val_pr_auc": 0.8715
+      "cv_roc_auc_mean": 0.9019,
+      "cv_roc_auc_std": 0.0185,
+      "val_pr_auc": 0.8556
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.9013,
+      "cv_roc_auc_std": 0.0171,
+      "val_pr_auc": 0.8788
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 0.8961,
+      "cv_roc_auc_std": 0.0269,
+      "val_pr_auc": 0.8826
     },
     "XGBoost": {
-      "cv_roc_auc_mean": 0.9071,
-      "cv_roc_auc_std": 0.0275,
-      "val_pr_auc": 0.8338
+      "cv_roc_auc_mean": 0.9043,
+      "cv_roc_auc_std": 0.0227,
+      "val_pr_auc": 0.8452
     }
   }
 }

@@ -82,7 +82,7 @@ EVALUATION_DIR = BASE_DIR / "evaluation" / "results"
 DISEASE_MODEL_MAP: Dict[str, Dict[str, str]] = {
     "heart_disease": {
         "name": "Heart Disease",
-        "model_folder": "disease_risk_model",
+        "model_folder": "heart_disease",
         "raw_folder": "heart_disease",
     },
     "diabetes": {
@@ -228,16 +228,35 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
         df["creatinine"] = pd.to_numeric(df["sc"], errors="coerce").fillna(1.2)
         df["blood_urea"] = pd.to_numeric(df["bu"], errors="coerce").fillna(35.0)
         df["albumin"] = pd.to_numeric(df["al"], errors="coerce").fillna(0.0)
-        if "bgr" in df.columns:
-            df["sgpt"] = pd.to_numeric(df["bgr"], errors="coerce").fillna(35.0)
-        else:
-            df["sgpt"] = 35.0
+        # Add missing categorical encodings for kidney disease
+        # Encode red blood cells, pus cell, pus cell clumps, bacteria, hypertension, diabetes, coronary artery disease, appetite, pedal edema, anemia, white blood cell count, red blood cell count
+        enc_map = {
+            "normal": 1,
+            "abnormal": 0,
+            "present": 1,
+            "notpresent": 0,
+        }
+        df["rbc_enc"] = df["rbc"].map(enc_map).fillna(0)
+        df["pc_enc"] = df["pc"].map(enc_map).fillna(0)
+        df["pcc_enc"] = df["pcc"].map(enc_map).fillna(0)
+        df["ba_enc"] = df["ba"].map(enc_map).fillna(0)
+        df["htn_enc"] = df["htn"].map(enc_map).fillna(0)
+        df["dm_enc"] = df["dm"].map(enc_map).fillna(0)
+        df["cad_enc"] = df["cad"].map(enc_map).fillna(0)
+        df["appet_enc"] = df["appet"].map(enc_map).fillna(0)
+        df["pe_enc"] = df["pe"].map(enc_map).fillna(0)
+        df["ane_enc"] = df["ane"].map(enc_map).fillna(0)
+        # wc and rc are numeric counts; ensure they are numeric
+        df["wc"] = pd.to_numeric(df["wc"], errors="coerce").fillna(0)
+        df["rc"] = pd.to_numeric(df["rc"], errors="coerce").fillna(0)
 
     elif disease_key == "liver_disease":
         df = pd.read_csv(raw_path, header=None)
         df.columns = ["age", "gender", "bilirubin", "db", "alk_phosphatase", "sgpt", "sgot", "tp", "alb", "ag_ratio", "target"]
         df = df.replace("?", np.nan)
         df["target"] = (df["target"] == 1).astype(int)
+        # Add gender encoding for liver disease
+        df["gender_enc"] = df["gender"].map({"Male": 1, "Female": 0}).fillna(0).astype(int)
         for col in ["age", "bilirubin", "alk_phosphatase", "sgpt", "sgot"]:
             df[col] = pd.to_numeric(df[col], errors="coerce")
             df[col] = df[col].fillna(df[col].median() if not np.isnan(df[col].median()) else 1.0)
@@ -280,6 +299,22 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
         df["alk_phosphatase"] = pd.to_numeric(df[15], errors="coerce").fillna(85.0)
         df["sgot"] = pd.to_numeric(df[16], errors="coerce").fillna(35.0)
         df["sgpt"] = pd.to_numeric(df[17], errors="coerce").fillna(df["sgot"])
+        # Add missing hepatitis columns with default handling
+        df["sex"] = df.get("sex", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["steroid"] = df.get("steroid", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["antivirals"] = df.get("antivirals", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["fatigue"] = df.get("fatigue", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["malaise"] = df.get("malaise", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["anorexia"] = df.get("anorexia", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["liver_big"] = df.get("liver_big", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["liver_firm"] = df.get("liver_firm", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["spleen_palpable"] = df.get("spleen_palpable", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["spiders"] = df.get("spiders", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["ascites"] = df.get("ascites", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["varices"] = df.get("varices", pd.Series([0]*len(df))).fillna(0).astype(int)
+        df["albumin"] = df.get("albumin", pd.Series([0.0]*len(df))).fillna(0.0).astype(float)
+        df["protime"] = df.get("protime", pd.Series([0.0]*len(df))).fillna(0.0).astype(float)
+        df["histology"] = df.get("histology", pd.Series([0]*len(df))).fillna(0).astype(int)
 
     elif disease_key == "heart_failure":
         df = pd.read_csv(raw_path)
@@ -299,6 +334,12 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
         df["hypertension"] = pd.to_numeric(df["hypertension"], errors="coerce").fillna(0)
         df["heart_disease"] = pd.to_numeric(df["heart_disease"], errors="coerce").fillna(0)
         df["avg_glucose_level"] = pd.to_numeric(df["avg_glucose_level"], errors="coerce").fillna(100.0)
+        # Add missing stroke categorical encodings
+        df["gender_enc"] = df["gender"].map({"Male": 1, "Female": 0}).fillna(0).astype(int)
+        df["ever_married_enc"] = df["ever_married"].map({"Yes": 1, "No": 0}).fillna(0).astype(int)
+        df["work_type_enc"] = df["work_type"].astype('category').cat.codes
+        df["Residence_type_enc"] = df["Residence_type"].map({"Urban": 1, "Rural": 0}).fillna(0).astype(int)
+        df["smoking_status_enc"] = df["smoking_status"].astype('category').cat.codes
 
     else:
         raise ValueError(f"Unknown disease_key: {disease_key}")

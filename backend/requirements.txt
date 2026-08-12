@@ -70,7 +70,7 @@ google-genai
 
 # ----------------------------
 
-numpy==2.5.2
+numpy<2.0.0
 pandas==2.2.0
 scikit-learn==1.7.2
 xgboost==3.4.0
