@@ -38,7 +38,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, FunctionTransformer
+from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 
 try:
@@ -310,10 +310,9 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
             "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg",
             "thalach", "exang", "oldpeak", "slope", "ca", "thal", "target"
         ]
-        df = df.dropna()
         df["target"] = (df["target"] > 0).astype(int)
         for col in [c for c in df.columns if c != "target"]:
-            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+            df[col] = pd.to_numeric(df[col], errors="coerce")
 
     elif key == "diabetes":
         df = pd.read_csv(raw_path)
@@ -333,7 +332,7 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         for col in ["time_in_hospital", "num_lab_procedures", "num_procedures",
                      "num_medications", "number_outpatient", "number_emergency",
                      "number_inpatient", "number_diagnoses"]:
-            df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
+            df[col] = pd.to_numeric(df[col], errors="coerce")
         df["target"] = (df["readmitted"].astype(str) != "NO").astype(int)
 
     elif key == "kidney_disease":
@@ -357,25 +356,25 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         df = df.replace("?", np.nan)
         df["target"] = df["class"].astype(str).apply(lambda x: 1 if "ckd" in x.lower() and "notckd" not in x.lower() else 0)
         # Map ARFF attribute names to our feature names
-        df["age"] = pd.to_numeric(df["age"], errors="coerce").fillna(50.0)
-        df["bp"] = pd.to_numeric(df["bp"], errors="coerce").fillna(80.0)
-        df["sg"] = pd.to_numeric(df["sg"], errors="coerce").fillna(1.02)
-        df["al"] = pd.to_numeric(df["al"], errors="coerce").fillna(0.0)
-        df["su"] = pd.to_numeric(df["su"], errors="coerce").fillna(0.0)
+        df["age"] = pd.to_numeric(df["age"], errors="coerce")
+        df["bp"] = pd.to_numeric(df["bp"], errors="coerce")
+        df["sg"] = pd.to_numeric(df["sg"], errors="coerce")
+        df["al"] = pd.to_numeric(df["al"], errors="coerce")
+        df["su"] = pd.to_numeric(df["su"], errors="coerce")
         # Encode categorical columns as binary
         df["rbc_enc"] = (df["rbc"].astype(str).str.strip().str.lower() == "abnormal").astype(float)
         df["pc_enc"] = (df["pc"].astype(str).str.strip().str.lower() == "abnormal").astype(float)
         df["pcc_enc"] = (df["pcc"].astype(str).str.strip().str.lower() == "present").astype(float)
         df["ba_enc"] = (df["ba"].astype(str).str.strip().str.lower() == "present").astype(float)
-        df["bgr"] = pd.to_numeric(df["bgr"], errors="coerce").fillna(120.0)
-        df["bu"] = pd.to_numeric(df["bu"], errors="coerce").fillna(35.0)
-        df["sc"] = pd.to_numeric(df["sc"], errors="coerce").fillna(1.2)
-        df["sod"] = pd.to_numeric(df["sod"], errors="coerce").fillna(140.0)
-        df["pot"] = pd.to_numeric(df["pot"], errors="coerce").fillna(4.5)
-        df["hemo"] = pd.to_numeric(df["hemo"], errors="coerce").fillna(13.0)
-        df["pcv"] = pd.to_numeric(df["pcv"], errors="coerce").fillna(40.0)
-        df["wc"] = pd.to_numeric(df.get("wbcc", df.get("wc")), errors="coerce").fillna(8000.0)
-        df["rc"] = pd.to_numeric(df.get("rbcc", df.get("rc")), errors="coerce").fillna(5.0)
+        df["bgr"] = pd.to_numeric(df["bgr"], errors="coerce")
+        df["bu"] = pd.to_numeric(df["bu"], errors="coerce")
+        df["sc"] = pd.to_numeric(df["sc"], errors="coerce")
+        df["sod"] = pd.to_numeric(df["sod"], errors="coerce")
+        df["pot"] = pd.to_numeric(df["pot"], errors="coerce")
+        df["hemo"] = pd.to_numeric(df["hemo"], errors="coerce")
+        df["pcv"] = pd.to_numeric(df["pcv"], errors="coerce")
+        df["wc"] = pd.to_numeric(df.get("wbcc", df.get("wc")), errors="coerce")
+        df["rc"] = pd.to_numeric(df.get("rbcc", df.get("rc")), errors="coerce")
         df["htn_enc"] = (df["htn"].astype(str).str.strip().str.lower() == "yes").astype(float)
         df["dm_enc"] = (df["dm"].astype(str).str.strip().str.lower() == "yes").astype(float)
         df["cad_enc"] = (df["cad"].astype(str).str.strip().str.lower() == "yes").astype(float)
@@ -394,7 +393,6 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         df["gender_enc"] = (df["gender"].astype(str).str.strip().str.lower() == "male").astype(float)
         for col in ["age", "bilirubin", "db", "alk_phosphatase", "sgpt", "sgot", "tp", "alb", "ag_ratio"]:
             df[col] = pd.to_numeric(df[col], errors="coerce")
-            df[col] = df[col].fillna(df[col].median() if not np.isnan(df[col].median()) else 1.0)
 
     elif key == "breast_cancer":
         df = pd.read_csv(raw_path, header=None)
@@ -413,7 +411,6 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         ]
         for i, fname in enumerate(feature_names):
             df[fname] = pd.to_numeric(df[2 + i], errors="coerce")
-            df[fname] = df[fname].fillna(df[fname].median() if not np.isnan(df[fname].median()) else 0.0)
 
     elif key == "parkinsons":
         df = pd.read_csv(raw_path)
@@ -421,7 +418,7 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         df["target"] = df["status"].astype(int)
         feats = [c for c in MODEL_RAW_FEATURES[key] if c != "target"]
         for f in feats:
-            df[f] = pd.to_numeric(df[f], errors="coerce").fillna(0.0)
+            df[f] = pd.to_numeric(df[f], errors="coerce")
 
     elif key == "hepatitis":
         df = pd.read_csv(raw_path, header=None)
@@ -438,7 +435,6 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         }
         for idx, name in hep_cols.items():
             df[name] = pd.to_numeric(df[idx], errors="coerce")
-            df[name] = df[name].fillna(df[name].median() if pd.notnull(df[name].median()) else 0.0)
 
     elif key == "heart_failure":
         df = pd.read_csv(raw_path)
@@ -447,18 +443,16 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         feats = [c for c in MODEL_RAW_FEATURES[key] if c != "target"]
         for col in feats:
             df[col] = pd.to_numeric(df[col], errors="coerce")
-            df[col] = df[col].fillna(df[col].median())
 
     elif key == "stroke":
         df = pd.read_csv(raw_path)
         df = df.replace(["?", "N/A", "n/a"], np.nan)
         df["target"] = df["stroke"].astype(int)
-        df["age"] = pd.to_numeric(df["age"], errors="coerce").fillna(50.0)
-        bmi_series = pd.to_numeric(df["bmi"], errors="coerce")
-        df["bmi"] = bmi_series.fillna(bmi_series.median() if not np.isnan(bmi_series.median()) else 28.0)
-        df["hypertension"] = pd.to_numeric(df["hypertension"], errors="coerce").fillna(0)
-        df["heart_disease"] = pd.to_numeric(df["heart_disease"], errors="coerce").fillna(0)
-        df["avg_glucose_level"] = pd.to_numeric(df["avg_glucose_level"], errors="coerce").fillna(100.0)
+        df["age"] = pd.to_numeric(df["age"], errors="coerce")
+        df["bmi"] = pd.to_numeric(df["bmi"], errors="coerce")
+        df["hypertension"] = pd.to_numeric(df["hypertension"], errors="coerce")
+        df["heart_disease"] = pd.to_numeric(df["heart_disease"], errors="coerce")
+        df["avg_glucose_level"] = pd.to_numeric(df["avg_glucose_level"], errors="coerce")
         # Encode categorical features
         df["gender_enc"] = (df["gender"].astype(str).str.strip().str.lower() == "male").astype(float)
         df["ever_married_enc"] = (df["ever_married"].astype(str).str.strip().str.lower() == "yes").astype(float)
@@ -592,6 +586,7 @@ def run_full_ml_lifecycle(data_dir: str | Path | None = None):
         # ── Phase 3: Preprocessing (fit on train only) ──────────────────────
         preprocessor = Pipeline([
             ("to_array", FunctionTransformer(_to_array, validate=False)),
+            ("imputer", SimpleImputer(strategy="median")),
             ("scaler", StandardScaler()),
         ])
         X_train_scaled = preprocessor.fit_transform(X_train)

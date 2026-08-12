@@ -354,15 +354,26 @@ class DiseaseModelEvaluator:
 
         # 4. Generate Predictions & Calculate Metrics
         if getattr(self, "_preprocessor_needs_fit", False) and self.preprocessor is not None:
-            self.preprocessor.fit(X)
-        X_trans = self.preprocessor.transform(X) if self.preprocessor is not None else X.to_numpy()
+            # Load split indices to avoid leakage
+            split_dir = Path(__file__).resolve().parents[2] / "ml" / "evaluation" / "splits"
+            train_idx = np.load(split_dir / f"{self.disease_key}_train.npy")
+            test_idx = np.load(split_dir / f"{self.disease_key}_test.npy")
+            X_train = X.iloc[train_idx]
+            X_test = X.iloc[test_idx]
+            y_test = y.iloc[test_idx]
+            # Fit preprocessor on training data only
+            self.preprocessor.fit(X_train)
+            X_trans = self.preprocessor.transform(X_test)
+        else:
+            X_trans = X.to_numpy()
+            y_test = y
         y_pred = self.model.predict(X_trans)
         if hasattr(self.model, "predict_proba"):
             y_proba = self.model.predict_proba(X_trans)[:, 1]
         else:
             y_proba = y_pred.astype(float)
 
-        self.calculate_metrics(y, y_pred, y_proba)
+        self.calculate_metrics(y_test, y_pred, y_proba)
 
         # 5. Cross-Validation
         self.run_cross_validation(X_trans, y)

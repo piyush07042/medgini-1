@@ -3,62 +3,52 @@
     "model_key": "heart_disease",
     "model_name": "Heart Disease",
     "classifier": "RandomForest",
-    "threshold": 0.44,
+    "threshold": 0.65,
     "imbalance_strategy": "balanced",
-    "test_samples": 45,
+    "test_samples": 46,
     "positive_samples": 21,
-    "negative_samples": 24,
-    "cv_roc_auc_mean": 0.8981,
-    "cv_roc_auc_std": 0.0475,
-    "accuracy": 0.8222,
+    "negative_samples": 25,
+    "cv_roc_auc_mean": 0.9044,
+    "cv_roc_auc_std": 0.0193,
+    "accuracy": 0.8913,
     "accuracy_95ci": [
-      0.7111,
-      0.9333
+      0.8043,
+      0.9783
     ],
-    "balanced_accuracy": 0.8214,
-    "precision": 0.8095,
+    "balanced_accuracy": 0.8848,
+    "precision": 0.9444,
     "recall": 0.8095,
-    "specificity": 0.8333,
-    "f1_score": 0.8095,
+    "specificity": 0.96,
+    "f1_score": 0.8718,
     "f1_95ci": [
-      0.6667,
-      0.9232
+      0.7429,
+      0.9714
     ],
-    "roc_auc": 0.9256,
+    "roc_auc": 0.9333,
     "roc_auc_95ci": [
-      0.8393,
-      0.9881
+      0.8421,
+      1.0
     ],
-    "pr_auc": 0.9041,
-    "mcc": 0.6429,
-    "cohen_kappa": 0.6429,
-    "brier_score": 0.1174,
+    "pr_auc": 0.8879,
+    "mcc": 0.7854,
+    "cohen_kappa": 0.7784,
+    "brier_score": 0.1114,
     "confusion_matrix": {
-      "TN": 20,
-      "FP": 4,
+      "TN": 24,
+      "FP": 1,
       "FN": 4,
       "TP": 17
     },
     "all_classifiers_cv": {
       "RandomForest": {
-        "cv_roc_auc_mean": 0.8981,
-        "cv_roc_auc_std": 0.0475,
-        "val_pr_auc": 0.9072
-      },
-      "LogisticRegression": {
-        "cv_roc_auc_mean": 0.8891,
-        "cv_roc_auc_std": 0.0527,
-        "val_pr_auc": 0.903
-      },
-      "SVM": {
-        "cv_roc_auc_mean": 0.8828,
-        "cv_roc_auc_std": 0.0384,
-        "val_pr_auc": 0.9046
+        "cv_roc_auc_mean": 0.9044,
+        "cv_roc_auc_std": 0.0193,
+        "val_pr_auc": 0.8715
       },
       "XGBoost": {
-        "cv_roc_auc_mean": 0.8787,
-        "cv_roc_auc_std": 0.0302,
-        "val_pr_auc": 0.8925
+        "cv_roc_auc_mean": 0.9071,
+        "cv_roc_auc_std": 0.0275,
+        "val_pr_auc": 0.8338
       }
     }
   },
@@ -124,13 +114,13 @@
     "model_key": "kidney_disease",
     "model_name": "Kidney Disease",
     "classifier": "RandomForest",
-    "threshold": 0.12,
+    "threshold": 0.34,
     "imbalance_strategy": "none",
     "test_samples": 60,
     "positive_samples": 37,
     "negative_samples": 23,
-    "cv_roc_auc_mean": 0.9995,
-    "cv_roc_auc_std": 0.0007,
+    "cv_roc_auc_mean": 0.9997,
+    "cv_roc_auc_std": 0.0005,
     "accuracy": 0.9833,
     "accuracy_95ci": [
       0.95,
@@ -153,7 +143,7 @@
     "pr_auc": 1.0,
     "mcc": 0.9651,
     "cohen_kappa": 0.9645,
-    "brier_score": 0.0096,
+    "brier_score": 0.012,
     "confusion_matrix": {
       "TN": 22,
       "FP": 1,
@@ -162,23 +152,13 @@
     },
     "all_classifiers_cv": {
       "RandomForest": {
-        "cv_roc_auc_mean": 0.9995,
-        "cv_roc_auc_std": 0.0007,
-        "val_pr_auc": 1.0
-      },
-      "LogisticRegression": {
-        "cv_roc_auc_mean": 1.0,
-        "cv_roc_auc_std": 0.0,
-        "val_pr_auc": 1.0
-      },
-      "SVM": {
-        "cv_roc_auc_mean": 1.0,
-        "cv_roc_auc_std": 0.0,
+        "cv_roc_auc_mean": 0.9997,
+        "cv_roc_auc_std": 0.0005,
         "val_pr_auc": 1.0
       },
       "XGBoost": {
-        "cv_roc_auc_mean": 0.997,
-        "cv_roc_auc_std": 0.0041,
+        "cv_roc_auc_mean": 0.9995,
+        "cv_roc_auc_std": 0.0011,
         "val_pr_auc": 1.0
       }
     }
@@ -187,62 +167,52 @@
     "model_key": "liver_disease",
     "model_name": "Liver Disease",
     "classifier": "XGBoost",
-    "threshold": 0.9,
+    "threshold": 0.78,
     "imbalance_strategy": "balanced",
     "test_samples": 88,
     "positive_samples": 63,
     "negative_samples": 25,
-    "cv_roc_auc_mean": 0.7123,
-    "cv_roc_auc_std": 0.0597,
-    "accuracy": 0.6477,
+    "cv_roc_auc_mean": 0.6913,
+    "cv_roc_auc_std": 0.0495,
+    "accuracy": 0.6818,
     "accuracy_95ci": [
-      0.5455,
-      0.75
+      0.5795,
+      0.7727
     ],
-    "balanced_accuracy": 0.6575,
-    "precision": 0.8333,
-    "recall": 0.6349,
-    "specificity": 0.68,
-    "f1_score": 0.7207,
+    "balanced_accuracy": 0.6451,
+    "precision": 0.807,
+    "recall": 0.7302,
+    "specificity": 0.56,
+    "f1_score": 0.7667,
     "f1_95ci": [
-      0.6212,
-      0.8077
+      0.6783,
+      0.8462
     ],
-    "roc_auc": 0.6883,
+    "roc_auc": 0.7206,
     "roc_auc_95ci": [
-      0.5662,
-      0.8056
+      0.6074,
+      0.8299
     ],
-    "pr_auc": 0.8634,
-    "mcc": 0.2852,
-    "cohen_kappa": 0.2667,
-    "brier_score": 0.2348,
+    "pr_auc": 0.8775,
+    "mcc": 0.2739,
+    "cohen_kappa": 0.2706,
+    "brier_score": 0.2184,
     "confusion_matrix": {
-      "TN": 17,
-      "FP": 8,
-      "FN": 23,
-      "TP": 40
+      "TN": 14,
+      "FP": 11,
+      "FN": 17,
+      "TP": 46
     },
     "all_classifiers_cv": {
       "RandomForest": {
-        "cv_roc_auc_mean": 0.7378,
-        "cv_roc_auc_std": 0.0508,
-        "val_pr_auc": 0.876
-      },
-      "LogisticRegression": {
-        "cv_roc_auc_mean": 0.7519,
-        "cv_roc_auc_std": 0.0546,
-        "val_pr_auc": 0.8601
-      },
-      "SVM": {
-        "cv_roc_auc_mean": 0.7485,
-        "cv_roc_auc_std": 0.0333,
-        "val_pr_auc": 0.8173
+        "cv_roc_auc_mean": 0.733,
+        "cv_roc_auc_std": 0.0494,
+        "val_pr_auc": 0.8791
       },
       "XGBoost": {
-        "cv_roc_auc_mean": 0.7123,
-        "cv_roc_auc_std": 0.0597,
-        "val_pr_auc": 0.9033
+        "cv_roc_auc_mean": 0.6913,
+        "cv_roc_auc_std": 0.0495,
+        "val_pr_auc": 0.9057
       }
     }
   },
@@ -375,63 +345,53 @@
   {
     "model_key": "hepatitis",
     "model_name": "Hepatitis",
-    "classifier": "LogisticRegression",
-    "threshold": 0.24,
+    "classifier": "XGBoost",
+    "threshold": 0.12,
     "imbalance_strategy": "balanced",
     "test_samples": 24,
     "positive_samples": 5,
     "negative_samples": 19,
-    "cv_roc_auc_mean": 0.8206,
-    "cv_roc_auc_std": 0.0885,
-    "accuracy": 0.5833,
+    "cv_roc_auc_mean": 0.8188,
+    "cv_roc_auc_std": 0.144,
+    "accuracy": 0.7917,
     "accuracy_95ci": [
-      0.4156,
-      0.7917
+      0.625,
+      0.9583
     ],
-    "balanced_accuracy": 0.7368,
-    "precision": 0.3333,
-    "recall": 1.0,
-    "specificity": 0.4737,
-    "f1_score": 0.5,
+    "balanced_accuracy": 0.7211,
+    "precision": 0.5,
+    "recall": 0.6,
+    "specificity": 0.8421,
+    "f1_score": 0.5455,
     "f1_95ci": [
-      0.2103,
-      0.75
+      0.0,
+      0.8571
     ],
-    "roc_auc": 0.8947,
+    "roc_auc": 0.8632,
     "roc_auc_95ci": [
       NaN,
       NaN
     ],
-    "pr_auc": 0.7311,
-    "mcc": 0.3974,
-    "cohen_kappa": 0.2727,
-    "brier_score": 0.1537,
+    "pr_auc": 0.6422,
+    "mcc": 0.4146,
+    "cohen_kappa": 0.4118,
+    "brier_score": 0.1414,
     "confusion_matrix": {
-      "TN": 9,
-      "FP": 10,
-      "FN": 0,
-      "TP": 5
+      "TN": 16,
+      "FP": 3,
+      "FN": 2,
+      "TP": 3
     },
     "all_classifiers_cv": {
       "RandomForest": {
-        "cv_roc_auc_mean": 0.8847,
-        "cv_roc_auc_std": 0.0957,
-        "val_pr_auc": 0.9029
-      },
-      "LogisticRegression": {
-        "cv_roc_auc_mean": 0.8206,
-        "cv_roc_auc_std": 0.0885,
-        "val_pr_auc": 0.925
-      },
-      "SVM": {
-        "cv_roc_auc_mean": 0.8747,
-        "cv_roc_auc_std": 0.1003,
-        "val_pr_auc": 0.8444
+        "cv_roc_auc_mean": 0.8862,
+        "cv_roc_auc_std": 0.1025,
+        "val_pr_auc": 0.8767
       },
       "XGBoost": {
-        "cv_roc_auc_mean": 0.8282,
-        "cv_roc_auc_std": 0.1153,
-        "val_pr_auc": 0.8083
+        "cv_roc_auc_mean": 0.8188,
+        "cv_roc_auc_std": 0.144,
+        "val_pr_auc": 1.0
       }
     }
   },
@@ -501,63 +461,53 @@
   {
     "model_key": "stroke",
     "model_name": "Stroke",
-    "classifier": "LogisticRegression",
-    "threshold": 0.03,
+    "classifier": "RandomForest",
+    "threshold": 0.02,
     "imbalance_strategy": "smote",
     "test_samples": 767,
     "positive_samples": 37,
     "negative_samples": 730,
-    "cv_roc_auc_mean": 0.8496,
-    "cv_roc_auc_std": 0.0123,
-    "accuracy": 0.6375,
+    "cv_roc_auc_mean": 0.8299,
+    "cv_roc_auc_std": 0.0244,
+    "accuracy": 0.6271,
     "accuracy_95ci": [
-      0.6036,
-      0.6701
+      0.5932,
+      0.6584
     ],
-    "balanced_accuracy": 0.7198,
+    "balanced_accuracy": 0.7271,
     "precision": 0.0997,
-    "recall": 0.8108,
-    "specificity": 0.6288,
-    "f1_score": 0.1775,
+    "recall": 0.8378,
+    "specificity": 0.6164,
+    "f1_score": 0.1782,
     "f1_95ci": [
-      0.1254,
-      0.231
+      0.128,
+      0.2308
     ],
-    "roc_auc": 0.8247,
+    "roc_auc": 0.7887,
     "roc_auc_95ci": [
-      0.751,
-      0.8912
+      0.722,
+      0.8474
     ],
-    "pr_auc": 0.2203,
-    "mcc": 0.1929,
-    "cohen_kappa": 0.1002,
-    "brier_score": 0.0416,
+    "pr_auc": 0.1466,
+    "mcc": 0.1983,
+    "cohen_kappa": 0.1006,
+    "brier_score": 0.045,
     "confusion_matrix": {
-      "TN": 459,
-      "FP": 271,
-      "FN": 7,
-      "TP": 30
+      "TN": 450,
+      "FP": 280,
+      "FN": 6,
+      "TP": 31
     },
     "all_classifiers_cv": {
       "RandomForest": {
-        "cv_roc_auc_mean": 0.8274,
-        "cv_roc_auc_std": 0.0219,
-        "val_pr_auc": 0.1164
-      },
-      "LogisticRegression": {
-        "cv_roc_auc_mean": 0.8496,
-        "cv_roc_auc_std": 0.0123,
-        "val_pr_auc": 0.1523
-      },
-      "SVM": {
-        "cv_roc_auc_mean": 0.6693,
-        "cv_roc_auc_std": 0.0555,
-        "val_pr_auc": 0.1033
+        "cv_roc_auc_mean": 0.8299,
+        "cv_roc_auc_std": 0.0244,
+        "val_pr_auc": 0.1529
       },
       "XGBoost": {
-        "cv_roc_auc_mean": 0.7978,
-        "cv_roc_auc_std": 0.0311,
-        "val_pr_auc": 0.0966
+        "cv_roc_auc_mean": 0.8045,
+        "cv_roc_auc_std": 0.0281,
+        "val_pr_auc": 0.1042
       }
     }
   }
