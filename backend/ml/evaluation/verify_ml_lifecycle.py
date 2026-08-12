@@ -33,7 +33,8 @@ from sklearn.metrics import (
 )
 
 from ml.inference.predictor import Predictor, PredictorConfig
-from ml.evaluation.train_and_evaluate_all_models import _load_real_dataset
+from ml.inference.predictor import Predictor, PredictorConfig
+from ml.evaluation.train_and_evaluate_all_models import _load_real_dataset, MODEL_RAW_FEATURES
 
 # Import services
 from app.services.heart_disease_service import get_heart_disease_service
@@ -51,7 +52,7 @@ MODELS_CONFIG = [
         "key": "heart_disease",
         "name": "Heart Disease",
         "dir": "heart_disease",
-        "features": ["age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal"],
+        "features": [c for c in MODEL_RAW_FEATURES["heart_disease"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_heart_disease_service,
     },
@@ -59,7 +60,7 @@ MODELS_CONFIG = [
         "key": "diabetes",
         "name": "Diabetes",
         "dir": "diabetes_model",
-        "features": ["age", "time_in_hospital", "num_medications"],
+        "features": [c for c in MODEL_RAW_FEATURES["diabetes"] if c != "target"],
         "n_samples": 1000,
         "service_getter": get_diabetes_service,
     },
@@ -67,7 +68,7 @@ MODELS_CONFIG = [
         "key": "kidney_disease",
         "name": "Kidney Disease",
         "dir": "kidney_disease_model",
-        "features": ["creatinine", "blood_urea", "blood_glucose_random", "albumin"],
+        "features": [c for c in MODEL_RAW_FEATURES["kidney_disease"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_kidney_disease_service,
     },
@@ -75,7 +76,7 @@ MODELS_CONFIG = [
         "key": "liver_disease",
         "name": "Liver Disease",
         "dir": "liver_disease_model",
-        "features": ["age", "bilirubin", "alk_phosphatase", "sgpt", "sgot"],
+        "features": [c for c in MODEL_RAW_FEATURES["liver_disease"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_liver_disease_service,
     },
@@ -83,7 +84,7 @@ MODELS_CONFIG = [
         "key": "breast_cancer",
         "name": "Breast Cancer",
         "dir": "breast_cancer_model",
-        "features": ["radius_mean", "texture_mean", "perimeter_mean", "area_mean", "smoothness_mean"],
+        "features": [c for c in MODEL_RAW_FEATURES["breast_cancer"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_breast_cancer_service,
     },
@@ -91,7 +92,7 @@ MODELS_CONFIG = [
         "key": "parkinsons",
         "name": "Parkinson's",
         "dir": "parkinsons_model",
-        "features": ["MDVP:Fo(Hz)", "MDVP:Jitter(%)", "MDVP:Shimmer", "HNR", "RPDE"],
+        "features": [c for c in MODEL_RAW_FEATURES["parkinsons"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_parkinsons_service,
     },
@@ -99,7 +100,7 @@ MODELS_CONFIG = [
         "key": "hepatitis",
         "name": "Hepatitis",
         "dir": "hepatitis_model",
-        "features": ["age", "bilirubin", "alk_phosphatase", "sgpt", "sgot"],
+        "features": [c for c in MODEL_RAW_FEATURES["hepatitis"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_hepatitis_service,
     },
@@ -107,7 +108,7 @@ MODELS_CONFIG = [
         "key": "heart_failure",
         "name": "Heart Failure",
         "dir": "heart_failure_model",
-        "features": ["age", "ejection_fraction", "serum_creatinine", "serum_sodium", "time"],
+        "features": [c for c in MODEL_RAW_FEATURES["heart_failure"] if c != "target"],
         "n_samples": 800,
         "service_getter": get_heart_failure_service,
     },
@@ -115,8 +116,8 @@ MODELS_CONFIG = [
         "key": "stroke",
         "name": "Stroke",
         "dir": "stroke_model",
-        "features": ["age", "hypertension", "heart_disease", "avg_glucose_level", "bmi"],
-        "n_samples": 1000,
+        "features": [c for c in MODEL_RAW_FEATURES["stroke"] if c != "target"],
+        "n_samples": 800,
         "service_getter": get_stroke_service,
     },
 ]

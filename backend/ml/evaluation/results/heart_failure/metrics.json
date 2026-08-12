@@ -1,27 +1,63 @@
 {
   "model_key": "heart_failure",
   "model_name": "Heart Failure",
+  "classifier": "SVM",
+  "threshold": 0.5,
   "imbalance_strategy": "balanced",
-  "test_samples": 90,
-  "positive_samples": 29,
-  "negative_samples": 61,
-  "cv_roc_auc_mean": 0.9113,
-  "cv_roc_auc_std": 0.0489,
-  "accuracy": 0.8333,
-  "balanced_accuracy": 0.8137,
-  "precision": 0.7333,
-  "recall": 0.7586,
-  "specificity": 0.8689,
-  "f1_score": 0.7458,
-  "roc_auc": 0.8785,
-  "pr_auc": 0.7834,
-  "mcc": 0.622,
-  "cohen_kappa": 0.6218,
-  "brier_score": 0.1254,
+  "test_samples": 45,
+  "positive_samples": 14,
+  "negative_samples": 31,
+  "cv_roc_auc_mean": 0.825,
+  "cv_roc_auc_std": 0.0812,
+  "accuracy": 0.7556,
+  "accuracy_95ci": [
+    0.6222,
+    0.8667
+  ],
+  "balanced_accuracy": 0.7051,
+  "precision": 0.6154,
+  "recall": 0.5714,
+  "specificity": 0.8387,
+  "f1_score": 0.5926,
+  "f1_95ci": [
+    0.3478,
+    0.8
+  ],
+  "roc_auc": 0.8594,
+  "roc_auc_95ci": [
+    0.7345,
+    0.9538
+  ],
+  "pr_auc": 0.7287,
+  "mcc": 0.4189,
+  "cohen_kappa": 0.4183,
+  "brier_score": 0.1496,
   "confusion_matrix": {
-    "TN": 53,
-    "FP": 8,
-    "FN": 7,
-    "TP": 22
+    "TN": 26,
+    "FP": 5,
+    "FN": 6,
+    "TP": 8
+  },
+  "all_classifiers_cv": {
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.9124,
+      "cv_roc_auc_std": 0.0499,
+      "val_pr_auc": 0.8636
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.8698,
+      "cv_roc_auc_std": 0.0547,
+      "val_pr_auc": 0.8189
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 0.825,
+      "cv_roc_auc_std": 0.0812,
+      "val_pr_auc": 0.8883
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.8911,
+      "cv_roc_auc_std": 0.0513,
+      "val_pr_auc": 0.8377
+    }
   }
 }

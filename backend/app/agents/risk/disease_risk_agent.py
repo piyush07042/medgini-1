@@ -154,14 +154,10 @@ class DiseaseRiskAgent(BaseAgent):
         diabetes_input = dict(assessment_input)
         if "age" not in diabetes_input and assessment_input.get("patient_age") is not None:
             diabetes_input["age"] = assessment_input.get("patient_age")
-        if "bmi" not in diabetes_input and assessment_input.get("BMI") is not None:
-            diabetes_input["bmi"] = assessment_input.get("BMI")
-        if "glucose" not in diabetes_input and assessment_input.get("blood_glucose") is not None:
-            diabetes_input["glucose"] = assessment_input.get("blood_glucose")
-        if "systolic_bp" not in diabetes_input and assessment_input.get("blood_pressure") is not None:
-            diabetes_input["systolic_bp"] = assessment_input.get("blood_pressure")
-        if "insulin" not in diabetes_input and assessment_input.get("insulin_level") is not None:
-            diabetes_input["insulin"] = assessment_input.get("insulin_level")
+        if "time_in_hospital" not in diabetes_input and assessment_input.get("hospital_days") is not None:
+            diabetes_input["time_in_hospital"] = assessment_input.get("hospital_days")
+        if "num_medications" not in diabetes_input and assessment_input.get("medications_count") is not None:
+            diabetes_input["num_medications"] = assessment_input.get("medications_count")
         return diabetes_input
 
     def _prepare_kidney_model_input(self, assessment_input: dict[str, Any]) -> dict[str, Any]:
@@ -172,8 +168,8 @@ class DiseaseRiskAgent(BaseAgent):
             kidney_input["creatinine"] = assessment_input.get("serum_creatinine")
         if "blood_urea" not in kidney_input and assessment_input.get("urea") is not None:
             kidney_input["blood_urea"] = assessment_input.get("urea")
-        if "sgpt" not in kidney_input and assessment_input.get("alt") is not None:
-            kidney_input["sgpt"] = assessment_input.get("alt")
+        if "blood_glucose_random" not in kidney_input and assessment_input.get("random_glucose") is not None:
+            kidney_input["blood_glucose_random"] = assessment_input.get("random_glucose")
         if "albumin" not in kidney_input and assessment_input.get("albumin_level") is not None:
             kidney_input["albumin"] = assessment_input.get("albumin_level")
         return kidney_input
@@ -230,8 +226,8 @@ class DiseaseRiskAgent(BaseAgent):
         # If the model rejects partial/unsupported input, fall back to the general risk engine.
         heart_keys = {"cholesterol", "chol", "trestbps", "thalach", "oldpeak", "cp", "restecg", "exang", "slope", "ca", "thal"}
         heart_failure_keys = {"ejection_fraction", "serum_creatinine", "serum_sodium", "time", "heart_failure"}
-        diabetes_keys = {"bmi", "glucose", "insulin", "blood_glucose", "diabetes"}
-        kidney_keys = {"creatinine", "blood_urea", "sgpt", "albumin", "egfr", "ckd", "renal"}
+        diabetes_keys = {"time_in_hospital", "num_medications", "diabetes"}
+        kidney_keys = {"creatinine", "blood_urea", "blood_glucose_random", "albumin", "egfr", "ckd", "renal"}
         liver_keys = {"bilirubin", "alk_phosphatase", "alkphos", "sgpt", "sgot", "alt", "ast", "bilirubin_level"}
         has_heart_features = any(k in assessment_input for k in heart_keys)
         has_heart_failure_features = any(k in assessment_input for k in heart_failure_keys) or (
@@ -545,7 +541,7 @@ class DiseaseRiskAgent(BaseAgent):
             "diagnosis" in assessment_input and "breast" in str(assessment_input.get("diagnosis", "")).lower()
         )
 
-        parkinsons_keys = {"motor_UPDRS", "total_UPDRS", "Jitter_local", "Shimmer_local", "jitter_local", "shimmer_local"}
+        parkinsons_keys = {"mdvp_fo", "mdvp_jitter", "mdvp_shimmer", "hnr", "rpde"}
         has_parkinsons_features = any(k in assessment_input for k in parkinsons_keys) or (
             "diagnosis" in assessment_input and "parkinson" in str(assessment_input.get("diagnosis", "")).lower()
         )
@@ -554,7 +550,7 @@ class DiseaseRiskAgent(BaseAgent):
             parkinsons_service = get_parkinsons_service(Path(settings.PARKINSONS_MODEL_DIRECTORY))
             parkinsons_input = {
                 key: assessment_input[key]
-                for key in ["age", "motor_UPDRS", "total_UPDRS", "Jitter_local", "Shimmer_local"]
+                for key in ["mdvp_fo", "mdvp_jitter", "mdvp_shimmer", "hnr", "rpde"]
                 if key in assessment_input
             }
             try:

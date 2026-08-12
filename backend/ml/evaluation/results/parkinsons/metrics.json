@@ -1,27 +1,63 @@
 {
   "model_key": "parkinsons",
   "model_name": "Parkinson's",
+  "classifier": "XGBoost",
+  "threshold": 0.57,
   "imbalance_strategy": "balanced",
-  "test_samples": 59,
-  "positive_samples": 44,
-  "negative_samples": 15,
-  "cv_roc_auc_mean": 0.909,
-  "cv_roc_auc_std": 0.0482,
-  "accuracy": 0.9492,
-  "balanced_accuracy": 0.9439,
-  "precision": 0.9767,
-  "recall": 0.9545,
-  "specificity": 0.9333,
-  "f1_score": 0.9655,
-  "roc_auc": 0.9712,
-  "pr_auc": 0.9893,
-  "mcc": 0.8696,
-  "cohen_kappa": 0.8688,
-  "brier_score": 0.0935,
+  "test_samples": 30,
+  "positive_samples": 23,
+  "negative_samples": 7,
+  "cv_roc_auc_mean": 0.9402,
+  "cv_roc_auc_std": 0.0277,
+  "accuracy": 0.8667,
+  "accuracy_95ci": [
+    0.7333,
+    0.9667
+  ],
+  "balanced_accuracy": 0.8634,
+  "precision": 0.9524,
+  "recall": 0.8696,
+  "specificity": 0.8571,
+  "f1_score": 0.9091,
+  "f1_95ci": [
+    0.8,
+    0.9796
+  ],
+  "roc_auc": 0.9565,
+  "roc_auc_95ci": [
+    NaN,
+    NaN
+  ],
+  "pr_auc": 0.9869,
+  "mcc": 0.6707,
+  "cohen_kappa": 0.661,
+  "brier_score": 0.0778,
   "confusion_matrix": {
-    "TN": 14,
+    "TN": 6,
     "FP": 1,
-    "FN": 2,
-    "TP": 42
+    "FN": 3,
+    "TP": 20
+  },
+  "all_classifiers_cv": {
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.9378,
+      "cv_roc_auc_std": 0.0426,
+      "val_pr_auc": 0.9814
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.8803,
+      "cv_roc_auc_std": 0.0513,
+      "val_pr_auc": 0.9571
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 0.916,
+      "cv_roc_auc_std": 0.0429,
+      "val_pr_auc": 0.9767
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.9402,
+      "cv_roc_auc_std": 0.0277,
+      "val_pr_auc": 0.9822
+    }
   }
 }

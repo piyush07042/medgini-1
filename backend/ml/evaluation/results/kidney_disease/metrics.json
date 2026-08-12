@@ -1,27 +1,63 @@
 {
   "model_key": "kidney_disease",
   "model_name": "Kidney Disease",
+  "classifier": "RandomForest",
+  "threshold": 0.12,
   "imbalance_strategy": "none",
-  "test_samples": 120,
-  "positive_samples": 75,
-  "negative_samples": 45,
-  "cv_roc_auc_mean": 0.9801,
-  "cv_roc_auc_std": 0.0068,
-  "accuracy": 0.975,
-  "balanced_accuracy": 0.98,
-  "precision": 1.0,
-  "recall": 0.96,
-  "specificity": 1.0,
-  "f1_score": 0.9796,
-  "roc_auc": 0.9893,
-  "pr_auc": 0.9946,
-  "mcc": 0.9487,
-  "cohen_kappa": 0.9474,
-  "brier_score": 0.0276,
+  "test_samples": 60,
+  "positive_samples": 37,
+  "negative_samples": 23,
+  "cv_roc_auc_mean": 0.9995,
+  "cv_roc_auc_std": 0.0007,
+  "accuracy": 0.9833,
+  "accuracy_95ci": [
+    0.95,
+    1.0
+  ],
+  "balanced_accuracy": 0.9783,
+  "precision": 0.9737,
+  "recall": 1.0,
+  "specificity": 0.9565,
+  "f1_score": 0.9867,
+  "f1_95ci": [
+    0.9538,
+    1.0
+  ],
+  "roc_auc": 1.0,
+  "roc_auc_95ci": [
+    1.0,
+    1.0
+  ],
+  "pr_auc": 1.0,
+  "mcc": 0.9651,
+  "cohen_kappa": 0.9645,
+  "brier_score": 0.0096,
   "confusion_matrix": {
-    "TN": 45,
-    "FP": 0,
-    "FN": 3,
-    "TP": 72
+    "TN": 22,
+    "FP": 1,
+    "FN": 0,
+    "TP": 37
+  },
+  "all_classifiers_cv": {
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.9995,
+      "cv_roc_auc_std": 0.0007,
+      "val_pr_auc": 1.0
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 1.0,
+      "cv_roc_auc_std": 0.0,
+      "val_pr_auc": 1.0
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 1.0,
+      "cv_roc_auc_std": 0.0,
+      "val_pr_auc": 1.0
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.997,
+      "cv_roc_auc_std": 0.0041,
+      "val_pr_auc": 1.0
+    }
   }
 }

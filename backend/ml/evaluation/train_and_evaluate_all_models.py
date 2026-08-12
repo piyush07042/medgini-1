@@ -107,8 +107,14 @@ MODEL_RAW_FEATURES = {
     ],
     "breast_cancer": [
         "radius_mean", "texture_mean", "perimeter_mean", "area_mean",
-        "smoothness_mean", "compactness_mean", "concavity_mean",
-        "concave_points_mean", "symmetry_mean", "fractal_dimension_mean",
+        "smoothness_mean", "compactness_mean", "concavity_mean", "concave_points_mean",
+        "symmetry_mean", "fractal_dimension_mean",
+        "radius_se", "texture_se", "perimeter_se", "area_se",
+        "smoothness_se", "compactness_se", "concavity_se", "concave_points_se",
+        "symmetry_se", "fractal_dimension_se",
+        "radius_worst", "texture_worst", "perimeter_worst", "area_worst",
+        "smoothness_worst", "compactness_worst", "concavity_worst", "concave_points_worst",
+        "symmetry_worst", "fractal_dimension_worst",
         "target"
     ],
     "parkinsons": [
@@ -368,8 +374,8 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         df["pot"] = pd.to_numeric(df["pot"], errors="coerce").fillna(4.5)
         df["hemo"] = pd.to_numeric(df["hemo"], errors="coerce").fillna(13.0)
         df["pcv"] = pd.to_numeric(df["pcv"], errors="coerce").fillna(40.0)
-        df["wc"] = pd.to_numeric(df["wc"], errors="coerce").fillna(8000.0)
-        df["rc"] = pd.to_numeric(df["rc"], errors="coerce").fillna(5.0)
+        df["wc"] = pd.to_numeric(df.get("wbcc", df.get("wc")), errors="coerce").fillna(8000.0)
+        df["rc"] = pd.to_numeric(df.get("rbcc", df.get("rc")), errors="coerce").fillna(5.0)
         df["htn_enc"] = (df["htn"].astype(str).str.strip().str.lower() == "yes").astype(float)
         df["dm_enc"] = (df["dm"].astype(str).str.strip().str.lower() == "yes").astype(float)
         df["cad_enc"] = (df["cad"].astype(str).str.strip().str.lower() == "yes").astype(float)
@@ -396,11 +402,18 @@ def _load_real_dataset(key: str) -> pd.DataFrame:
         df["target"] = (df[1].astype(str) == "M").astype(int)
         feature_names = [
             "radius_mean", "texture_mean", "perimeter_mean", "area_mean",
-            "smoothness_mean", "compactness_mean", "concavity_mean",
-            "concave_points_mean", "symmetry_mean", "fractal_dimension_mean",
+            "smoothness_mean", "compactness_mean", "concavity_mean", "concave_points_mean",
+            "symmetry_mean", "fractal_dimension_mean",
+            "radius_se", "texture_se", "perimeter_se", "area_se",
+            "smoothness_se", "compactness_se", "concavity_se", "concave_points_se",
+            "symmetry_se", "fractal_dimension_se",
+            "radius_worst", "texture_worst", "perimeter_worst", "area_worst",
+            "smoothness_worst", "compactness_worst", "concavity_worst", "concave_points_worst",
+            "symmetry_worst", "fractal_dimension_worst"
         ]
         for i, fname in enumerate(feature_names):
-            df[fname] = pd.to_numeric(df[2 + i], errors="coerce").fillna(0.0)
+            df[fname] = pd.to_numeric(df[2 + i], errors="coerce")
+            df[fname] = df[fname].fillna(df[fname].median() if not np.isnan(df[fname].median()) else 0.0)
 
     elif key == "parkinsons":
         df = pd.read_csv(raw_path)
@@ -627,6 +640,11 @@ def run_full_ml_lifecycle(data_dir: str | Path | None = None):
                 random_state=42, scale_pos_weight=spw if class_weight else 1.0,
                 n_estimators=200, max_depth=6,
             )
+
+        if len(y_train_balanced) > 10000:
+            if "SVM" in candidate_classifiers:
+                logger.info(f"Skipping SVM for {model_key} due to dataset size ({len(y_train_balanced)} rows).")
+                del candidate_classifiers["SVM"]
 
         best_clf_name = None
         best_clf = None

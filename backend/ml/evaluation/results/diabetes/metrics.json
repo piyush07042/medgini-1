@@ -1,27 +1,58 @@
 {
   "model_key": "diabetes",
   "model_name": "Diabetes",
+  "classifier": "LogisticRegression",
+  "threshold": 0.48,
   "imbalance_strategy": "balanced",
-  "test_samples": 30530,
-  "positive_samples": 14071,
-  "negative_samples": 16459,
-  "cv_roc_auc_mean": 0.564,
-  "cv_roc_auc_std": 0.0047,
-  "accuracy": 0.5413,
-  "balanced_accuracy": 0.5496,
-  "precision": 0.5019,
-  "recall": 0.6548,
-  "specificity": 0.4443,
-  "f1_score": 0.5682,
-  "roc_auc": 0.5673,
-  "pr_auc": 0.5094,
-  "mcc": 0.1009,
-  "cohen_kappa": 0.097,
-  "brier_score": 0.2462,
+  "test_samples": 15265,
+  "positive_samples": 7035,
+  "negative_samples": 8230,
+  "cv_roc_auc_mean": 0.649,
+  "cv_roc_auc_std": 0.0043,
+  "accuracy": 0.6172,
+  "accuracy_95ci": [
+    0.6094,
+    0.6255
+  ],
+  "balanced_accuracy": 0.612,
+  "precision": 0.5917,
+  "recall": 0.546,
+  "specificity": 0.678,
+  "f1_score": 0.5679,
+  "f1_95ci": [
+    0.5571,
+    0.578
+  ],
+  "roc_auc": 0.65,
+  "roc_auc_95ci": [
+    0.6411,
+    0.6591
+  ],
+  "pr_auc": 0.6178,
+  "mcc": 0.2258,
+  "cohen_kappa": 0.2253,
+  "brier_score": 0.2324,
   "confusion_matrix": {
-    "TN": 7313,
-    "FP": 9146,
-    "FN": 4857,
-    "TP": 9214
+    "TN": 5580,
+    "FP": 2650,
+    "FN": 3194,
+    "TP": 3841
+  },
+  "all_classifiers_cv": {
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.6181,
+      "cv_roc_auc_std": 0.0055,
+      "val_pr_auc": 0.5677
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.649,
+      "cv_roc_auc_std": 0.0043,
+      "val_pr_auc": 0.6163
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.6492,
+      "cv_roc_auc_std": 0.0057,
+      "val_pr_auc": 0.6148
+    }
   }
 }

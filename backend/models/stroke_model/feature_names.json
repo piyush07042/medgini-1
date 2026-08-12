@@ -1,7 +1,12 @@
 [
+  "gender_enc",
   "age",
   "hypertension",
   "heart_disease",
+  "ever_married_enc",
+  "work_type_enc",
+  "Residence_type_enc",
   "avg_glucose_level",
-  "bmi"
+  "bmi",
+  "smoking_status_enc"
 ]

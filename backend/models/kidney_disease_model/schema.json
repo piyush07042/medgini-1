@@ -1,9 +1,29 @@
 {
   "required_columns": [
-    "creatinine",
-    "blood_urea",
-    "blood_glucose_random",
-    "albumin"
+    "age",
+    "bp",
+    "sg",
+    "al",
+    "su",
+    "rbc_enc",
+    "pc_enc",
+    "pcc_enc",
+    "ba_enc",
+    "bgr",
+    "bu",
+    "sc",
+    "sod",
+    "pot",
+    "hemo",
+    "pcv",
+    "wc",
+    "rc",
+    "htn_enc",
+    "dm_enc",
+    "cad_enc",
+    "appet_enc",
+    "pe_enc",
+    "ane_enc"
   ],
   "target_column": "target"
 }

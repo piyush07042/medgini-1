@@ -246,11 +246,20 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
         df = pd.read_csv(raw_path, header=None)
         df = df.replace("?", np.nan)
         df["target"] = (df[1].astype(str) == "M").astype(int)
-        df["radius_mean"] = pd.to_numeric(df[2], errors="coerce").fillna(14.0)
-        df["texture_mean"] = pd.to_numeric(df[3], errors="coerce").fillna(19.0)
-        df["perimeter_mean"] = pd.to_numeric(df[4], errors="coerce").fillna(90.0)
-        df["area_mean"] = pd.to_numeric(df[5], errors="coerce").fillna(650.0)
-        df["smoothness_mean"] = pd.to_numeric(df[6], errors="coerce").fillna(0.1)
+        bc_features = [
+            "radius_mean", "texture_mean", "perimeter_mean", "area_mean",
+            "smoothness_mean", "compactness_mean", "concavity_mean", "concave_points_mean",
+            "symmetry_mean", "fractal_dimension_mean",
+            "radius_se", "texture_se", "perimeter_se", "area_se",
+            "smoothness_se", "compactness_se", "concavity_se", "concave_points_se",
+            "symmetry_se", "fractal_dimension_se",
+            "radius_worst", "texture_worst", "perimeter_worst", "area_worst",
+            "smoothness_worst", "compactness_worst", "concavity_worst", "concave_points_worst",
+            "symmetry_worst", "fractal_dimension_worst"
+        ]
+        for i, col_name in enumerate(bc_features):
+            df[col_name] = pd.to_numeric(df[i+2], errors="coerce")
+            df[col_name] = df[col_name].fillna(df[col_name].median() if not np.isnan(df[col_name].median()) else 0.0)
 
     elif disease_key == "parkinsons":
         df = pd.read_csv(raw_path)

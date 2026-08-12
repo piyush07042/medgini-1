@@ -1,10 +1,15 @@
 {
   "required_columns": [
     "age",
+    "gender_enc",
     "bilirubin",
+    "db",
     "alk_phosphatase",
     "sgpt",
-    "sgot"
+    "sgot",
+    "tp",
+    "alb",
+    "ag_ratio"
   ],
   "target_column": "target"
 }

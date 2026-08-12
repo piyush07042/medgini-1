@@ -57,13 +57,23 @@ async def test_disease_risk_uses_diabetes_model_when_diagnosis_is_diabetes():
         "bmi": 32,
         "glucose": 150,
         "systolic_bp": 140,
-        "cholesterol": 220,
         "diagnosis": "Type 2 Diabetes",
     }
 
-    agent = DiseaseRiskAgent()
+    class MockService:
+        def predict(self, data):
+            return {"prediction": 1, "class_probabilities": {"1": 0.8}, "risk_score": 0.8, "probability": 0.8}
 
-    result = await agent.run(state)
+    from app.services.diabetes_service import get_diabetes_service
+    import app.agents.risk.disease_risk_agent as dra
+    original_get_diabetes = dra.get_diabetes_service
+    dra.get_diabetes_service = lambda path=None: MockService()
+
+    try:
+        agent = DiseaseRiskAgent()
+        result = await agent.run(state)
+    finally:
+        dra.get_diabetes_service = original_get_diabetes
 
     assert result.success
     assert state.disease_risk.get("model_used") == "diabetes_model"
@@ -84,8 +94,20 @@ async def test_disease_risk_uses_kidney_model_when_diagnosis_is_kidney():
         "diagnosis": "Chronic Kidney Disease",
     }
 
-    agent = DiseaseRiskAgent()
-    result = await agent.run(state)
+    class MockService:
+        def predict(self, data):
+            return {"prediction": 1, "class_probabilities": {"1": 0.8}, "risk_score": 0.8}
+
+    from app.services.kidney_disease_service import get_kidney_disease_service
+    import app.agents.risk.disease_risk_agent as dra
+    original_get_kidney = dra.get_kidney_disease_service
+    dra.get_kidney_disease_service = lambda path=None: MockService()
+
+    try:
+        agent = DiseaseRiskAgent()
+        result = await agent.run(state)
+    finally:
+        dra.get_kidney_disease_service = original_get_kidney
 
     assert result.success
     assert state.disease_risk.get("model_used") == "kidney_disease_model"

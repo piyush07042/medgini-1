@@ -7,7 +7,7 @@ REQUEST_EXAMPLE = {
     "age": 65,
     "creatinine": 1.7,
     "blood_urea": 45.0,
-    "sgpt": 40.0,
+    "blood_glucose_random": 120.0,
     "albumin": 3.5,
     "name": "Test Kidney Patient",
 }

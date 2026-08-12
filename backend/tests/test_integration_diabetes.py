@@ -7,10 +7,8 @@ from app.schemas.diabetes import DiabetesPredictionRequest
 
 REQUEST_EXAMPLE = {
     "age": 55,
-    "bmi": 32.5,
-    "glucose": 160,
-    "systolic_bp": 140,
-    "insulin": 85,
+    "time_in_hospital": 3,
+    "num_medications": 15,
     "name": "Test Diabetes Patient",
 }
 

@@ -1,27 +1,63 @@
 {
   "model_key": "stroke",
   "model_name": "Stroke",
+  "classifier": "LogisticRegression",
+  "threshold": 0.03,
   "imbalance_strategy": "smote",
-  "test_samples": 1533,
-  "positive_samples": 75,
-  "negative_samples": 1458,
-  "cv_roc_auc_mean": 0.8252,
-  "cv_roc_auc_std": 0.0211,
-  "accuracy": 0.9504,
-  "balanced_accuracy": 0.4997,
-  "precision": 0.0,
-  "recall": 0.0,
-  "specificity": 0.9993,
-  "f1_score": 0.0,
-  "roc_auc": 0.8319,
-  "pr_auc": 0.201,
-  "mcc": -0.0058,
-  "cohen_kappa": -0.0013,
-  "brier_score": 0.0425,
+  "test_samples": 767,
+  "positive_samples": 37,
+  "negative_samples": 730,
+  "cv_roc_auc_mean": 0.8496,
+  "cv_roc_auc_std": 0.0123,
+  "accuracy": 0.6375,
+  "accuracy_95ci": [
+    0.6036,
+    0.6701
+  ],
+  "balanced_accuracy": 0.7198,
+  "precision": 0.0997,
+  "recall": 0.8108,
+  "specificity": 0.6288,
+  "f1_score": 0.1775,
+  "f1_95ci": [
+    0.1254,
+    0.231
+  ],
+  "roc_auc": 0.8247,
+  "roc_auc_95ci": [
+    0.751,
+    0.8912
+  ],
+  "pr_auc": 0.2203,
+  "mcc": 0.1929,
+  "cohen_kappa": 0.1002,
+  "brier_score": 0.0416,
   "confusion_matrix": {
-    "TN": 1457,
-    "FP": 1,
-    "FN": 75,
-    "TP": 0
+    "TN": 459,
+    "FP": 271,
+    "FN": 7,
+    "TP": 30
+  },
+  "all_classifiers_cv": {
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.8274,
+      "cv_roc_auc_std": 0.0219,
+      "val_pr_auc": 0.1164
+    },
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.8496,
+      "cv_roc_auc_std": 0.0123,
+      "val_pr_auc": 0.1523
+    },
+    "SVM": {
+      "cv_roc_auc_mean": 0.6693,
+      "cv_roc_auc_std": 0.0555,
+      "val_pr_auc": 0.1033
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.7978,
+      "cv_roc_auc_std": 0.0311,
+      "val_pr_auc": 0.0966
+    }
   }
 }
