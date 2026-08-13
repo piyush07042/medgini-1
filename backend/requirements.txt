@@ -66,13 +66,13 @@ google-genai
 
 # IMPORTANT:
 
-# Existing sklearn models were serialized with sklearn 1.7.2
+# Existing sklearn models were serialized with sklearn 1.9.0
 
 # ----------------------------
 
 numpy<2.0.0
 pandas==2.2.0
-scikit-learn==1.7.2
+scikit-learn==1.9.0
 xgboost==3.4.0
 shap>=0.45.0
 joblib==1.5.3

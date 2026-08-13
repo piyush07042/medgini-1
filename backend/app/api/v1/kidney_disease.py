@@ -33,6 +33,11 @@ async def predict(request: KidneyDiseasePredictionRequest):
         state = AgentState()
         patient_data = request.model_dump()
         patient_data.setdefault("name", "Kidney Disease Patient")
+        # Map frontend field names → model feature names used during training
+        patient_data.setdefault("sc", patient_data.get("creatinine", 0.0))   # serum creatinine
+        patient_data.setdefault("bu", patient_data.get("blood_urea", 0.0))    # blood urea
+        patient_data.setdefault("bgr", patient_data.get("sgpt", 0.0))         # blood glucose random
+        patient_data.setdefault("al", patient_data.get("albumin", 0.0))       # serum albumin
         state.patient = patient_data
         logger.info("KidneyDisease API request received; patient keys=%s", list(patient_data.keys()))
 

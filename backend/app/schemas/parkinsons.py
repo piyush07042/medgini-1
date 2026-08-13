@@ -10,13 +10,13 @@ from pydantic import Field
 
 
 class ParkinsonsPredictionRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="allow")
 
-    mdvp_fo: float = Field(..., ge=50.0, le=300.0, description="Average vocal fundamental frequency", json_schema_extra={"example": 150.0})
-    mdvp_jitter: float = Field(..., ge=0.0, le=0.1, description="MDVP:Jitter(%)", json_schema_extra={"example": 0.005})
-    mdvp_shimmer: float = Field(..., ge=0.0, le=0.2, description="MDVP:Shimmer", json_schema_extra={"example": 0.02})
-    hnr: float = Field(..., ge=0.0, le=40.0, description="Harmonics to Noise Ratio", json_schema_extra={"example": 20.0})
-    rpde: float = Field(..., ge=0.0, le=1.0, description="Recurrence Period Density Entropy", json_schema_extra={"example": 0.4})
+    age: float = Field(default=0.0, ge=0.0, le=120.0, description="Subject age", json_schema_extra={"example": 55.0})
+    motor_UPDRS: float = Field(default=0.0, ge=0.0, description="Motor UPDRS score", json_schema_extra={"example": 21.0})
+    total_UPDRS: float = Field(default=0.0, ge=0.0, description="Total UPDRS score", json_schema_extra={"example": 28.0})
+    Jitter_local: float = Field(default=0.0, ge=0.0, description="Jitter (local)", json_schema_extra={"example": 0.005})
+    Shimmer_local: float = Field(default=0.0, ge=0.0, description="Shimmer (local)", json_schema_extra={"example": 0.02})
     name: str | None = Field(default=None, description="Patient name")
 
 
@@ -40,10 +40,10 @@ class ParkinsonsPredictionResponse(BaseModel):
 
 
 REQUEST_EXAMPLE = {
-    "mdvp_fo": 150.0,
-    "mdvp_jitter": 0.005,
-    "mdvp_shimmer": 0.02,
-    "hnr": 20.0,
-    "rpde": 0.4,
+    "age": 55.0,
+    "motor_UPDRS": 21.0,
+    "total_UPDRS": 28.0,
+    "Jitter_local": 0.005,
+    "Shimmer_local": 0.02,
     "name": "Test Parkinson's Patient",
 }

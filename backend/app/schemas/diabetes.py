@@ -8,11 +8,13 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class DiabetesPredictionRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="allow")
 
     age: int = Field(..., ge=1, le=120, description="Age in years", example=55)
-    time_in_hospital: int = Field(..., ge=1, le=14, description="Time in hospital (days)", example=3)
-    num_medications: int = Field(..., ge=1, le=81, description="Number of medications", example=15)
+    bmi: float = Field(default=0.0, ge=0.0, description="Body Mass Index", example=28.5)
+    glucose: float = Field(default=0.0, ge=0.0, description="Plasma glucose concentration", example=120.0)
+    systolic_bp: float = Field(default=0.0, ge=0.0, description="Systolic blood pressure", example=130.0)
+    insulin: float = Field(default=0.0, ge=0.0, description="2-hour serum insulin", example=80.0)
     name: str | None = Field(default=None, description="Patient name")
 
 
@@ -37,6 +39,8 @@ class DiabetesPredictionResponse(BaseModel):
 
 REQUEST_EXAMPLE = {
     "age": 55,
-    "time_in_hospital": 3,
-    "num_medications": 15,
+    "bmi": 28.5,
+    "glucose": 120.0,
+    "systolic_bp": 130.0,
+    "insulin": 80.0,
 }

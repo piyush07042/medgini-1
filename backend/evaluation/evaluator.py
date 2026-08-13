@@ -242,22 +242,17 @@ def load_disease_dataset(disease_key: str) -> Tuple[pd.DataFrame, pd.Series, Dic
                 df[nc] = df[nc].fillna(df[nc].median() if df[nc].notna().any() else 0.0)
         # Add missing categorical encodings for kidney disease
         # Encode red blood cells, pus cell, pus cell clumps, bacteria, hypertension, diabetes, coronary artery disease, appetite, pedal edema, anemia, white blood cell count, red blood cell count
-        enc_map = {
-            "normal": 1,
-            "abnormal": 0,
-            "present": 1,
-            "notpresent": 0,
-        }
-        df["rbc_enc"] = df["rbc"].map(enc_map).fillna(0)
-        df["pc_enc"] = df["pc"].map(enc_map).fillna(0)
-        df["pcc_enc"] = df["pcc"].map(enc_map).fillna(0)
-        df["ba_enc"] = df["ba"].map(enc_map).fillna(0)
-        df["htn_enc"] = df["htn"].map(enc_map).fillna(0)
-        df["dm_enc"] = df["dm"].map(enc_map).fillna(0)
-        df["cad_enc"] = df["cad"].map(enc_map).fillna(0)
-        df["appet_enc"] = df["appet"].map(enc_map).fillna(0)
-        df["pe_enc"] = df["pe"].map(enc_map).fillna(0)
-        df["ane_enc"] = df["ane"].map(enc_map).fillna(0)
+        # Encode categorical columns according to training preprocessing
+        df["rbc_enc"] = (df["rbc"].astype(str).str.strip().str.lower() == "abnormal").astype(float)
+        df["pc_enc"] = (df["pc"].astype(str).str.strip().str.lower() == "abnormal").astype(float)
+        df["pcc_enc"] = (df["pcc"].astype(str).str.strip().str.lower() == "present").astype(float)
+        df["ba_enc"] = (df["ba"].astype(str).str.strip().str.lower() == "present").astype(float)
+        df["htn_enc"] = (df["htn"].astype(str).str.strip().str.lower() == "yes").astype(float)
+        df["dm_enc"] = (df["dm"].astype(str).str.strip().str.lower() == "yes").astype(float)
+        df["cad_enc"] = (df["cad"].astype(str).str.strip().str.lower() == "yes").astype(float)
+        df["appet_enc"] = (df["appet"].astype(str).str.strip().str.lower() == "good").astype(float)
+        df["pe_enc"] = (df["pe"].astype(str).str.strip().str.lower() == "yes").astype(float)
+        df["ane_enc"] = (df["ane"].astype(str).str.strip().str.lower() == "yes").astype(float)
         # wc and rc are numeric counts; ensure they are numeric
         df["wc"] = pd.to_numeric(df["wc"], errors="coerce").fillna(0)
         df["rc"] = pd.to_numeric(df["rc"], errors="coerce").fillna(0)
@@ -408,7 +403,7 @@ class DiseaseModelEvaluator:
         # 4. Generate Predictions & Calculate Metrics
         if getattr(self, "_preprocessor_needs_fit", False) and self.preprocessor is not None:
             # Load split indices to avoid leakage
-            split_dir = Path(__file__).resolve().parents[2] / "ml" / "evaluation" / "splits"
+            split_dir = Path(__file__).resolve().parents[1] / "ml" / "evaluation" / "splits"
             train_npy = split_dir / f"{self.disease_key}_train.npy"
             test_npy = split_dir / f"{self.disease_key}_test.npy"
             if train_npy.exists() and test_npy.exists():

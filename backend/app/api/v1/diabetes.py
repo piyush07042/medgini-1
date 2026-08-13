@@ -34,6 +34,16 @@ async def predict(request: DiabetesPredictionRequest):
         state = AgentState()
         patient_data = request.model_dump()
         patient_data.setdefault("name", "Diabetes Patient")
+        # Provide sensible defaults for model features not sent by the frontend
+        # The model was trained on hospital readmission features; map closest frontend inputs
+        patient_data.setdefault("time_in_hospital", max(1, round(patient_data.get("bmi", 25.0) / 10)))
+        patient_data.setdefault("num_medications", max(1, round(patient_data.get("insulin", 0.0) / 10 + 5)))
+        patient_data.setdefault("num_lab_procedures", round(patient_data.get("glucose", 100.0) / 10))
+        patient_data.setdefault("num_procedures", 1)
+        patient_data.setdefault("number_outpatient", 0)
+        patient_data.setdefault("number_emergency", 0)
+        patient_data.setdefault("number_inpatient", 0)
+        patient_data.setdefault("number_diagnoses", 3)
         state.patient = patient_data
         logger.info("Diabetes API request received; patient keys=%s", list(patient_data.keys()))
 

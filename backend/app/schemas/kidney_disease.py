@@ -8,13 +8,13 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class KidneyDiseasePredictionRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="allow")
 
     age: int = Field(..., ge=1, le=120, description="Age in years", example=55)
-    creatinine: float = Field(..., ge=0.1, le=50.0, description="Serum creatinine", example=1.2)
-    blood_urea: float = Field(..., ge=0.0, le=300.0, description="Blood urea", example=30.0)
-    blood_glucose_random: float = Field(..., ge=0.0, le=500.0, description="Blood glucose random (glucose-based)", example=120.0)
-    albumin: float = Field(..., ge=0.0, le=10.0, description="Serum albumin", example=4.2)
+    creatinine: float = Field(default=0.0, ge=0.0, description="Serum creatinine (sc)", example=1.2)
+    blood_urea: float = Field(default=0.0, ge=0.0, description="Blood urea (bu)", example=30.0)
+    sgpt: float = Field(default=0.0, ge=0.0, description="Serum glutamate pyruvate transaminase / ALT", example=25.0)
+    albumin: float = Field(default=0.0, ge=0.0, description="Serum albumin (al)", example=4.2)
     name: str | None = Field(default=None, description="Patient name")
 
 
@@ -41,6 +41,6 @@ REQUEST_EXAMPLE = {
     "age": 55,
     "creatinine": 1.2,
     "blood_urea": 30.0,
-    "blood_glucose_random": 120.0,
+    "sgpt": 25.0,
     "albumin": 4.2,
 }

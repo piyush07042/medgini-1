@@ -43,3 +43,6 @@ jobs:
       - name: Validate Docker Compose
         run: |
           docker compose -f backend/docker-compose.yml config
+      - name: Run model smoke test
+        run: |
+          python backend/verify_models_smoke_test.py
