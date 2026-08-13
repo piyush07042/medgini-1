@@ -89,7 +89,7 @@ class DiabetesService:
 
         return {
             "success": True,
-            "disease": "diabetes",
+            "disease": "diabetes_readmission_risk",
             "prediction": int(prediction),
             "probability": float(probability),
             "confidence": float(confidence),
@@ -163,7 +163,7 @@ class DiabetesService:
 
         return {
             "success": True,
-            "disease": "diabetes",
+            "disease": "diabetes_readmission_risk",
             "prediction": int(result.prediction),
             "probability": float(result.probability),
             "confidence": float(result.confidence),

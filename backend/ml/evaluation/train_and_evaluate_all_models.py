@@ -51,6 +51,7 @@ except ImportError:
 
 try:
     from imblearn.over_sampling import SMOTE
+    from imblearn.pipeline import Pipeline as ImbPipeline
     HAS_SMOTE = True
 except ImportError:
     HAS_SMOTE = False
@@ -650,7 +651,23 @@ def run_full_ml_lifecycle(data_dir: str | Path | None = None):
         for clf_name, clf in candidate_classifiers.items():
             # 5-fold CV on training data
             try:
-                cv_scores = cross_val_score(clf, X_train_balanced, y_train_balanced,
+                pipeline_steps = [
+                    ("to_array", FunctionTransformer(_to_array, validate=False)),
+                    ("imputer", SimpleImputer(strategy="median")),
+                    ("scaler", StandardScaler())
+                ]
+                
+                if strategy == "smote" and HAS_SMOTE:
+                    pipeline_steps.append(("smote", SMOTE(random_state=42, k_neighbors=k_neighbors)))
+                
+                pipeline_steps.append(("classifier", clf))
+                
+                if HAS_SMOTE:
+                    full_pipeline = ImbPipeline(pipeline_steps)
+                else:
+                    full_pipeline = Pipeline(pipeline_steps)
+
+                cv_scores = cross_val_score(full_pipeline, X_train, y_train,
                                             cv=cv, scoring="roc_auc")
             except Exception as e:
                 logger.warning("CV failed for %s/%s: %s", model_key, clf_name, e)

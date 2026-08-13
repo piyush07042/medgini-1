@@ -25,13 +25,13 @@ const fields: Array<PredictionField<DiabetesFormValues>> = [
 export default function DiabetesPredictionPage() {
   return (
     <PredictionPageShell<DiabetesFormValues, DiabetesPredictionResponse>
-      title="Diabetes Prediction"
-      description="Submit diabetes inputs exactly as the backend expects."
+      title="Diabetes Readmission Risk"
+      description="Submit patient inputs to predict hospital readmission risk."
       schema={diabetesSchema}
       defaultValues={defaultValues}
       fields={fields}
       predict={predictDiabetes}
-      successMessage="Diabetes prediction completed."
+      successMessage="Diabetes readmission risk prediction completed."
     />
   );
 }

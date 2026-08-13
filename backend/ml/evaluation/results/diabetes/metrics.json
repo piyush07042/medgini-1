@@ -41,7 +41,7 @@
   "all_classifiers_cv": {
     "RandomForest": {
       "cv_roc_auc_mean": 0.6181,
-      "cv_roc_auc_std": 0.0055,
+      "cv_roc_auc_std": 0.0054,
       "val_pr_auc": 0.5677
     },
     "LogisticRegression": {

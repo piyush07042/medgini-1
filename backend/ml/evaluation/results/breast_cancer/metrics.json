@@ -7,8 +7,8 @@
   "test_samples": 86,
   "positive_samples": 32,
   "negative_samples": 54,
-  "cv_roc_auc_mean": 0.9922,
-  "cv_roc_auc_std": 0.0064,
+  "cv_roc_auc_mean": 0.9926,
+  "cv_roc_auc_std": 0.006,
   "accuracy": 0.9767,
   "accuracy_95ci": [
     0.9419,
@@ -45,13 +45,13 @@
       "val_pr_auc": 0.9951
     },
     "LogisticRegression": {
-      "cv_roc_auc_mean": 0.9944,
+      "cv_roc_auc_mean": 0.9942,
       "cv_roc_auc_std": 0.0073,
       "val_pr_auc": 0.9982
     },
     "SVM": {
-      "cv_roc_auc_mean": 0.9922,
-      "cv_roc_auc_std": 0.0064,
+      "cv_roc_auc_mean": 0.9926,
+      "cv_roc_auc_std": 0.006,
       "val_pr_auc": 1.0
     },
     "XGBoost": {

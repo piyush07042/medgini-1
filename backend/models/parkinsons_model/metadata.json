@@ -51,7 +51,7 @@
     "python": "3.11.9",
     "scikit-learn": "1.9.0",
     "xgboost": "3.2.0",
-    "imbalanced-learn": "not installed"
+    "imbalanced-learn": "installed"
   },
   "split_indices_dir": "D:\\MedGini-main\\backend\\ml\\evaluation\\splits"
 }

@@ -2,7 +2,7 @@
   "model_name": "Stroke",
   "model_key": "stroke",
   "algorithm": "LogisticRegression",
-  "threshold": 0.03,
+  "threshold": 0.5,
   "imbalance_strategy": "smote",
   "dataset_name": "Stroke Prediction Dataset",
   "dataset_source": "Kaggle",
@@ -31,15 +31,15 @@
   "train_valid_test_split": "70/15/15 stratified",
   "cross_validation": "5-fold stratified on train only",
   "version": "3.0.0",
-  "cv_roc_auc_mean": 0.8496,
-  "cv_roc_auc_std": 0.0122,
+  "cv_roc_auc_mean": 0.8498,
+  "cv_roc_auc_std": 0.0137,
   "dataset_sha256": "644d473b05d2797006bd94865e4f8bb057f0c721617911613c82c8fcfc707420",
-  "model_sha256": "1865a7285cab84a14ad39fe95cc52d70e89979c0e72324fa1ee24ed3a31517bb",
+  "model_sha256": "cadda3c6a5faeb4b5bfe472a079f09fd7fa619b0d175167a9aab66fd8dd2acc2",
   "software_versions": {
     "python": "3.11.9",
     "scikit-learn": "1.9.0",
     "xgboost": "3.2.0",
-    "imbalanced-learn": "not installed"
+    "imbalanced-learn": "installed"
   },
   "split_indices_dir": "D:\\MedGini-main\\backend\\ml\\evaluation\\splits"
 }

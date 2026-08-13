@@ -1,5 +1,5 @@
 """
-Diabetes Prediction API
+Diabetes Hospital Readmission Risk API
 """
 
 from __future__ import annotations

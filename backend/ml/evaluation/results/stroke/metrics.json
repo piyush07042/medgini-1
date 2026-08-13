@@ -2,62 +2,62 @@
   "model_key": "stroke",
   "model_name": "Stroke",
   "classifier": "LogisticRegression",
-  "threshold": 0.03,
+  "threshold": 0.5,
   "imbalance_strategy": "smote",
   "test_samples": 767,
   "positive_samples": 37,
   "negative_samples": 730,
-  "cv_roc_auc_mean": 0.8496,
-  "cv_roc_auc_std": 0.0122,
-  "accuracy": 0.6375,
+  "cv_roc_auc_mean": 0.8498,
+  "cv_roc_auc_std": 0.0137,
+  "accuracy": 0.7692,
   "accuracy_95ci": [
-    0.6036,
-    0.6701
+    0.7379,
+    0.7992
   ],
-  "balanced_accuracy": 0.7198,
-  "precision": 0.0997,
-  "recall": 0.8108,
-  "specificity": 0.6288,
-  "f1_score": 0.1775,
+  "balanced_accuracy": 0.7633,
+  "precision": 0.1429,
+  "recall": 0.7568,
+  "specificity": 0.7699,
+  "f1_score": 0.2403,
   "f1_95ci": [
-    0.1254,
-    0.231
+    0.1731,
+    0.3102
   ],
-  "roc_auc": 0.8246,
+  "roc_auc": 0.8229,
   "roc_auc_95ci": [
-    0.7509,
-    0.891
+    0.7513,
+    0.8885
   ],
-  "pr_auc": 0.2207,
-  "mcc": 0.1929,
-  "cohen_kappa": 0.1002,
-  "brier_score": 0.0416,
+  "pr_auc": 0.2015,
+  "mcc": 0.2587,
+  "cohen_kappa": 0.1732,
+  "brier_score": 0.1615,
   "confusion_matrix": {
-    "TN": 459,
-    "FP": 271,
-    "FN": 7,
-    "TP": 30
+    "TN": 562,
+    "FP": 168,
+    "FN": 9,
+    "TP": 28
   },
   "all_classifiers_cv": {
     "RandomForest": {
-      "cv_roc_auc_mean": 0.8307,
-      "cv_roc_auc_std": 0.019,
-      "val_pr_auc": 0.1161
+      "cv_roc_auc_mean": 0.8135,
+      "cv_roc_auc_std": 0.0277,
+      "val_pr_auc": 0.1064
     },
     "LogisticRegression": {
-      "cv_roc_auc_mean": 0.8496,
-      "cv_roc_auc_std": 0.0122,
-      "val_pr_auc": 0.1525
+      "cv_roc_auc_mean": 0.8498,
+      "cv_roc_auc_std": 0.0137,
+      "val_pr_auc": 0.1404
     },
     "SVM": {
-      "cv_roc_auc_mean": 0.6691,
-      "cv_roc_auc_std": 0.0556,
-      "val_pr_auc": 0.1025
+      "cv_roc_auc_mean": 0.8,
+      "cv_roc_auc_std": 0.0207,
+      "val_pr_auc": 0.0907
     },
     "XGBoost": {
-      "cv_roc_auc_mean": 0.8166,
-      "cv_roc_auc_std": 0.0348,
-      "val_pr_auc": 0.0964
+      "cv_roc_auc_mean": 0.8013,
+      "cv_roc_auc_std": 0.0288,
+      "val_pr_auc": 0.0943
     }
   }
 }

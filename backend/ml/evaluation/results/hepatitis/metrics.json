@@ -7,8 +7,8 @@
   "test_samples": 24,
   "positive_samples": 5,
   "negative_samples": 19,
-  "cv_roc_auc_mean": 0.8182,
-  "cv_roc_auc_std": 0.092,
+  "cv_roc_auc_mean": 0.8176,
+  "cv_roc_auc_std": 0.0915,
   "accuracy": 0.5833,
   "accuracy_95ci": [
     0.4156,
@@ -40,23 +40,23 @@
   },
   "all_classifiers_cv": {
     "RandomForest": {
-      "cv_roc_auc_mean": 0.8921,
-      "cv_roc_auc_std": 0.0948,
+      "cv_roc_auc_mean": 0.8891,
+      "cv_roc_auc_std": 0.0887,
       "val_pr_auc": 0.9029
     },
     "LogisticRegression": {
-      "cv_roc_auc_mean": 0.8182,
-      "cv_roc_auc_std": 0.092,
+      "cv_roc_auc_mean": 0.8176,
+      "cv_roc_auc_std": 0.0915,
       "val_pr_auc": 0.925
     },
     "SVM": {
-      "cv_roc_auc_mean": 0.8747,
-      "cv_roc_auc_std": 0.1003,
+      "cv_roc_auc_mean": 0.8694,
+      "cv_roc_auc_std": 0.0991,
       "val_pr_auc": 0.8444
     },
     "XGBoost": {
-      "cv_roc_auc_mean": 0.8212,
-      "cv_roc_auc_std": 0.1281,
+      "cv_roc_auc_mean": 0.8388,
+      "cv_roc_auc_std": 0.1087,
       "val_pr_auc": 0.8083
     }
   }

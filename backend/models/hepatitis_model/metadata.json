@@ -40,15 +40,15 @@
   "train_valid_test_split": "70/15/15 stratified",
   "cross_validation": "5-fold stratified on train only",
   "version": "3.0.0",
-  "cv_roc_auc_mean": 0.8182,
-  "cv_roc_auc_std": 0.092,
+  "cv_roc_auc_mean": 0.8176,
+  "cv_roc_auc_std": 0.0915,
   "dataset_sha256": "9971f9d18abb4fc9dd6749eefb0f864b36fa7bdd59f54188c0b148a5c28214bc",
   "model_sha256": "eca0d1c91fc80d54b4498fc7db0f3e294f0276f2ac57a51457375ec01b096803",
   "software_versions": {
     "python": "3.11.9",
     "scikit-learn": "1.9.0",
     "xgboost": "3.2.0",
-    "imbalanced-learn": "not installed"
+    "imbalanced-learn": "installed"
   },
   "split_indices_dir": "D:\\MedGini-main\\backend\\ml\\evaluation\\splits"
 }

@@ -45,13 +45,13 @@
       "val_pr_auc": 0.9814
     },
     "LogisticRegression": {
-      "cv_roc_auc_mean": 0.8803,
-      "cv_roc_auc_std": 0.0513,
+      "cv_roc_auc_mean": 0.8775,
+      "cv_roc_auc_std": 0.0497,
       "val_pr_auc": 0.9571
     },
     "SVM": {
-      "cv_roc_auc_mean": 0.916,
-      "cv_roc_auc_std": 0.0429,
+      "cv_roc_auc_mean": 0.9175,
+      "cv_roc_auc_std": 0.0431,
       "val_pr_auc": 0.9767
     },
     "XGBoost": {

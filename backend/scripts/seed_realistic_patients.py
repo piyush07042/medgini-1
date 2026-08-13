@@ -7,7 +7,7 @@ All clinical values are based on real medical reference ranges and published dat
   - Indian Liver Patient Dataset (ILPD)
   - UCI Chronic Kidney Disease Dataset
   - Wisconsin Breast Cancer Dataset (WBCD)
-  - Oxford Parkinson's Telemonitoring Dataset
+  - UCI Parkinsons Dataset (Little et al., 2007)
   - UCI Hepatitis Dataset
   - Heart Failure Clinical Records (Chicco & Jurman 2020)
   - Stroke Prediction Dataset (Kaggle)
