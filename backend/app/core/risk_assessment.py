@@ -11,7 +11,7 @@ from typing import Any
 from app.core.prediction_service import PredictionService
 from app.core.feature_builder import FeatureBuilder
 
-_DEFAULT_MODEL_ROOT = Path(__file__).resolve().parents[2] / "ml" / "models"
+_DEFAULT_MODEL_ROOT = Path(__file__).resolve().parents[2] / "models"
 
 _prediction_service = PredictionService(model_root=_DEFAULT_MODEL_ROOT)
 
@@ -42,11 +42,9 @@ MODEL_DIAGNOSIS_MAP: dict[str, str] = {
     "parkinson's": "parkinsons_model",
     "breast cancer": "breast_cancer_model",
     "cancer": "breast_cancer_model",
-    "hypertension": "disease_risk_model",
-    "cardiovascular": "disease_risk_model",
 }
 
-DEFAULT_RISK_MODEL = "disease_risk_model"
+DEFAULT_RISK_MODEL = "heart_disease"
 
 
 def _load_model_artifact(path: str | None = None) -> dict[str, Any] | None:

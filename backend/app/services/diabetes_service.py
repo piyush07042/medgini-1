@@ -1,5 +1,5 @@
 """
-Diabetes prediction service.
+Diabetes readmission risk service.
 """
 
 from __future__ import annotations

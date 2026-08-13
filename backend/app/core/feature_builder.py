@@ -10,13 +10,7 @@ from typing import Any
 
 
 class FeatureBuilder:
-    REQUIRED_FEATURES = [
-        "age",
-        "glucose",
-        "bmi",
-        "systolic_bp",
-        "cholesterol",
-    ]
+    REQUIRED_FEATURES: list[str] = []
 
     @classmethod
     def build(
