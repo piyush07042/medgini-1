@@ -26,47 +26,6 @@ def get_prediction_service() -> PredictionService:
 # Backwards-compatible constant for tests that expect MODEL_PATHS
 MODEL_PATHS: list[str] = []
 
-MODEL_DIAGNOSIS_MAP: dict[str, str] = {
-    "type 2 diabetes": "diabetes_model",
-    "diabetes": "diabetes_model",
-    "heart failure": "heart_failure_model",
-    "congestive heart failure": "heart_failure_model",
-    "stroke": "stroke_model",
-    "cerebrovascular": "stroke_model",
-    "kidney disease": "kidney_disease_model",
-    "renal": "kidney_disease_model",
-    "liver disease": "liver_disease_model",
-    "hepatic": "liver_disease_model",
-    "hepatitis": "hepatitis_model",
-    "parkinson": "parkinsons_model",
-    "parkinson's": "parkinsons_model",
-    "breast cancer": "breast_cancer_model",
-    "cancer": "breast_cancer_model",
-}
-
-DEFAULT_RISK_MODEL = "heart_disease"
-
-
-def _load_model_artifact(path: str | None = None) -> dict[str, Any] | None:
-    """Compatibility shim. Older code/tests expect this function to exist.
-
-    New code uses `PredictionService`; this shim returns None by default.
-    Tests that need to simulate an artifact can monkeypatch this function.
-    """
-
-    return None
-
-
-def _build_feature_vector(patient_metrics: dict[str, Any]) -> list[float]:
-    """Normalize the patient metrics into the model feature order."""
-    return [
-        float(patient_metrics.get("age", 0) or 0),
-        float(patient_metrics.get("glucose", patient_metrics.get("fasting_blood_sugar", 0)) or 0),
-        float(patient_metrics.get("bmi", 0) or 0),
-        float(patient_metrics.get("systolic_bp", patient_metrics.get("blood_pressure", 0)) or 0),
-        float(patient_metrics.get("cholesterol", 0) or 0),
-    ]
-
 
 def _normalize_diagnosis(value: str | None) -> str:
     if not value:
@@ -76,26 +35,10 @@ def _normalize_diagnosis(value: str | None) -> str:
 
 def _select_model_candidates(patient_metrics: dict[str, Any]) -> list[str]:
     candidates: list[str] = []
-    diagnosis = _normalize_diagnosis(
-        patient_metrics.get("diagnosis")
-        or patient_metrics.get("condition")
-        or patient_metrics.get("evaluated_condition")
-    )
-
-    for key, model_name in MODEL_DIAGNOSIS_MAP.items():
-        if key in diagnosis and model_name not in candidates:
-            candidates.append(model_name)
 
     if "glucose" in patient_metrics and "bmi" in patient_metrics:
         if "diabetes_model" not in candidates:
             candidates.append("diabetes_model")
-
-    if "systolic_bp" in patient_metrics and "cholesterol" in patient_metrics:
-        if DEFAULT_RISK_MODEL not in candidates:
-            candidates.append(DEFAULT_RISK_MODEL)
-
-    if not candidates:
-        candidates.append(DEFAULT_RISK_MODEL)
 
     return candidates
 
@@ -140,58 +83,6 @@ def _display_condition_for_model(model_name: str, diagnosis: str | None = None) 
 
 def predict_disease_risk(patient_metrics: dict[str, Any]) -> dict[str, Any]:
     """Evaluate disease risk using the trained model when available."""
-    # Backwards-compatible: if an older persisted artifact is present, use it.
-    artifact = _load_model_artifact()
-    if artifact is not None:
-        model = artifact.get("model")
-        if model is not None:
-            feature_vector = _build_feature_vector(patient_metrics)
-            try:
-                probabilities = model.predict_proba([feature_vector])[0]
-                positive_probability = float(probabilities[-1])
-            except Exception:
-                # If model doesn't support predict_proba, fall back to predict()
-                pred = model.predict([feature_vector])[0]
-                positive_probability = float(pred)
-
-            score = min(max(positive_probability, 0.0), 1.0)
-            if score >= 0.70:
-                risk_level = "high"
-            elif score >= 0.40:
-                risk_level = "moderate"
-            else:
-                risk_level = "low"
-
-            return {
-                "evaluated_condition": "Model-backed Disease Risk",
-                "risk_score": round(score, 3),
-                "risk_source": "model",
-                "estimated_risk_score_percent": round(score * 100, 1),
-                "risk_level": risk_level,
-                "risk_category": risk_level,
-                "drivers": [name for name, value in {
-                    "age": patient_metrics.get("age", 0),
-                    "glucose": patient_metrics.get("glucose", patient_metrics.get("fasting_blood_sugar", 0)),
-                    "bmi": patient_metrics.get("bmi", 0),
-                    "systolic_bp": patient_metrics.get("systolic_bp", patient_metrics.get("blood_pressure", 0)),
-                    "cholesterol": patient_metrics.get("cholesterol", 0),
-                }.items() if value is not None and value != 0],
-                "explainable_ai_factors": [
-                    "age",
-                    "glucose",
-                    "bmi",
-                    "systolic_bp",
-                    "cholesterol",
-                ],
-                "recommendations": [
-                    "Review modifiable cardiovascular risk factors.",
-                    "Maintain a healthy diet and regular physical activity.",
-                    "Monitor blood pressure, cholesterol, and blood glucose regularly.",
-                    "Consult a clinician if symptoms are present.",
-                ],
-                "confidence": round(score, 3),
-            }
-
     # Try PredictionService-backed predictor next
     candidate_models = _select_model_candidates(patient_metrics)
     diagnosis = _normalize_diagnosis(

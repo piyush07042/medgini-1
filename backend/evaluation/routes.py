@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 RESULTS_DIR = BASE_DIR / "evaluation" / "results"
 
 DISEASES = [
-    {"key": "heart_disease", "name": "Heart Disease", "model": "disease_risk_model"},
+    {"key": "heart_disease", "name": "Heart Disease", "model": "heart_disease"},
     {"key": "diabetes", "name": "Diabetes", "model": "diabetes_model"},
     {"key": "kidney_disease", "name": "Kidney Disease", "model": "kidney_disease_model"},
     {"key": "liver_disease", "name": "Liver Disease", "model": "liver_disease_model"},

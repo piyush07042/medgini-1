@@ -156,7 +156,7 @@ if __name__ == "__main__":
     base = Path(__file__).resolve().parents[1] / "models"
     out = Path(__file__).resolve().parents[1] / "training_output"
 
-    for model in ["diabetes_model", "disease_risk_model"]:
+    for model in ["diabetes_model"]:
         cfg = HyperTrainConfig(model_name=model, model_dir=base / model, output_dir=out)
         tune_and_train(cfg)
 
